@@ -1,15 +1,46 @@
-.sui-input-addon-after{
-
+.sui-wapper-input{
+  width:100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  border:0;
+  color: #333;
+  font-size: 12px;
 }
-.sui-input-addon-after{
-  
+.sui-wapper-input .sui-input{
+  width:100%;
+  border: 1px solid #ededed;
+  outline: none;
+  padding: 4px 8px;
+  transition: .4s;
+  height: 32px;
+  box-sizing: border-box;
+  font-size: inherit;
+  color: inherit;
 }
-.sui-input{
-
+.sui-input:focus {
+  border-color: var(--theme-color);
+  box-shadow: 0 0 0 2px rgba(110,65,191,0.2);
+  transition: .4s;
+}
+.sui-wapper-input .sui-input-addon-before, .sui-wapper-input .sui-input-addon-after{
+  height: 30px;
+  background: #f8f8f8;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ededed;
+  color: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+}
+.sui-wapper-input .sui-input-addon-before{
+  border-right: 0;
+}
+.sui-wapper-input .sui-input-addon-after{
+  border-left: 0;
 }
 .sui-input-textarea{
-
-}
-.sui-wapper-input{
-  
+  color:inherit;
+  font-size: inherit;
 }
