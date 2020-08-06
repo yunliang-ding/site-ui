@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Suffix, Prefix } from './index'
+import { Icon } from '../../../index'
 export default (props) => {
-	const [value, setvalue] = useState(props.value)
+	const [value, setvalue] = useState(props.value || '')
 	let style: any = {}
 	props.prefix && (style.paddingLeft = 30)
 	props.suffix && (style.paddingRight = 30)
@@ -40,7 +41,13 @@ export default (props) => {
 			}
 		/>
 		{
-			props.suffix && <Suffix>{props.suffix}</Suffix>
+			props.allowClear && value !== '' ? <Suffix>
+				<Icon type='iconcuo' style={{color: '#999', cursor: 'pointer'}} onClick={
+					() => {
+						setvalue('')
+					}
+				} />
+			</Suffix> : props.suffix && <Suffix>{props.suffix}</Suffix>
 		}
 	</>
 }

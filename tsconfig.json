@@ -6,7 +6,12 @@
       "dom"
     ],
     "outDir": "./lib",
-    "baseUrl": "./src",
+    "baseUrl": "./",
+    "paths": { // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
+      "src": [ //指定后可以在文件之直接 import * from 'src';
+        "./src"
+      ]
+    },
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -15,5 +20,5 @@
     "removeComments": true, // 是否移除注释
     "esModuleInterop": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "lib"]
 }
