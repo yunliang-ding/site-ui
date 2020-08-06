@@ -7,7 +7,8 @@
   border:0;
   color: #333;
   font-size: 12px;
-  .sui-input, .sui-input-textarea{
+  position: relative;
+  .sui-input, .sui-input-textarea, .sui-input-disabled{
     width:100%;
     border: 1px solid #ededed;
     outline: none;
@@ -16,6 +17,11 @@
     height: 32px;
     font-size: inherit;
     color: inherit;
+  }
+  .sui-input-disabled{
+    background: #eee;
+    border-color: #e5e5e5;
+    cursor: not-allowed;
   }
   .sui-input:focus , .sui-input-textarea:focus{
     border-color: var(--theme-color);
@@ -26,18 +32,33 @@
     height: 32px;
     background: #f8f8f8;
     padding: 0 10px;
-    display: flex;
-    align-items: center;
+    text-align: center;
+    line-height: 32px;
     border: 1px solid #ededed;
     color: inherit;
     font-size: inherit;
     white-space: nowrap;
+    min-width: 100px;
+    max-width: 100px;
+    padding:0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .sui-input-addon-before{
     border-right: 0;
   }
   .sui-input-addon-after{
     border-left: 0;
+  }
+  .sui-input-prefix{
+    position: absolute;
+    left: 0;
+    margin-left:8px;
+  }
+  .sui-input-suffix{
+    position: absolute;
+    right: 0;
+    margin-right:8px;
   }
 }
 // text-area
@@ -50,13 +71,17 @@
     height:64px;
   }
   .sui-input-addon-before{
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     border: 1px solid #ededed;
-    border-bottom:0
+    border-bottom:0;
+    text-align: left;
   }
   .sui-input-addon-after{
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     border: 1px solid #ededed;
-    border-top:0
+    border-top:0;
+    text-align: right;
   }
 }

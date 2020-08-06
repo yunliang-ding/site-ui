@@ -1,6 +1,6 @@
 import React from 'react'
 export default (props: any) => {
-  return <span className='sui-input-addon-after'>
+  return <label className='sui-input-addon-after' title={props.addon}>
     {props.addon}
-  </span>
+  </label>
 }

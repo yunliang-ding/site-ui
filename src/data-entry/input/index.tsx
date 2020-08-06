@@ -16,9 +16,10 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 | onPressEnter  | function(e) | 按下回车的回调         | 无      |
 | onBlur        | function(e) | 输入框得到焦点         | 无      |
 | onFocus       | function(e) | 输入框失去焦点         | 无      |
+| style         | Object      | 样式                 | 无      |
  */
 export default (props: any) => {
-  return <div className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}>
+  return <div style={props.style} className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}>
     {
       props.addonBefore && <AddonBefore addon={props.addonBefore} />
     }
