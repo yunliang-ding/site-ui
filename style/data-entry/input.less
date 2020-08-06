@@ -8,7 +8,7 @@
   color: #333;
   font-size: 12px;
   position: relative;
-  .sui-input, .sui-input-textarea, .sui-input-disabled{
+  .sui-input, .sui-textarea, .sui-input-disabled{
     width:100%;
     border: 1px solid #ededed;
     outline: none;
@@ -17,14 +17,15 @@
     height: 32px;
     font-size: inherit;
     color: inherit;
+    border-radius: var(--border-radius-base);
   }
-  .sui-input-disabled{
+  .sui-input-disabled, .sui-textarea-disabled{
     background: #f9f9f9;
     cursor: not-allowed;
   }
-  .sui-input:focus , .sui-input-textarea:focus{
-    border-color: var(--theme-color);
-    box-shadow: 0 0 0 2px var(--theme-box-shadow);
+  .sui-input:focus , .sui-textarea:focus{
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-box-shadow);
     transition: .4s;
   }
   .sui-input-addon-before, .sui-input-addon-after{
@@ -42,12 +43,17 @@
     padding:0 10px;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-radius: var(--border-radius-base);
   }
   .sui-input-addon-before{
     border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .sui-input-addon-after{
     border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
   .sui-input-prefix{
     position: absolute;
@@ -64,7 +70,7 @@
 .sui-form-textarea{
   flex-direction: column;
   height: auto;
-  .sui-input-textarea{
+  .sui-textarea{
     max-width: 100%;
     min-width: 100%;
     height:64px;
@@ -75,6 +81,9 @@
     border: 1px solid #ededed;
     border-bottom:0;
     text-align: left;
+    border-radius: var(--border-radius-base);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .sui-input-addon-after{
     min-width: 100%;
@@ -82,5 +91,8 @@
     border: 1px solid #ededed;
     border-top:0;
     text-align: right;
+    border-radius: var(--border-radius-base);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 }

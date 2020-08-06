@@ -6,12 +6,15 @@ export default (props) => {
 	let style: any = {}
 	props.prefix && (style.paddingLeft = 30)
 	props.suffix && (style.paddingRight = 30)
+	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
+	props.addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
 	return <>
 		{
 			props.prefix && <Prefix>{props.prefix}</Prefix>
 		}
-		<input className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
-			type={props.type}
+		<input
+			type='text'
+			className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
 			style={style}
 			placeholder={props.placeholder}
 			value={value}
@@ -42,7 +45,7 @@ export default (props) => {
 		/>
 		{
 			props.allowClear && value !== '' ? <Suffix>
-				<Icon type='iconcuo' style={{color: '#999', cursor: 'pointer'}} onClick={
+				<Icon type='iconcuo' style={{ color: '#999', cursor: 'pointer' }} onClick={
 					() => {
 						setvalue('')
 					}
