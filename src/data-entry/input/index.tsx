@@ -19,15 +19,14 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 | style         | Object      | 样式                 | 无      |
  */
 export default (props: any) => {
-  return <div style={props.style} className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}>
+  return <div
+    style={props.style}
+    className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}
+  >
+    <AddonBefore addon={props.addonBefore} />
     {
-      props.addonBefore && <AddonBefore addon={props.addonBefore} />
+      props.type === 'textarea' ? <TextArea {...props} /> : <Input {...props} />
     }
-    {
-      props.type === 'textarea' ?  <TextArea {...props} /> :  <Input {...props} />
-    }
-    {
-      props.addonAfter && <AddonAfter addon={props.addonAfter} />
-    }
+    <AddonAfter addon={props.addonAfter} />
   </div>
 }
