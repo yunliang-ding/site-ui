@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 export default (props) => {
+	const [value, setvalue] = useState(props.value)
 	return <input className='sui-input'
 		type={props.type}
-		value={props.value}
 		placeholder={props.placeholder}
+		value={value}
 		onChange={
 			(e) => {
-				props.onChange && props.onChange(e)
+				setvalue(e.target.value)
+				typeof props.onChange === 'function' && props.onChange(e)
 			}
 		}
 		onBlur={
 			(e) => {
-				props.onBlur && props.onBlur(e)
+				typeof props.onBlur === 'function' && props.onBlur(e)
 			}
 		}
 		onFocus={
 			(e) => {
-				props.onFocus && props.onFocus(e)
+				typeof props.onFocus === 'function' && props.onFocus(e)
+			}
+		}
+		onKeyDown={
+			(e) => {
+				if (e.keyCode === 13) {
+					typeof props.onPressEnter === 'function' && props.onPressEnter(e)
+				}
 			}
 		}
 	/>

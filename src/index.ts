@@ -1,5 +1,5 @@
 import Input from './data-entry/input'
-import './index.css'
+import '../style/index.less'
 export {
   Input
 }

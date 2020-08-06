@@ -1,9 +1,0 @@
-@import './style/input.css';
-body{
-  --theme-color:rgba(138, 96, 218, 0.8);
-}
-html, body, .div{
-  box-sizing: border-box;
-  margin: 0;
-  padding:0;
-}

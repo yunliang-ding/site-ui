@@ -1,0 +1,62 @@
+// input
+.sui-form-input{
+  width:100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  border:0;
+  color: #333;
+  font-size: 12px;
+  .sui-input, .sui-input-textarea{
+    width:100%;
+    border: 1px solid #ededed;
+    outline: none;
+    padding: 4px 8px;
+    transition: .4s;
+    height: 32px;
+    font-size: inherit;
+    color: inherit;
+  }
+  .sui-input:focus , .sui-input-textarea:focus{
+    border-color: var(--theme-color);
+    box-shadow: 0 0 0 2px var(--theme-box-shadow);
+    transition: .4s;
+  }
+  .sui-input-addon-before, .sui-input-addon-after{
+    height: 32px;
+    background: #f8f8f8;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ededed;
+    color: inherit;
+    font-size: inherit;
+    white-space: nowrap;
+  }
+  .sui-input-addon-before{
+    border-right: 0;
+  }
+  .sui-input-addon-after{
+    border-left: 0;
+  }
+}
+// text-area
+.sui-form-textarea{
+  flex-direction: column;
+  height: auto;
+  .sui-input-textarea{
+    max-width: 100%;
+    min-width: 100%;
+    height:64px;
+  }
+  .sui-input-addon-before{
+    width: 100%;
+    border: 1px solid #ededed;
+    border-bottom:0
+  }
+  .sui-input-addon-after{
+    width: 100%;
+    border: 1px solid #ededed;
+    border-top:0
+  }
+}

@@ -18,7 +18,7 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 | onFocus       | function(e) | 输入框失去焦点         | 无      |
  */
 export default (props: any) => {
-  return <div className='sui-wapper-input'>
+  return <div className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}>
     {
       props.addonBefore && <AddonBefore addon={props.addonBefore} />
     }
