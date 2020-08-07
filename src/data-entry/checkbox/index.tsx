@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Group from './components/group'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
 | ------------ | -------------------- | ------------ | ---------- |
@@ -13,7 +14,7 @@ export default ({
   onChange,
   style = {},
   children
-}) => {
+}:any) => {
   const [_checked, setchecked] = useState(checked)
   let className = _checked ? 'sui-checkbox sui-checkbox-checked' : 'sui-checkbox'
   disabled  && (className += ' sui-checkbox-disabled')
