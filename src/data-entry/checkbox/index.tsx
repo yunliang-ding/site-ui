@@ -15,17 +15,21 @@ export default ({
   children
 }) => {
   const [_checked, setchecked] = useState(checked)
+  let className = _checked ? 'sui-checkbox sui-checkbox-checked' : 'sui-checkbox'
+  disabled  && (className += ' sui-checkbox-disabled')
   return <>
     <label className='sui-checkbox-wrapper'>
-      <span className={_checked ? 'sui-checkbox-checked' : 'sui-checkbox'}>
+      <span className={className}>
         <input
           type='checkbox'
           readOnly={disabled}
           style={style}
+          checked={_checked}
           className='sui-checkbox-input'
           onChange={
             (e) => {
-              setchecked.bind(null, e.target.checked)
+              if(disabled){return}
+              setchecked(e.target.checked)
               typeof onChange === 'function' && onChange(e)
             }
           } />

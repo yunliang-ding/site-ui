@@ -15,22 +15,25 @@ export default ({
   children
 }) => {
   const [_checked, setchecked] = useState(checked)
+  let className = _checked ? 'sui-radio sui-radio-checked' : 'sui-radio'
+  disabled  && (className += ' sui-radio-disabled')
   return <>
-    <label class='sui-checkbox-wrapper'>
-      <span class='sui-checkbox'>
+    <label className='sui-radio-wrapper'>
+      <span className={className}>
         <input
-          type='checkbox'
+          type='radio'
           readOnly={disabled}
           style={style}
-          class='sui-checkbox-input'
           checked={_checked}
+          className='sui-radio-input'
           onChange={
             (e) => {
-              setchecked.bind(null, e.target.checked)
-              typeof onChange === 'function' && onChange(e.target.checked)
+              if(disabled){return}
+              setchecked(e.target.checked)
+              typeof onChange === 'function' && onChange(e)
             }
           } />
-        <span class='sui-checkbox-inner'></span>
+        <span className='sui-radio-inner'></span>
       </span>
       <span>
         {

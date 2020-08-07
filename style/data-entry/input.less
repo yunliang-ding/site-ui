@@ -5,27 +5,27 @@
   display: flex;
   align-items: center;
   border:0;
-  color: var(--text-color);
-  font-size: 12px;
+  color: @text-color;
+  font-size:@font-size-base;
   position: relative;
   .sui-input, .sui-input-disabled{
     width:100%;
-    border: 1px solid var(--border-color-base);
+    border: 1px solid @border-color-base;
     outline: none;
     padding: 4px 8px;
     transition: .4s;
     height: 32px;
     font-size: inherit;
     color: inherit;
-    border-radius: var(--border-radius-base);
+    border-radius: @border-radius-base;
   }
   .sui-input-disabled{
-    background: var(--disabled-color);
+    background: @disabled-color;
     cursor: not-allowed;
   }
   .sui-input:focus{
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-box-shadow);
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px @primary-box-shadow;
     transition: .4s;
   }
   .sui-input-addon-before, .sui-input-addon-after{
@@ -76,7 +76,7 @@
   position: relative;
   .sui-textarea, .sui-textarea-disabled{
     width:100%;
-    border: 1px solid var(--border-color-base);
+    border: 1px solid @border-color-base;
     outline: none;
     padding: 4px 8px;
     transition: .4s;
@@ -85,15 +85,15 @@
     height:64px;
     font-size: inherit;
     color: inherit;
-    border-radius: var(--border-radius-base);
+    border-radius: @border-radius-base;
   }
   .sui-textarea-disabled{
-    background: var(--disabled-color);
+    background: @disabled-color;
     cursor: not-allowed;
   }
   .sui-textarea:focus{
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-box-shadow);
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px @primary-box-shadow;
     transition: .4s;
   }
   .sui-textarea-disabled{
@@ -102,7 +102,7 @@
   .sui-input-addon-before, .sui-input-addon-after{
     min-width: 100%;
     max-width: 100%;
-    border: 1px solid var(--border-color-base);
+    border: 1px solid @border-color-base;
   }
   .sui-input-addon-before{
     border-bottom:0;
@@ -130,6 +130,6 @@
     padding:0 10px;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: var(--border-radius-base);
+    border-radius: @border-radius-base;
   }
 }
