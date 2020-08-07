@@ -45,7 +45,7 @@ export default (props) => {
 		/>
 		{
 			props.allowClear && value !== '' ? <Suffix>
-				<Icon type='iconcuo' style={{ color: '#999', cursor: 'pointer' }} onClick={
+				<Icon type='iconcuo' onClick={
 					() => {
 						setvalue('')
 					}

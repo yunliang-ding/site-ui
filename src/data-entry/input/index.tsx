@@ -21,7 +21,7 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 export default (props: any) => {
   return <div
     style={props.style}
-    className={props.type === 'textarea' ? 'sui-form-input sui-form-textarea' : 'sui-form-input'}
+    className={props.type === 'textarea' ? 'sui-textarea-wrapper' : 'sui-input-wrapper'}
   >
     <AddonBefore addon={props.addonBefore} />
     {
