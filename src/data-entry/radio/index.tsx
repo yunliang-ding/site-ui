@@ -6,17 +6,19 @@ import React, { useState } from 'react'
 | disabled      | boolean   | 失效状态	          | 无       |
 | onChange      | function(e) | 输入框内容变化时的回调    | 无      |
 | style         | Object      | 样式                 | 无      |
+| name         | string      | 样式                 | 无      |
  */
 export default ({
   checked = false,
   disabled = false,
   onChange,
   style = {},
-  children
-}) => {
+  children,
+  name = ''
+}: any) => {
   const [_checked, setchecked] = useState(checked)
   let className = _checked ? 'sui-radio sui-radio-checked' : 'sui-radio'
-  disabled  && (className += ' sui-radio-disabled')
+  disabled && (className += ' sui-radio-disabled')
   return <>
     <label className='sui-radio-wrapper'>
       <span className={className}>
@@ -24,11 +26,12 @@ export default ({
           type='radio'
           readOnly={disabled}
           style={style}
+          name={name}
           checked={_checked}
           className='sui-radio-input'
           onChange={
             (e) => {
-              if(disabled){return}
+              if (disabled) { return }
               setchecked(e.target.checked)
               typeof onChange === 'function' && onChange(e)
             }

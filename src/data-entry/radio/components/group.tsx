@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox } from '../../../index'
+import { Radio } from '../../../index'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
 | ------------ | -------------------- | ------------ | ---------- |
@@ -12,13 +12,12 @@ import { Checkbox } from '../../../index'
  */
 export default ({
   options = [],
-  value = [],
+  value = '',
   disabled = false,
   onChange,
   style = {},
   name = ''
 }) => {
-  const _value = Array.isArray(value) ? value : []
   const _options = options.map(option => {
     return {
       key: Math.random(),
@@ -27,28 +26,22 @@ export default ({
       disabled: typeof option === 'string' ? false : option.disabled
     }
   })
-  return <div className='sui-checkbox-group' style={style}>
+  return <div className='sui-radio-group' style={style}>
     {
-      _options.map((option:any) => {
-        return <Checkbox
+      _options.map(option => {
+        return <Radio
           key={option.key}
           disabled={disabled || option.disabled}
           name={name}
           checked={
-            Array.isArray(_value) ? _value.indexOf(option.value) > -1 : false
+            option.value === value
           }
           onChange={
-            (e) => {
-              let __value = [..._value]
-              if (e.target.checked) {
-                __value.push(option.value)
-              } else {
-                __value = _value.filter(value => value !== option.value)
-              }
-              typeof onChange === 'function' && onChange(__value)
+            () => {
+              typeof onChange === 'function' && onChange(option.value)
             }
           }
-        >{option.label}</Checkbox>
+        >{option.label}</Radio>
       })
     }
   </div>
