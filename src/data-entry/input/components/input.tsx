@@ -18,6 +18,7 @@ export default (props) => {
 			style={style}
 			placeholder={props.placeholder}
 			value={value}
+			maxlength={props.maxLength}
 			readOnly={props.disabled}
 			onChange={
 				(e) => {

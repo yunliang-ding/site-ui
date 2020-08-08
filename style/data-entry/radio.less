@@ -8,10 +8,6 @@
   .sui-radio{
     width:16px;
     height:16px;
-    .sui-radio-inner::after {
-      transform: rotate(45deg) scale(1) translate(-50%,-50%);
-      opacity: 0;
-    }
     .sui-radio-input{
       opacity: 0;
     }
@@ -40,8 +36,8 @@
         -ms-transform: scale(0);
         transform: scale(0);
         opacity: 0;
-        -webkit-transition: all .3s cubic-bezier(.78,.14,.15,.86);
-        transition: all .3s cubic-bezier(.78,.14,.15,.86);
+        transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+        transform: rotate(45deg) scale(0) translate(-50%,-50%);
         content: ' ';
       }
     }
