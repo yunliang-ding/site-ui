@@ -1,4 +1,5 @@
 import Icon from './general/icon'
+import Empty from './data-display/empty'
 import Input from './data-entry/input'
 import Checkbox from './data-entry/checkbox'
 import CheckboxGroup from './data-entry/checkbox/components/group'
@@ -15,5 +16,6 @@ export {
   Radio,
   RadioGroup,
   Switch,
-  Select
+  Select,
+  Empty
 }

@@ -9,6 +9,7 @@ export default ({
   style = {},
   dropdownClassName,
   dropdownStyle = {},
+  filterOption = false,
   onChange,
   open = false
 }) => {
@@ -107,6 +108,7 @@ export default ({
                 }
               >
                 {option.label}
+                <Icon type='iconduihao' />
               </div>
             })
           }

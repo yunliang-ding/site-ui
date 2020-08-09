@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Icon } from '../../../index'
+import { Icon, Empty } from '../../../index'
 export default ({
   options = [],
   value,
@@ -10,6 +10,7 @@ export default ({
   dropdownClassName,
   dropdownStyle = {},
   onChange,
+  filterOption = false,
   open = false
 }) => {
   const [_open, setopen] = useState(open)
@@ -25,6 +26,7 @@ export default ({
     }
   }) : []
   const selected: any = _options.find(item => item.value === value) || {} // 选中项
+  const [keyword, setkeyword] = useState(selected.label)
   return <div className={className} style={style}>
     <div className='sui-select-selection' onClick={
       () => {
@@ -33,7 +35,20 @@ export default ({
       }
     }>
       <div className='sui-select-selection-selected-value'>
-        {selected.value === undefined ? <span style={{ color: '#aaa' }}>{placeholder}</span> : selected.label}
+        {
+          filterOption ?
+            <input
+              value={keyword}
+              className='sui-select-selection-selected-input'
+              placeholder={placeholder}
+              onChange={
+                (e) => {
+                  setkeyword(e.target.value)
+                }
+              }
+            /> :
+            selected.value === undefined ? <span style={{ color: '#aaa' }}>{placeholder}</span> : selected.label
+        }
       </div>
       <Icon type='iconxialadown' />
       {
@@ -50,7 +65,7 @@ export default ({
         <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
         <div style={dropdownStyle} className={dropDownClassName}>
           {
-            _options.map(option => {
+            _options.length > 0 ? _options.map(option => {
               let className = option.value === value ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
               option.disabled && (className += ' sui-select-dropdown-menu-disabled')
               return <div
@@ -66,7 +81,7 @@ export default ({
               >
                 {option.label}
               </div>
-            })
+            }) : <Empty label='暂无数据' />
           }
         </div>
       </>

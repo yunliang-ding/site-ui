@@ -3,7 +3,7 @@ import { Suffix, Prefix } from './index'
 import { Icon } from '../../../index'
 export default (props) => {
 	const [value, setvalue] = useState(props.value || '')
-	let style: any = {}
+	let style: any = props.style || {}
 	props.prefix && (style.paddingLeft = 30)
 	props.suffix && (style.paddingRight = 30)
 	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)

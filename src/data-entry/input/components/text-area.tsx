@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 export default (props: any) => {
 	const [value, setvalue] = useState(props.value)
-	let style: any = {}
+	let style: any = props.stype || {}
 	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderTopRightRadius = 0)
 	props.addonAfter && (style.borderBottomLeftRadius = 0, style.borderBottomRightRadius = 0)
 	return <textarea
