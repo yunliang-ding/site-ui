@@ -39,7 +39,14 @@ export default ({
               value={keyword}
               className='sui-select-selection-selected-input'
               placeholder={_placeholder}
-              onBlur={setkeyword.bind(null, '')}
+              onBlur={
+                () => {
+                  setkeyword('') // 清空 keyword
+                  setTimeout(()=>{ // 避免闪动
+                    setoptions(options) // 重制 options
+                  }, 500)
+                }
+              }
               onChange={
                 (e) => {
                   setkeyword(e.target.value)
