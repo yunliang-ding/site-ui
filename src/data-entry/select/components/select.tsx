@@ -39,11 +39,12 @@ export default ({
               value={keyword}
               className='sui-select-selection-selected-input'
               placeholder={_placeholder}
+              onBlur={setkeyword.bind(null, '')}
               onChange={
                 (e) => {
                   setkeyword(e.target.value)
                   e.target.value.trim() !== '' ? setoptions(
-                    _options.filter(option => {
+                    options.filter(option => {
                       return typeof filter === 'function'
                         ? filter(option, e.target.value)
                         : option.label.toLowerCase().includes(e.target.value.trim().toLowerCase())
