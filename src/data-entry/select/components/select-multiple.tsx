@@ -43,7 +43,7 @@ export default ({
   const selectValueWapper = useRef()
   const dropDownWapper = useRef()
   useEffect(()=>{
-    selectSelectionWapper.current.style.height = parseInt(getComputedStyle(selectValueWapper.current).height) + 3 + 'px'
+    selectSelectionWapper.current.style.height = getComputedStyle(selectValueWapper.current).height
     dropDownWapper.current && (dropDownWapper.current.style.top = parseInt(getComputedStyle(selectWapper.current).height) + 4 + 'px')
   })
   /**
@@ -58,7 +58,7 @@ export default ({
     }>
       <div ref={selectValueWapper} className='sui-select-selection-selected-value'>
         {
-          selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : <div>
+          selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : <div className='ant-select-selection-choice-warpper'>
             {
               selected.map(item => {
                 return <span className='ant-select-selection-choice' key={item.key}>
