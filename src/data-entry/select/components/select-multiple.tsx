@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../../../index'
 export default ({
   options = [],
-  value,
+  value = [],
   allowClear = false,
   placeholder,
   disabled = false,
@@ -24,23 +24,64 @@ export default ({
       disabled: typeof option === 'string' ? false : option.disabled
     }
   }) : []
-  const selected: any = _options.find(item => item.value === value) || {} // 选中项
-  return <div className={className} style={style}>
-    <div className='sui-select-selection' onClick={
+  const _value = Array.isArray(value) ? value : [] // 格式处理
+  const selected: any = _options.filter(item => _value.indexOf(item.value) > -1) || [] // 选中项
+  // option click
+  const optionClick = (option: any) => {
+    let index = selected.findIndex(item => item.value === option.value)
+    if (index === -1) {
+      selected.push(option)
+    } else {
+      selected.splice(index, 1)
+    }
+  }
+  /**
+   * 计算dom高度
+   */
+  const selectWapper = useRef()
+  const selectSelectionWapper = useRef()
+  const selectValueWapper = useRef()
+  const dropDownWapper = useRef()
+  useEffect(()=>{
+    selectSelectionWapper.current.style.height = parseInt(getComputedStyle(selectValueWapper.current).height) + 3 + 'px'
+    dropDownWapper.current && (dropDownWapper.current.style.top = parseInt(getComputedStyle(selectWapper.current).height) + 4 + 'px')
+  })
+  /**
+   * Virtual-Dom
+   */
+  return <div className={className} style={style} ref={selectWapper}>
+    <div ref={selectSelectionWapper} className='sui-select-selection ant-select-selection-multiple' onClick={
       () => {
         if (disabled) return
         setopen(!_open)
       }
     }>
-      <div className='sui-select-selection-selected-value'>
-        {selected.value === undefined ? <span style={{ color: '#aaa' }}>{placeholder}</span> : selected.label}
+      <div ref={selectValueWapper} className='sui-select-selection-selected-value'>
+        {
+          selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : <div>
+            {
+              selected.map(item => {
+                return <span className='ant-select-selection-choice' key={item.key}>
+                  {item.label}
+                  <Icon type='iconguanbi' onClick={
+                    (e) => {
+                      e.stopPropagation() // 组织冒泡
+                      optionClick(item) // 删除
+                      typeof onChange === 'function' && onChange(selected.map(e => e.value), null)
+                    }
+                  } />
+                </span>
+              })
+            }
+          </div>
+        }
       </div>
       <Icon type='iconxialadown' />
       {
-        allowClear && selected.value !== undefined && <Icon type='iconcuo' onClick={
+        allowClear && selected.length > 0 && <Icon type='iconcuo' onClick={
           (e) => {
             e.stopPropagation() // 组织冒泡
-            typeof onChange === 'function' && onChange(null, null)
+            typeof onChange === 'function' && onChange([], null)
           }
         } />
       }
@@ -48,10 +89,10 @@ export default ({
     {
       _open && <>
         <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
-        <div style={dropdownStyle} className={dropDownClassName}>
+        <div ref={dropDownWapper} style={dropdownStyle} className={dropDownClassName}>
           {
             _options.map(option => {
-              let className = option.value === value ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
+              let className = _value.indexOf(option.value) > -1 ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
               option.disabled && (className += ' sui-select-dropdown-menu-disabled')
               return <div
                 key={option.key}
@@ -59,8 +100,9 @@ export default ({
                 onClick={
                   () => {
                     if (option.disabled) return
-                    setopen(false)
-                    typeof onChange === 'function' && onChange(option.value, option)
+                    // 没有添加，有删除
+                    optionClick(option)
+                    typeof onChange === 'function' && onChange(selected.map(e => e.value), option)
                   }
                 }
               >
