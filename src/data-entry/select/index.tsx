@@ -12,7 +12,7 @@
 | style                | object                                  | 输入框 style 属性                    | 无       |
 | dropdownClassName    | object                                  | 下拉菜单的 style 属性               | 无       |
 | dropdownStyle        | object                                  | 下拉菜单的 style 属性               | 无       |
-| filterOption         | boolean or function(inputValue, option) | 过滤                                | true     |
+| filter               | boolean/function(option,value)          | 是否支持过滤/自定义过滤               | false     |
 | getPopupContainer    | Function(dom) () => document.body       | 菜单渲染父节点                      | 无       |
 | multiple             | boolean                                 | 是否支持多选                        | true     |
 | showArrow            | boolean                                 | 是否显示下拉小箭头                  | true     |
@@ -23,6 +23,19 @@
  */
 import React from 'react'
 import { Select, SelectMultiple } from './components'
-export default (props:any) => {
-  return props.multiple ? <SelectMultiple {...props} /> : <Select {...props} /> 
+export default (props: any) => {
+  // 组装options
+  const transfrom = (options) => {
+    return Array.isArray(options) ? options.map(option => {
+      return {
+        key: Math.random(),
+        label: typeof option === 'string' ? option : option.label,
+        value: typeof option === 'string' ? option : option.value,
+        disabled: typeof option === 'string' ? false : option.disabled
+      }
+    }) : []
+  }
+  return props.multiple
+    ? <SelectMultiple {...props} options={transfrom(props.options)} />
+    : <Select {...props} options={transfrom(props.options)} />
 }

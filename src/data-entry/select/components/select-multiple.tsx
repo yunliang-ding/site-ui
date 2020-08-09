@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../../../index'
 export default ({
-  options = [],
+  options,
   value = [],
   allowClear = false,
   placeholder,
@@ -9,7 +9,6 @@ export default ({
   style = {},
   dropdownClassName,
   dropdownStyle = {},
-  filterOption = false,
   onChange,
   open = false
 }) => {
@@ -17,16 +16,8 @@ export default ({
   let className = _open ? 'sui-select sui-select-open' : 'sui-select'
   disabled && (className += ' sui-select-disabled')
   const dropDownClassName = dropdownClassName ? dropdownClassName + ' sui-select-dropdown' : 'sui-select-dropdown'
-  const _options = Array.isArray(options) ? options.map(option => { // 组装options
-    return {
-      key: Math.random(),
-      label: typeof option === 'string' ? option : option.label,
-      value: typeof option === 'string' ? option : option.value,
-      disabled: typeof option === 'string' ? false : option.disabled
-    }
-  }) : []
   const _value = Array.isArray(value) ? value : [] // 格式处理
-  const selected: any = _options.filter(item => _value.indexOf(item.value) > -1) || [] // 选中项
+  const selected: any = options.filter(item => _value.indexOf(item.value) > -1) || [] // 选中项
   // option click
   const optionClick = (option: any) => {
     let index = selected.findIndex(item => item.value === option.value)
@@ -92,7 +83,7 @@ export default ({
         <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
         <div ref={dropDownWapper} style={dropdownStyle} className={dropDownClassName}>
           {
-            _options.map(option => {
+            options.map(option => {
               let className = _value.indexOf(option.value) > -1 ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
               option.disabled && (className += ' sui-select-dropdown-menu-disabled')
               return <div
