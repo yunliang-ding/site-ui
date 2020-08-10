@@ -9,6 +9,7 @@ import RadioGroup from './data-entry/radio/components/group'
 import Switch from './data-entry/switch'
 import Select from './data-entry/select'
 import AutoComplete from './data-entry/auto-complete'
+import DatePicker from './data-entry/date-picker'
 import '../style/index.less'
 export {
   Icon,
@@ -21,5 +22,6 @@ export {
   RadioGroup,
   Switch,
   Select,
-  AutoComplete
+  AutoComplete,
+  DatePicker
 }
