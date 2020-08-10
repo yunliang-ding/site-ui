@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
 | ------------ | -------------------- | ------------ | ---------- |
@@ -18,6 +18,9 @@ export default ({
   const [_checked, setchecked] = useState(checked)
   let className = _checked ? 'sui-checkbox sui-checkbox-checked' : 'sui-checkbox'
   disabled && (className += ' sui-checkbox-disabled')
+  useEffect(() => {
+    setchecked(checked)
+  }, [checked])
   return <>
     <label className='sui-checkbox-wrapper'>
       <span className={className}>

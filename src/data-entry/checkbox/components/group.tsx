@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Checkbox } from '../../../index'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
@@ -18,7 +18,7 @@ export default ({
   style = {},
   name = ''
 }) => {
-  const _value = Array.isArray(value) ? value : []
+  const [_value, setvalue] = useState(Array.isArray(value) ? value : [])
   const _options = options.map(option => {
     return {
       key: Math.random(),
@@ -27,6 +27,9 @@ export default ({
       disabled: typeof option === 'string' ? false : option.disabled
     }
   })
+  // useEffect(() => {
+  //   setvalue(Array.isArray(value) ? value : [])
+  // }, [value])
   return <div className='sui-checkbox-group' style={style}>
     {
       _options.map((option:any) => {
@@ -45,6 +48,7 @@ export default ({
               } else {
                 __value = _value.filter(value => value !== option.value)
               }
+              setvalue(__value)
               typeof onChange === 'function' && onChange(__value)
             }
           }

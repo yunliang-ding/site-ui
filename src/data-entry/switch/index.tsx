@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon } from '../../index'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
@@ -27,6 +27,9 @@ export default ({
     className += ' sui-switch-disabled'
   }
   let innerText = _checked ? checkedChildren : unCheckedChildren
+  useEffect(()=>{
+    setchecked(checked)
+  }, [checked])
   return <button
     className={className}
     style={style}

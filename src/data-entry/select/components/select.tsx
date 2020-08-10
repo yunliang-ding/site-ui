@@ -15,11 +15,12 @@ export default ({
   open = false
 }: any) => {
   useEffect(() => {
-    setoptions(options) // update
-  }, [options])
+    setvalue(value) // update
+  }, [value])
   const [_open, setopen] = useState(open)
   const [_options, setoptions] = useState(options)
-  const selected: any = _options.find(item => item.value === value) || {} // 选中项
+  const [_value, setvalue] = useState(value)
+  const selected: any = _options.find(item => item.value === _value) || {} // 选中项
   const [keyword, setkeyword] = useState()
   const [_placeholder, setplaceholder] = useState(selected.label || placeholder)
   let className = _open ? 'sui-select sui-select-open' : 'sui-select'
@@ -92,6 +93,7 @@ export default ({
                     setplaceholder(option.value) // 设置 placeholder
                     setkeyword('') // 清空 keyword
                     setoptions(options) // 重制 options
+                    setvalue(option.value)
                     typeof onChange === 'function' && onChange(option.value, option)
                   }
                 }

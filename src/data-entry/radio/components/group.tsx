@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Radio } from '../../../index'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
@@ -18,6 +18,10 @@ export default ({
   style = {},
   name = ''
 }) => {
+  const [_value, setvalue] = useState(value)
+  useEffect(() => {
+    setvalue(value)
+  }, [value])
   const _options = options.map(option => {
     return {
       key: Math.random(),
@@ -34,10 +38,11 @@ export default ({
           disabled={disabled || option.disabled}
           name={name}
           checked={
-            option.value === value
+            option.value === _value
           }
           onChange={
             () => {
+              setvalue(option.value)
               typeof onChange === 'function' && onChange(option.value)
             }
           }
