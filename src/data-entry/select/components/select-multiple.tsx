@@ -57,7 +57,7 @@ export default ({
                   {item.label}
                   <Icon type='iconguanbi' onClick={
                     (e) => {
-                      e.stopPropagation() // 组织冒泡
+                      e.stopPropagation() // 阻止冒泡
                       optionClick(item) // 删除
                       typeof onChange === 'function' && onChange(selected.map(e => e.value), null)
                     }
@@ -72,7 +72,7 @@ export default ({
       {
         allowClear && selected.length > 0 && <Icon type='iconcuo' onClick={
           (e) => {
-            e.stopPropagation() // 组织冒泡
+            e.stopPropagation() // 阻止冒泡
             typeof onChange === 'function' && onChange([], null)
           }
         } />

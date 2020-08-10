@@ -68,7 +68,7 @@ export default ({
       {
         allowClear && selected.value !== undefined && <Icon type='iconcuo' onClick={
           (e) => {
-            e.stopPropagation() // 组织冒泡
+            e.stopPropagation() // 阻止冒泡
             typeof onChange === 'function' && onChange(null, null)
           }
         } />

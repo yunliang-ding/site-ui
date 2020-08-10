@@ -6,14 +6,10 @@
 | dataSource           | string[]                          | 下拉选项                            | 无       |
 | placeholder          | string                            | 提示文案                            | 无       |
 | allowClear           | boolean                           | 支持清除                            | false    |
-| autoFocus            | boolean                           | 默认获取焦点                        | false    |
-| disabled             | boolean                           | 是否禁用                            | false    |
 | style                | object                            | 输入框 style 属性                   | 无       |
 | dropdownClassName    | object                            | 下拉菜单的 style 属性               | 无       |
 | dropdownStyle        | object                            | 下拉菜单的 style 属性               | 无       |
-| filter               | boolean/function(option,value)    | 是否支持过滤/自定义过滤             | false    |
-| onChange             | function(value, option)           | 选中 option                      | 无       |
-| onSearch             | function(value:string)            | 文本框值变化时回调                  | 无       |
+| onSelect            | function(value, option)           | 选中 option                      | 无       |
  */
 import React, { useState, useEffect } from 'react'
 import { Icon, Empty } from '../../index'
@@ -24,20 +20,22 @@ export default ({
   placeholder,
   disabled = false,
   style = {},
-  dropdownClassName,
-  dropdownStyle = {},
-  onChange,
-  onSearch,
+  onSelect,
   open = false
 }: any) => {
-  useEffect(() => {
-    setvalue(value)
-  }, [value])
-  const [_open, setopen] = useState(open)
   const [_value, setvalue] = useState(value)
+  useEffect(() => {
+    let suffix = dataSource.find(item => _value.endsWith(item)) // 拆分 value / suffix
+    if(suffix){
+      setvalue(_value.substr(0, _value.lastIndexOf(suffix)))
+      setsuffix(suffix)
+    } else {
+      setvalue(_value)
+    }
+  }, [_value])
+  const [_open, setopen] = useState(open)
+  const [suffix, setsuffix] = useState('')
   let className = _open ? 'sui-auto sui-auto-open' : 'sui-auto'
-  disabled && (className += ' sui-auto-disabled')
-  const dropDownClassName = dropdownClassName ? dropdownClassName + ' sui-auto-dropdown' : 'sui-auto-dropdown'
   return <div className={className} style={style}>
     <div className='sui-auto-selection' onClick={
       () => {
@@ -48,13 +46,13 @@ export default ({
       <div className='sui-auto-selection-selected-value'>
         {
           <input
-            value={_value}
+            value={_value + suffix}
             className='sui-auto-selection-selected-input'
             placeholder={placeholder}
             onChange={
               (e) => {
                 setvalue(e.target.value)
-                typeof onSearch === 'function' && onSearch(e.target.value)
+                setsuffix('')
               }
             }
           />
@@ -63,26 +61,29 @@ export default ({
       {
         allowClear && _value !== '' && <Icon type='iconcuo' onClick={
           (e) => {
-            e.stopPropagation() // 组织冒泡
-            typeof onChange === 'function' && onChange('')
+            e.stopPropagation() // 阻止冒泡
+            setvalue('')
+            setsuffix('')
+            typeof onSelect === 'function' && onSelect('')
           }
         } />
       }
     </div>
     {
-      _open && <>
+      _open && _value !== '' && <>
         <div className='sui-auto-mask' onClick={setopen.bind(null, false)} />
-        <div style={dropdownStyle} className={dropDownClassName}>
+        <div className='sui-auto-dropdown'>
           {
             dataSource.length > 0 ? dataSource.map(option => {
+              let className = option === _value ? 'sui-auto-dropdown-menu sui-auto-dropdown-menu-selected' : 'sui-auto-dropdown-menu'
               return <div
                 key={option}
-                className='sui-auto-dropdown-menu'
+                className={className}
                 onClick={
                   () => {
                     setopen(false)
-                    setvalue(_value + option)
-                    typeof onChange === 'function' && onChange(_value + option)
+                    setsuffix(option)
+                    typeof onSelect === 'function' && onSelect(_value + option)
                   }
                 }
               >
