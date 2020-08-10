@@ -16,7 +16,7 @@ export default ({
 	addonBefore && (style.borderTopLeftRadius = 0, style.borderTopRightRadius = 0)
 	addonAfter && (style.borderBottomLeftRadius = 0, style.borderBottomRightRadius = 0)
 	useEffect(()=>{
-		setvalue[value]
+		setvalue(value)
 	}, [value])
 	return <textarea
 		readOnly={disabled}

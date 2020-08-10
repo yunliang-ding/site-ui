@@ -25,7 +25,7 @@ export default ({
 	addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
 	const [password, setpassword] = useState(type === 'password')
 	useEffect(()=>{
-		setvalue[value]
+		setvalue(value)
 	}, [value])
 	return <>
 		{
