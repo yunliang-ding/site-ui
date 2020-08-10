@@ -1,53 +1,44 @@
 import React, { useState, useEffect } from "react"
 import { Select, Button, Input, Icon } from '../../index'
-import { DateUtil } from './components/util'
+import dateUtil from './components/util'
 export default ({
   value,
   onChange,
   placeholder,
-  format = 'YYYY-MM-DD',
   style
 }: any) => {
-  let date = value || new Date().getTime()
-  let dateUtil = new DateUtil(new Date(date), format)
-  let yearList = dateUtil.getYearList()
-  let monthList = dateUtil.getMonthList()
-  const [open, setopen] = useState(false)
-  const [_value, setvalue] = useState()
-  const [calendar, setcalendar] = useState()
-  useEffect(() => {
-    setvalue(value)
+  useEffect(()=>{
     let date = value || new Date().getTime()
-    dateUtil = new DateUtil(new Date(date), format)
-    setcalendar(dateUtil.getCalendar()) // 当前日历
-  }, [value, format])
+    dateUtil.setDate(new Date(date)) // 更新时间
+  }, [value])
+  let yearList = dateUtil.getYearList() // 获取年列表
+  let monthList = dateUtil.getMonthList()  // 获取月列表
+  const [open, setopen] = useState(false)
+  const [_value, setvalue] = useState(value)
+  const [year, setyear] = useState(dateUtil.date.getFullYear())
+  const [month, setmonth] = useState(dateUtil.date.getMonth() + 1)
+  const [days, setdays] = useState(value)
+  const [calendar, setcalendar] = useState(dateUtil.getCalendar())
   const renderHeader = () => {
     return ['日', '一', '二', '三', '四', '五', '六'].map(item => {
-      return <div className='sui-picker-header-item'>
+      return <div className='sui-picker-header-item' key={item}>
         {item}
       </div>
     })
   }
   const renderContent = () => {
-    return calendar.map((row: any) => {
-      return <div className='sui-picker-calendar-row'>
+    return calendar.map((row: any, index) => {
+      return <div className='sui-picker-calendar-row' key={index}>
         {
           row.map(col => {
             return <div
+              key={col.dateString}
               className={
-                col.dateString === _value ? 'sui-picker-calendar-row-col-active' :
+                col.dateString === days ? 'sui-picker-calendar-row-col-active' :
                   col.current ? 'sui-picker-calendar-row-col-current' :
                     col.currentMonth ? 'sui-picker-calendar-row-col-current-month' : 'sui-picker-calendar-row-col'
               }
-              onClick={
-                () => {
-                  setvalue(col.dateString)
-                  setopen(false)
-                  if (typeof onChange === 'function') {
-                    onChange(col.dateString)
-                  }
-                }
-              }
+              onClick={setdays.bind(null, col.dateString)}
             >
               <div className='sui-picker-calendar-inner'>
                 {col.date}
@@ -58,9 +49,11 @@ export default ({
       </div>
     })
   }
-  const setCalendar = (time) => {
-    dateUtil.setDate(new Date(time))
+  const updateDateCalendar = (date) => { // 更新时间
+    dateUtil.setDate(new Date(date))
     setcalendar(dateUtil.getCalendar())
+    setyear(dateUtil.date.getFullYear())
+    setmonth(dateUtil.date.getMonth() + 1)
   }
   return <>
     <div className='sui-date-picker' style={style}>
@@ -68,29 +61,23 @@ export default ({
         <Input
           placeholder={placeholder}
           value={_value}
-          onFocus={
-            () => {
-              dateUtil.setDate(new Date(_value ? _value : new Date()))
-              setopen(true)
-              setcalendar(dateUtil.getCalendar())
-            }
-          } />
+          onFocus={setopen.bind(null, true)} />
       </div>
       {
         open && <>
-          <div className='sui-date-picker-layer' onClick={setopen.bind(false)} />
+          <div className='sui-date-picker-layer' onClick={setopen.bind(null,false)} />
           <div className='sui-date-picker-body'>
             <div className='sui-date-picker-body-tools'>
-              <div className='picker-tools-before' onClick={
+              <div title='上一年' className='picker-tools-before' onClick={
                 () => {
-                  setCalendar(dateUtil.date.getTime() - (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
+                  updateDateCalendar(dateUtil.date.getTime() - (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
                 }
               }>
                 <Icon type='iconicon-jiantouzuo' />
               </div>
-              <div className='picker-tools-before picker-tools-before-month' onClick={
+              <div title='上个月' className='picker-tools-before picker-tools-before-month' onClick={
                 () => {
-                  setCalendar(dateUtil.date.getTime() - dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
+                  updateDateCalendar(dateUtil.date.getTime() - dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
                 }
               }>
                 <Icon type='iconxiangzuoshouqi' />
@@ -98,43 +85,35 @@ export default ({
               <div className='picker-tools-date'>
                 <Select
                   style={{ border: 0 }}
-                  value={dateUtil.date.getFullYear()}
+                  value={year}
                   options={yearList}
                   onChange={
                     (e) => {
-                      dateUtil.setDate(
-                        new Date(`${e}-${dateUtil.date.getMonth() + 1}-${dateUtil.date.getDate()}`)
-                      )
-                      setcalendar(dateUtil.getCalendar())
+                      updateDateCalendar(`${e}-${month}-${dateUtil.date.getDate()}`)
                     }
                   }
                 />
-                年
                 <Select
-                  style={{ border: 0 }}
-                  value={dateUtil.date.getMonth() + 1}
+                  style={{ border: 0, width: 80 }}
+                  value={month}
                   options={monthList}
                   onChange={
                     (e) => {
-                      dateUtil.setDate(
-                        new Date(`${dateUtil.date.getFullYear()}-${e}-${dateUtil.date.getDate()}`)
-                      )
-                      setcalendar(dateUtil.getCalendar())
+                      updateDateCalendar(`${year}-${e}-${dateUtil.date.getDate()}`)
                     }
                   }
                 />
-                月
               </div>
-              <div className='picker-tools-next picker-tools-next-month' onClick={
+              <div title='下个月' className='picker-tools-next picker-tools-next-month' onClick={
                 () => {
-                  setCalendar(dateUtil.date.getTime() + dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
+                  updateDateCalendar(dateUtil.date.getTime() + dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
                 }
               }>
                 <Icon type='iconzuocedakai' />
               </div>
-              <div className='picker-tools-next' onClick={
+              <div title='下一年' className='picker-tools-next' onClick={
                 () => {
-                  setCalendar(dateUtil.date.getTime() + (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
+                  updateDateCalendar(dateUtil.date.getTime() + (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
                 }
               }>
                 <Icon type='iconjiantou2' />
@@ -152,13 +131,13 @@ export default ({
                 style={{ height: 30, width: 60 }}
                 onClick={
                   () => {
-                    dateUtil.setDate(new Date())
-                    setvalue(dateUtil.getDateString(new Date()))
                     setopen(false)
+                    setvalue(days)
+                    typeof onChange === 'function' && onChange(days)
                   }
                 }
               >
-                今天
+                确定
               </Button>
             </div>
           </div>

@@ -99,6 +99,5 @@ class DateUtil {
     })
   }
 }
-export {
-  DateUtil
-}
+const dateUtil = new DateUtil(new Date(), 'YYYY-MM-DD')
+export default dateUtil

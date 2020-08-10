@@ -1,40 +1,54 @@
-import React, { useState } from 'react'
-export default (props: any) => {
-	const [value, setvalue] = useState(props.value)
+import React, { useState, useEffect } from 'react'
+export default ({
+	value='',
+	addonBefore,
+	addonAfter,
+	disabled,
+	placeholder,
+	maxLength,
+	onChange,
+	onBlur,
+	onFocus,
+	onPressEnter,
+}) => {
+	const [_value, setvalue] = useState(value)
 	let style: any = {}
-	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderTopRightRadius = 0)
-	props.addonAfter && (style.borderBottomLeftRadius = 0, style.borderBottomRightRadius = 0)
+	addonBefore && (style.borderTopLeftRadius = 0, style.borderTopRightRadius = 0)
+	addonAfter && (style.borderBottomLeftRadius = 0, style.borderBottomRightRadius = 0)
+	useEffect(()=>{
+		setvalue[value]
+	}, [value])
 	return <textarea
-		readOnly={props.disabled}
-		className={props.disabled ? 'sui-textarea-disabled' : 'sui-textarea'}
-		placeholder={props.placeholder}
-		maxLength={props.maxlength}
-		value={value}
+		readOnly={disabled}
+		className={disabled ? 'sui-textarea-disabled' : 'sui-textarea'}
+		placeholder={placeholder}
+		maxLength={maxLength}
+		value={_value}
 		style={style}
 		onChange={
 			(e) => {
 				setvalue(e.target.value)
-				typeof props.onChange === 'function' && props.onChange(e)
+				typeof onChange === 'function' && onChange(e)
 			}
 		}
 		onBlur={
 			(e) => {
-				typeof props.onBlur === 'function' && props.onBlur(e)
+				typeof onBlur === 'function' && onBlur(e)
 			}
 		}
 		onFocus={
 			(e) => {
-				typeof props.onFocus === 'function' && props.onFocus(e)
+				typeof onFocus === 'function' && onFocus(e)
 			}
 		}
 		onKeyDown={
 			(e) => {
 				if (e.keyCode === 13) {
-					typeof props.onPressEnter === 'function' && props.onPressEnter(e)
+					typeof onPressEnter === 'function' && onPressEnter(e)
 				}
 			}
 		}
 	>
-		{props.value}
+		{_value}
 	</textarea>
 }

@@ -1,52 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Suffix, Prefix } from './index'
 import { Icon } from '../../../index'
-export default (props) => {
-	const [value, setvalue] = useState(props.value || '')
+export default ({
+	value='',
+	prefix,
+	suffix,
+	addonBefore,
+	addonAfter,
+	type,
+	disabled,
+	placeholder,
+	maxLength,
+	onChange,
+	onBlur,
+	onFocus,
+	onPressEnter,
+	allowClear
+}) => {
 	let style: any = {}
-	props.prefix && (style.paddingLeft = 30)
-	props.suffix && (style.paddingRight = 30)
-	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
-	props.addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
-	const [password, setpassword] = useState(props.type === 'password')
+	const [_value, setvalue] = useState(value)
+	prefix && (style.paddingLeft = 30)
+	suffix && (style.paddingRight = 30)
+	addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
+	addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
+	const [password, setpassword] = useState(type === 'password')
+	useEffect(()=>{
+		setvalue[value]
+	}, [value])
 	return <>
 		{
-			props.prefix && <Prefix>{props.prefix}</Prefix>
+			prefix && <Prefix>{prefix}</Prefix>
 		}
 		<input
 			type={password ? 'password' : 'text'}
 			style={style}
-			className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
-			placeholder={props.placeholder}
-			value={value}
-			maxLength={props.maxLength}
-			readOnly={props.disabled}
+			className={disabled ? 'sui-input-disabled' : 'sui-input'}
+			placeholder={placeholder}
+			value={_value}
+			maxLength={maxLength}
+			readOnly={disabled}
 			onChange={
 				(e) => {
 					setvalue(e.target.value)
-					typeof props.onChange === 'function' && props.onChange(e)
+					typeof onChange === 'function' && onChange(e)
 				}
 			}
 			onBlur={
 				(e) => {
-					typeof props.onBlur === 'function' && props.onBlur(e)
+					typeof onBlur === 'function' && onBlur(e)
 				}
 			}
 			onFocus={
 				(e) => {
-					typeof props.onFocus === 'function' && props.onFocus(e)
+					typeof onFocus === 'function' && onFocus(e)
 				}
 			}
 			onKeyDown={
 				(e) => {
 					if (e.keyCode === 13) {
-						typeof props.onPressEnter === 'function' && props.onPressEnter(e)
+						typeof onPressEnter === 'function' && onPressEnter(e)
 					}
 				}
 			}
 		/>
 		{
-			props.type === 'password' ? <>
+			type === 'password' ? <>
 				<Suffix>
 					<Icon type={password ? 'iconpassword-invisible' : 'iconpassword-visible'} onClick={
 						() => {
@@ -56,13 +74,13 @@ export default (props) => {
 				</Suffix>
 			</> : <>
 					{
-						props.allowClear && value !== '' ? <Suffix>
+						allowClear && _value !== '' ? <Suffix>
 							<Icon type='iconcuo' onClick={
 								() => {
 									setvalue('')
 								}
 							} />
-						</Suffix> : props.suffix && <Suffix>{props.suffix}</Suffix>
+						</Suffix> : suffix && <Suffix>{suffix}</Suffix>
 					}
 				</>
 		}

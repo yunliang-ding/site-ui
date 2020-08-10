@@ -45,6 +45,6 @@ export default ({
     {
       icon && <Icon type={icon} />
     }
-    {children}
+    {children || ' '}
   </button>
 }
