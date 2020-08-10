@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 export default (props: any) => {
 	const [value, setvalue] = useState(props.value)
-	let style: any = props.stype || {}
+	let style: any = {}
 	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderTopRightRadius = 0)
 	props.addonAfter && (style.borderBottomLeftRadius = 0, style.borderBottomRightRadius = 0)
 	return <textarea
 		readOnly={props.disabled}
 		className={props.disabled ? 'sui-textarea-disabled' : 'sui-textarea'}
 		placeholder={props.placeholder}
+		maxLength={props.maxlength}
 		value={value}
 		style={style}
 		onChange={

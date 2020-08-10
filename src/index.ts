@@ -7,15 +7,17 @@ import Radio from './data-entry/radio'
 import RadioGroup from './data-entry/radio/components/group'
 import Switch from './data-entry/switch'
 import Select from './data-entry/select'
+import AutoComplete from './data-entry/auto-complete'
 import '../style/index.less'
 export {
-  Input,
   Icon,
+  Empty,
+  Input,
   Checkbox,
   CheckboxGroup,
   Radio,
   RadioGroup,
   Switch,
   Select,
-  Empty
+  AutoComplete
 }

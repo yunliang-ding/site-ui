@@ -18,7 +18,7 @@
 | showArrow            | boolean                                 | 是否显示下拉小箭头                  | true     |
 | showSearch           | boolean                                 | 使单选模式可搜索                    | false    |
 | open                 | boolean                                 | 是否展开下拉菜单                    | false    |
-| onChange             | function(value, option)                 | 选中 option，或 input 的 value 变化 | 无       |
+| onChange             | function(value, option)                 | 选中 option                       | 无       |
 | onSearch             | function(value:string)                  | 文本框值变化时回调                  | 无       |
  */
 import React from 'react'

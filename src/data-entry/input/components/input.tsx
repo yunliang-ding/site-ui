@@ -3,7 +3,7 @@ import { Suffix, Prefix } from './index'
 import { Icon } from '../../../index'
 export default (props) => {
 	const [value, setvalue] = useState(props.value || '')
-	let style: any = props.style || {}
+	let style: any = {}
 	props.prefix && (style.paddingLeft = 30)
 	props.suffix && (style.paddingRight = 30)
 	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
@@ -14,11 +14,11 @@ export default (props) => {
 		}
 		<input
 			type='text'
-			className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
 			style={style}
+			className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
 			placeholder={props.placeholder}
 			value={value}
-			maxlength={props.maxLength}
+			maxLength={props.maxLength}
 			readOnly={props.disabled}
 			onChange={
 				(e) => {
