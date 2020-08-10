@@ -1,4 +1,5 @@
 import Icon from './general/icon'
+import Button from './general/button'
 import Empty from './data-display/empty'
 import Input from './data-entry/input'
 import Checkbox from './data-entry/checkbox'
@@ -11,6 +12,7 @@ import AutoComplete from './data-entry/auto-complete'
 import '../style/index.less'
 export {
   Icon,
+  Button,
   Empty,
   Input,
   Checkbox,

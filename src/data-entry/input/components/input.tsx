@@ -8,12 +8,13 @@ export default (props) => {
 	props.suffix && (style.paddingRight = 30)
 	props.addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
 	props.addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
+	const [password, setpassword] = useState(props.type === 'password')
 	return <>
 		{
 			props.prefix && <Prefix>{props.prefix}</Prefix>
 		}
 		<input
-			type='text'
+			type={password ? 'password' : 'text'}
 			style={style}
 			className={props.disabled ? 'sui-input-disabled' : 'sui-input'}
 			placeholder={props.placeholder}
@@ -45,13 +46,26 @@ export default (props) => {
 			}
 		/>
 		{
-			props.allowClear && value !== '' ? <Suffix>
-				<Icon type='iconcuo' onClick={
-					() => {
-						setvalue('')
+			props.type === 'password' ? <>
+				<Suffix>
+					<Icon type={password ? 'iconpassword-invisible' : 'iconpassword-visible'} onClick={
+						() => {
+							setpassword(!password)
+						}
+					} />
+				</Suffix>
+			</> : <>
+					{
+						props.allowClear && value !== '' ? <Suffix>
+							<Icon type='iconcuo' onClick={
+								() => {
+									setvalue('')
+								}
+							} />
+						</Suffix> : props.suffix && <Suffix>{props.suffix}</Suffix>
 					}
-				} />
-			</Suffix> : props.suffix && <Suffix>{props.suffix}</Suffix>
+				</>
 		}
+
 	</>
 }

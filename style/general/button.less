@@ -1,0 +1,105 @@
+.sui-btn{
+  font-size: @font-size-base;
+  line-height: 1.499;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 0 rgba(0,0,0,.015);
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  user-select: none;
+  touch-action: manipulation;
+  height: 32px;
+  padding: 0 15px;
+  font-size: 14px;
+  border-radius: @border-radius-base;
+  color: rgba(0,0,0,.65);
+  background-color: #fff;
+  border-color: @border-color-base;
+  outline: none;
+  &:hover, &:focus{
+    background-color: #fff;
+    color: @primary-color;
+    border-color: @primary-color;
+  }
+  .sui-icon{
+    margin-right:4px;
+  }
+  .iconloading{
+    animation:spin 1.2s linear infinite;
+    font-size: 14px;
+    color: #fff;
+    display: inline-block;
+  }
+  @keyframes spin{
+		0%{-webkit-transform:rotate(0deg);}
+		25%{-webkit-transform:rotate(90deg);}
+		50%{-webkit-transform:rotate(180deg);}
+		75%{-webkit-transform:rotate(270deg);}
+		100%{-webkit-transform:rotate(360deg);}
+	}
+}
+.sui-btn-primary{
+  color: #fff;
+  background-color: @primary-color;
+  border-color: @primary-color;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 @primary-box-shadow;
+  &:hover, &:focus{
+    color: #fff;
+    background-color: @primary-color;
+    border-color: @primary-color;
+    opacity: .9;
+  }
+}
+.sui-btn-dashed {
+  color: rgba(0,0,0,.65);
+  background-color: #fff;
+  border-color: @border-color-base;
+  border-style: dashed;
+  &:hover, &:focus{
+    color: @primary-color;
+    background-color: #fff;
+    border-color: @primary-color;
+  }
+}
+.sui-btn-danger {
+  color: #fff;
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  &:hover, &:focus{
+    color: #fff;
+    background-color: #ff7875;
+    border-color: #ff7875;
+  }
+}
+.sui-btn-disabled{
+  color: rgba(0,0,0,.25);
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+  &:hover, &:focus{
+    color: rgba(0,0,0,.25);
+    background-color: #f5f5f5;
+    border-color: #d9d9d9;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+}
+.sui-btn-loading{
+  opacity: .5;
+  pointer-events: none;
+  &:hover, &:focus{
+    opacity: .5;
+  }
+}
