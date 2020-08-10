@@ -29,19 +29,20 @@
     transition: .4s;
   }
   .sui-input-addon-before, .sui-input-addon-after{
+    border: 1px solid @border-color-base;
     min-width: 100px;
     max-width: 100px;
     text-align: center;
   }
   .sui-input-addon-before{
     border-right: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
   .sui-input-addon-after{
     border-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
   }
   .sui-input-prefix{
     position: absolute;
@@ -108,14 +109,14 @@
   .sui-input-addon-before{
     border-bottom:0;
     text-align: left;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
   .sui-input-addon-after{
     border-top:0;
     text-align: right;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 }
 // public
