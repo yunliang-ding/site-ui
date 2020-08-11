@@ -12,6 +12,7 @@
 | dropdownStyle        | object                                  | 下拉菜单的 style 属性               | 无       |
 | open                 | boolean                                 | 是否展开下拉菜单                    | false    |
 | onChange             | function(value, option)                 | 选中 option                       | 无       |
+| fieldNames           | object                                  | 自定义 options 中 label name children | 无   
  */
 import React, { useState, useEffect } from 'react'
 import { Icon, Empty } from '../../index'
@@ -25,7 +26,8 @@ export default ({
   dropdownClassName,
   dropdownStyle = {},
   onChange,
-  open = false
+  open = false,
+  fieldNames
 }: any) => {
   const transfrom = (options, values) => { // 数组转为对象数组
     let arr = []
@@ -52,8 +54,13 @@ export default ({
   }, [value])
   const updateList = (options, index) => { // 更新存储的options容器
     list[index] = options.map(option => {
-      option.key = Math.random()
-      return option
+      let obj:any = {
+        key: Math.random()
+      }
+      obj.label = fieldNames && fieldNames.label ? option[fieldNames.label] : option.label
+      obj.value = fieldNames && fieldNames.value ? option[fieldNames.value] : option.value
+      obj.children = fieldNames && fieldNames.children ? option[fieldNames.children] : option.children
+      return obj
     })
     setlist([...list.slice(0, index + 1)]) // clear 后面的数组
   }
