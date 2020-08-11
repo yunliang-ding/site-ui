@@ -11,7 +11,7 @@
     border:0 !important;
   }
   .sui-date-picker-body{
-    height: 360px;
+    min-height: 360px;
     min-width: 260px;
     position: absolute;
     top: 36px;
@@ -20,6 +20,14 @@
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
     user-select: none;
     z-index:199;
+    .sui-date-picker-body-value{
+      font-size: 12px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px solid #eee;
+    }
     .sui-date-picker-body-tools{
       height:40px;
       display:flex;

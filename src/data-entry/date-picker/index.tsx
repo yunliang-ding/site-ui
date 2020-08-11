@@ -5,7 +5,8 @@ export default ({
   value,
   onChange,
   placeholder,
-  style
+  style,
+  allowClear
 }: any) => {
   useEffect(()=>{
     let date = value || new Date().getTime()
@@ -59,14 +60,26 @@ export default ({
     <div className='sui-date-picker' style={style}>
       <div className='sui-date-picker-input'>
         <Input
+          suffix={<Icon type='iconweimingmingwenjianjia_rili' />}
           placeholder={placeholder}
           value={_value}
+          allowClear={allowClear}
+          onChange={
+            () => {
+              setvalue('')
+              updateDateCalendar(new Date()) // 更新时间
+              typeof onChange === 'function' && onChange('')
+            }
+          }
           onFocus={setopen.bind(null, true)} />
       </div>
       {
         open && <>
           <div className='sui-date-picker-layer' onClick={setopen.bind(null,false)} />
           <div className='sui-date-picker-body'>
+            <div className='sui-date-picker-body-value'>
+              {days || '请选择日期'}
+            </div>
             <div className='sui-date-picker-body-tools'>
               <div title='上一年' className='picker-tools-before' onClick={
                 () => {

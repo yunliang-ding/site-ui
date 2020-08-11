@@ -74,13 +74,17 @@ export default ({
 				</Suffix>
 			</> : <>
 					{
-						allowClear && _value !== '' ? <Suffix>
+						allowClear && _value !== '' && <Suffix style={{marginRight: suffix ? 24 : 8}} >
 							<Icon type='iconcuo' onClick={
 								() => {
 									setvalue('')
+									typeof onChange === 'function' && onChange('')
 								}
 							} />
-						</Suffix> : suffix && <Suffix>{suffix}</Suffix>
+						</Suffix>
+					}
+					{
+						suffix && <Suffix>{suffix}</Suffix>
 					}
 				</>
 		}
