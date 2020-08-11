@@ -8,7 +8,7 @@ export default ({
   addonBefore,
   addonAfter,
   style,
-  allowClear,
+  allowClear=true,
   disabled=false
 }: any) => {
   useEffect(()=>{
@@ -59,6 +59,7 @@ export default ({
     setcalendar(dateUtil.getCalendar())
     setyear(dateUtil.date.getFullYear())
     setmonth(dateUtil.date.getMonth() + 1)
+    setdays(`${dateUtil.date.getFullYear()}-${dateUtil.date.getMonth() + 1}-${dateUtil.date.getDate()}`)
   }
   return <>
     <div className='sui-date-picker' style={style}>

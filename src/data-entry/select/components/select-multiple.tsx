@@ -45,7 +45,7 @@ export default ({
    * Virtual-Dom
    */
   return <div className={className} style={style} ref={selectWapper}>
-    <div ref={selectSelectionWapper} className='sui-select-selection ant-select-selection-multiple' onClick={
+    <div ref={selectSelectionWapper} className='sui-select-selection sui-select-selection-multiple' onClick={
       () => {
         if (disabled) return
         setopen(!_open)
@@ -53,10 +53,10 @@ export default ({
     }>
       <div ref={selectValueWapper} className='sui-select-selection-selected-value'>
         {
-          selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : <div className='ant-select-selection-choice-warpper'>
+          selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : <div className='sui-select-selection-choice-warpper'>
             {
               selected.map(item => {
-                return <span className='ant-select-selection-choice' key={item.key}>
+                return <span className='sui-select-selection-choice' key={item.key}>
                   {item.label}
                   <Icon type='iconguanbi' onClick={
                     (e) => {

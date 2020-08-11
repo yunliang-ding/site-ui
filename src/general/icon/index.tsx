@@ -9,7 +9,7 @@ import React from 'react'
  */
 export default ({ type, size, style, onClick }:any) => {
   let _style = style || {}
-  _style.size = size
+  _style.fontSize = size
   return <>
     <i className={'sui-icon ' + type} style={_style} onClick={
       (e:any) => {

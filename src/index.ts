@@ -10,6 +10,7 @@ import Switch from './data-entry/switch'
 import Select from './data-entry/select'
 import AutoComplete from './data-entry/auto-complete'
 import DatePicker from './data-entry/date-picker'
+import Cascader from './data-entry/cascader'
 import '../style/index.less'
 export {
   Icon,
@@ -23,5 +24,6 @@ export {
   Switch,
   Select,
   AutoComplete,
-  DatePicker
+  DatePicker,
+  Cascader
 }

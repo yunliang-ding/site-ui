@@ -29,10 +29,11 @@ class DateUtil {
     return day
   }
   getCalendar = () => { // 获取该月份的日历
-    let month = this.date.getMonth() + 1
     let year = this.date.getFullYear()
+    let month:any = this.date.getMonth() + 1
+    month = month > 9 ? month : '0' + month // safari 不兼容不标准的字符转日期
     let totalDay = this.getDateNumberByMonth(month) // 该月份总天数
-    let frist = `${year}-${month}-1`
+    let frist = `${year}-${month}-01`
     let last = `${year}-${month}-${totalDay}`
     let fristDate = new Date(frist) // 本月第一天
     let lastDate = new Date(last) // 本月最后一天
