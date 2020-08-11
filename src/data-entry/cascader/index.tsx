@@ -28,28 +28,25 @@ export default ({
   open = false
 }: any) => {
   const transfrom = (options, values) => { // 数组转为对象数组
-    let level = -1
-    const loop = (value, index, options) => { // 递归查找树结构
-      level++
-      return options.find(option => {
-        if (option.value === value && level === index) { // 层级需要一致
-          updateList(options, index) // 更新存储的options容器
-          return true
-        } else if (option.children) {
-          return loop(value, index, option.children)
-        }
-        return false
+    let arr = []
+    let option = options
+    values.map((value, index) => {
+      let item = option.find(item => {
+        return item.value === value
       })
-    }
-    return values.map((value, index) => {
-      return loop(value, index, options)
+      if (item !== undefined) {
+        arr.push(item)
+        updateList(option, index)
+        option = item.children || [] // 继续查找
+      }
     })
+    return arr
   }
   /**
    * value Change
    */
   useEffect(() => {
-    const values = transfrom(options, value || []).filter(item => !item)
+    const values = transfrom(options, value || []).filter(item => item !== undefined)
     setselected(values) // 回显
     setvalue(values) // 回显
   }, [value])
@@ -79,7 +76,6 @@ export default ({
   useEffect(() => {
     if (_open) { // 设置选中值
       const values = transfrom(options, selected.map(item => item.value)).filter(item => item !== undefined)
-      console.log('values-->', values)
       setselected(values) // 回显
       setvalue(values) // 回显
     } else { // clear
@@ -126,7 +122,9 @@ export default ({
               return <div className='sui-cascader-dropdown-col' key={index}>
                 {
                   item.map(option => {
-                    let className = _value.some(item => item.value === option.value) ? 'sui-cascader-dropdown-menu sui-cascader-dropdown-menu-selected' : 'sui-cascader-dropdown-menu'
+                    let className = _value.some(item => item.value === option.value)
+                      ? 'sui-cascader-dropdown-menu sui-cascader-dropdown-menu-selected'
+                      : 'sui-cascader-dropdown-menu'
                     option.disabled && (className += ' sui-cascader-dropdown-menu-disabled')
                     return <div
                       key={option.key}
