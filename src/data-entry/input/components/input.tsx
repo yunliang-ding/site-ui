@@ -74,7 +74,7 @@ export default ({
 				</Suffix>
 			</> : <>
 					{
-						allowClear && _value !== '' && <Suffix style={{marginRight: suffix ? 24 : 8}} >
+						!disabled && allowClear && _value !== '' && <Suffix style={{marginRight: suffix ? 24 : 8}} >
 							<Icon type='iconcuo' onClick={
 								() => {
 									setvalue('')

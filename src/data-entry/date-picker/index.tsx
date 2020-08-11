@@ -5,12 +5,16 @@ export default ({
   value,
   onChange,
   placeholder,
+  addonBefore,
+  addonAfter,
   style,
-  allowClear
+  allowClear,
+  disabled=false
 }: any) => {
   useEffect(()=>{
     let date = value || new Date().getTime()
-    dateUtil.setDate(new Date(date)) // 更新时间
+    setvalue(value) // update
+    updateDateCalendar(date) // 更新时间
   }, [value])
   let yearList = dateUtil.getYearList() // 获取年列表
   let monthList = dateUtil.getMonthList()  // 获取月列表
@@ -61,6 +65,9 @@ export default ({
       <div className='sui-date-picker-input'>
         <Input
           suffix={<Icon type='iconweimingmingwenjianjia_rili' />}
+          addonBefore={addonBefore}
+          disabled={disabled}
+          addonAfter={addonAfter}
           placeholder={placeholder}
           value={_value}
           allowClear={allowClear}

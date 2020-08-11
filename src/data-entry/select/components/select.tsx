@@ -67,7 +67,7 @@ export default ({
       </div>
       <Icon type='iconxialadown' />
       {
-        allowClear && selected.value !== undefined && <Icon type='iconcuo' onClick={
+        !disabled && allowClear && selected.value !== undefined && <Icon type='iconcuo' onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
             typeof onChange === 'function' && onChange(null, null)
