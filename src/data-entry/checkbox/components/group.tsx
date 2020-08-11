@@ -12,7 +12,7 @@ import { Checkbox } from '../../../index'
  */
 export default ({
   options = [],
-  value = [],
+  value = undefined, // 不能为引用类型不然造成死循环
   disabled = false,
   onChange,
   style = {},
@@ -27,9 +27,9 @@ export default ({
       disabled: typeof option === 'string' ? false : option.disabled
     }
   })
-  // useEffect(() => {
-  //   setvalue(Array.isArray(value) ? value : [])
-  // }, [value])
+  useEffect(() => {
+    setvalue(Array.isArray(value) ? value : [])
+  }, [value])
   return <div className='sui-checkbox-group' style={style}>
     {
       _options.map((option:any) => {
