@@ -2,6 +2,7 @@ import Icon from './general/icon'
 import Button from './general/button'
 import Empty from './data-display/empty'
 import Input from './data-entry/input'
+import InputNumber from './data-entry/Input-number'
 import Checkbox from './data-entry/checkbox'
 import CheckboxGroup from './data-entry/checkbox/components/group'
 import Radio from './data-entry/radio'
@@ -18,6 +19,7 @@ export {
   Button,
   Empty,
   Input,
+  InputNumber,
   Checkbox,
   CheckboxGroup,
   Radio,
