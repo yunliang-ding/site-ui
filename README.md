@@ -1,13 +1,10 @@
-Personal repository component library see-ui
+Personal repository component library site-ui 
 # 本地开发
 ```
-建立软连接 sudo ln -s /xx/xx/see-ui/ /xx/xx/project/node_modules/
+建立软连接 sudo ln -s /xx/xx/site-ui/ /xx/xx/project/node_modules/
 ```
-# 编译脚本
+# 预览地址
 ```
-npm run build
+http://site-ui.yunsofts.cn/ 开发中每日正常更新
 ```
-# 发布脚本
-```
-npm run publish
-```
+
