@@ -20,14 +20,14 @@ export default ({
   loading = false,
   onChange,
   style = {}
-}:any) => {
+}: any) => {
   const [_checked, setchecked] = useState(checked)
   let className = _checked ? 'sui-switch-checked' : 'sui-switch'
-  if(disabled || loading){
+  if (disabled || loading) {
     className += ' sui-switch-disabled'
   }
   let innerText = _checked ? checkedChildren : unCheckedChildren
-  useEffect(()=>{
+  useEffect(() => {
     setchecked(checked)
   }, [checked])
   return <button
@@ -35,16 +35,16 @@ export default ({
     style={style}
     onClick={
       (e) => {
-        if(disabled || loading)return
+        if (disabled || loading) return
         setchecked(!_checked)
         typeof onChange === 'function' && onChange(!_checked, e)
       }
     }
   >
     {
-      loading && <Icon type='iconloading'/>
+      loading && <Icon type='iconloading' />
     }
     <span className='sui-switch-inner'>{innerText}</span>
-    <div className='sui-click-animating-node'></div>
+    <div className='sui-click-animating-node' />
   </button>
 }
