@@ -11,6 +11,7 @@ import Select from './data-entry/select'
 import AutoComplete from './data-entry/auto-complete'
 import DatePicker from './data-entry/date-picker'
 import Cascader from './data-entry/cascader'
+import Slider from './data-entry/slider'
 import '../style/index.less'
 export {
   Icon,
@@ -25,5 +26,6 @@ export {
   Select,
   AutoComplete,
   DatePicker,
-  Cascader
+  Cascader,
+  Slider
 }

@@ -29,6 +29,23 @@ export default ({
   open = false,
   fieldNames
 }: any) => {
+  const optionsTransfrom = () => { // 自定义属性转换
+    if (typeof fieldNames !== 'object') {
+      return
+    }
+    const loop = (options) => {
+      options.forEach(option => {
+        option.key = Math.random();
+        option.label = fieldNames.label ? option[fieldNames.label] : option.label;
+        option.value = fieldNames.value ? option[fieldNames.value] : option.value;
+        option.children = fieldNames.children ? option[fieldNames.children] : option.children;
+        if (option.children) {
+          loop(option.children)
+        }
+      })
+    }
+    loop(options) // 开始转换
+  }
   const transfrom = (options, values) => { // 数组转为对象数组
     let arr = []
     let option = options
@@ -48,20 +65,13 @@ export default ({
    * value Change
    */
   useEffect(() => {
+    optionsTransfrom() // 自定义属性转换
     const values = transfrom(options, value || []).filter(item => item !== undefined)
     setselected(values) // 回显
     setvalue(values) // 回显
   }, [value])
   const updateList = (options, index) => { // 更新存储的options容器
-    list[index] = options.map(option => {
-      let obj:any = {
-        key: Math.random()
-      }
-      obj.label = fieldNames && fieldNames.label ? option[fieldNames.label] : option.label
-      obj.value = fieldNames && fieldNames.value ? option[fieldNames.value] : option.value
-      obj.children = fieldNames && fieldNames.children ? option[fieldNames.children] : option.children
-      return obj
-    })
+    list[index] = options
     setlist([...list.slice(0, index + 1)]) // clear 后面的数组
   }
   /**
