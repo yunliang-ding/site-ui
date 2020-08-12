@@ -55,12 +55,17 @@ export default ({
     })
   }
   const updateDateCalendar = (date) => { // 更新时间
+    let month:any = dateUtil.date.getMonth() + 1;
+    let day:any = dateUtil.date.getDate()
+    month = month > 9 ? month : '0' + month // safari 不兼容不标准的字符转日期
+    day = day > 9 ? day : '0' + day // safari 不兼容不标准的字符转日期
     dateUtil.setDate(new Date(date))
     setcalendar(dateUtil.getCalendar())
     setyear(dateUtil.date.getFullYear())
     setmonth(dateUtil.date.getMonth() + 1)
-    setdays(`${dateUtil.date.getFullYear()}-${dateUtil.date.getMonth() + 1}-${dateUtil.date.getDate()}`)
+    setdays(`${dateUtil.date.getFullYear()}-${month}-${day}`)
   }
+  console.log(days)
   return <>
     <div className='sui-date-picker' style={style}>
       <div className='sui-date-picker-input'>
