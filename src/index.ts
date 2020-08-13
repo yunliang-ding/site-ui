@@ -11,6 +11,7 @@ import Switch from './data-entry/switch'
 import Select from './data-entry/select'
 import AutoComplete from './data-entry/auto-complete'
 import DatePicker from './data-entry/date-picker'
+import TimePicker from './data-entry/time-picker'
 import Cascader from './data-entry/cascader'
 import Slider from './data-entry/slider'
 import '../style/index.less'
@@ -28,6 +29,7 @@ export {
   Select,
   AutoComplete,
   DatePicker,
+  TimePicker,
   Cascader,
   Slider
 }

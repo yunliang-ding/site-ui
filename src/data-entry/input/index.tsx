@@ -16,6 +16,7 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 | onPressEnter  | function(e) | 按下回车的回调         | 无      |
 | onBlur        | function(e) | 输入框得到焦点         | 无      |
 | onFocus       | function(e) | 输入框失去焦点         | 无      |
+| onAllowClear  | function(e) | 清除的回调            | 无      |
 | style         | Object      | 样式                 | 无      |
  */
 export default (props: any) => {

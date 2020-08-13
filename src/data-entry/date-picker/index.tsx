@@ -65,7 +65,7 @@ export default ({
     setmonth(dateUtil.date.getMonth() + 1)
     setdays(`${dateUtil.date.getFullYear()}-${month}-${day}`)
   }
-  console.log(days)
+  console.log('_value', _value)
   return <>
     <div className='sui-date-picker' style={style}>
       <div className='sui-date-picker-input'>
@@ -76,8 +76,9 @@ export default ({
           addonAfter={addonAfter}
           placeholder={placeholder}
           value={_value}
-          allowClear={allowClear}
-          onChange={
+          readOnly
+          allowClear={allowClear && _value}
+          onAllowClear={
             () => {
               setvalue('')
               updateDateCalendar(new Date()) // 更新时间

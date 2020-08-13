@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Suffix, Prefix } from './index'
 import { Icon } from '../../../index'
 export default ({
-	value='',
+	value,
 	prefix,
 	suffix,
 	addonBefore,
@@ -15,7 +15,9 @@ export default ({
 	onBlur,
 	onFocus,
 	onPressEnter,
-	allowClear
+	allowClear,
+	onAllowClear,
+	readOnly
 }) => {
 	let style: any = {}
 	const [_value, setvalue] = useState(value)
@@ -24,7 +26,7 @@ export default ({
 	addonBefore && (style.borderTopLeftRadius = 0, style.borderBottomLeftRadius = 0)
 	addonAfter && (style.borderTopRightRadius = 0, style.borderBottomRightRadius = 0)
 	const [password, setpassword] = useState(type === 'password')
-	useEffect(()=>{
+	useEffect(() => {
 		setvalue(value)
 	}, [value])
 	return <>
@@ -38,7 +40,7 @@ export default ({
 			placeholder={placeholder}
 			value={_value}
 			maxLength={maxLength}
-			readOnly={disabled}
+			readOnly={readOnly}
 			onChange={
 				(e) => {
 					setvalue(e.target.value)
@@ -74,11 +76,11 @@ export default ({
 				</Suffix>
 			</> : <>
 					{
-						!disabled && allowClear && _value !== '' && <Suffix style={{marginRight: suffix ? 24 : 8}} >
+						!disabled && allowClear && _value !== '' && <Suffix style={{ marginRight: suffix ? 24 : 8 }} >
 							<Icon type='iconcuo' onClick={
 								() => {
 									setvalue('')
-									typeof onChange === 'function' && onChange('')
+									typeof onAllowClear === 'function' && onAllowClear()
 								}
 							} />
 						</Suffix>
