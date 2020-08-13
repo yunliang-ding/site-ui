@@ -9,7 +9,8 @@
 | style                | object                            | 输入框 style 属性                   | 无       |
 | dropdownClassName    | object                            | 下拉菜单的 style 属性               | 无       |
 | dropdownStyle        | object                            | 下拉菜单的 style 属性               | 无       |
-| onSelect            | function(value, option)           | 选中 option                      | 无       |
+| onSelect             | function(value, option)           | 选中 option                      | 无       |
+| disabled             | boolean     | 是否禁用状态           | false    |
  */
 import React, { useState, useEffect } from 'react'
 import { Icon, Empty } from '../../index'
@@ -36,6 +37,7 @@ export default ({
   const [_open, setopen] = useState(open)
   const [suffix, setsuffix] = useState('')
   let className = _open ? 'sui-auto sui-auto-open' : 'sui-auto'
+  disabled && (className += ' sui-auto-disabled')
   return <div className={className} style={style}>
     <div className='sui-auto-selection' onClick={
       () => {

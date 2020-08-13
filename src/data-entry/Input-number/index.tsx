@@ -1,3 +1,17 @@
+/**
+ * 
+| **属性名**   | **类型**    | **描述**               | **默认** |
+| ------------ | ----------- | ---------------------- | -------- |
+| value        | string      | 输入框默认内容         | 无       |
+| placeholder  | string      | 提示语                | 无       |
+| step         | number      | 步长                 | 1    |
+| disabled     | boolean     | 是否禁用状态           | false    |
+| onChange     | function(value) | 输入框内容变化时的回调 | 无       |
+| onPressEnter | function(e) | 按下回车的回调         | 无       |
+| onBlur       | function(e) | 输入框得到焦点         | 无       |
+| onFocus      | function(e) | 输入框失去焦点         | 无       |
+| style        | Object      | 样式                   | 无       |
+ */
 import React, { useState, useEffect } from 'react'
 import { Icon } from '../../index'
 export default ({
@@ -9,12 +23,25 @@ export default ({
   onChange,
   onBlur,
   onFocus,
-  onPressEnter
+  onPressEnter,
+  step = 1
 }) => {
   const [_value, setvalue] = useState(value)
   useEffect(() => {
     setvalue(value)
   }, [value])
+  const add = () => {
+    let value = Number(_value) + Number(step)
+    updateValue(value)
+  }
+  const minus = () => {
+    let value = Number(_value) - Number(step)
+    updateValue(value)
+  }
+  const updateValue = (value) => {
+    setvalue(step < 1 ? Number(value).toFixed(1) : Number(value))
+    typeof onChange === 'function' && onChange(step < 1 ? Number(value).toFixed(1) : Number(value))
+  }
   return <div className='sui-input-number-wrapper' style={style}>
     <input
       type='text'
@@ -25,12 +52,16 @@ export default ({
       readOnly={disabled}
       onChange={
         (e) => {
-          setvalue(e.target.value)
-          typeof onChange === 'function' && onChange(e)
+          updateValue(e.target.value)
         }
       }
       onBlur={
         (e) => {
+          let value:any = Number(_value)
+          if(isNaN(value)){
+            value = ''
+          }
+          setvalue(value)
           typeof onBlur === 'function' && onBlur(e)
         }
       }
@@ -49,8 +80,8 @@ export default ({
     />
     {
       !disabled && <div className='sui-input-number-suffix'>
-        <div className='suffix-top'><Icon type='iconxiala1' size={12} /></div>
-        <div className='suffix-bottom'><Icon type='iconxialadown' size={12} /></div>
+        <div className='suffix-top' onClick={add}><Icon type='iconxiala1' size={12} /></div>
+        <div className='suffix-bottom' onClick={minus}><Icon type='iconxialadown' size={12} /></div>
       </div>
     }
   </div>
