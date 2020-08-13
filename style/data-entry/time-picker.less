@@ -79,7 +79,7 @@
     background: transparent;
   }
   .sui-time-picker-dropdown{
-    height: 220px;
+    height: 212px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
     border-radius: @border-radius-base;
@@ -97,17 +97,20 @@
       padding: 0 10px;
       border-bottom: 1px solid #eee;
       color:@text-color;
+      position: relative;
+      z-index: 1;
+      background: #fff;
     }
     .sui-time-picker-dropdown-box{
       display: flex;
       user-select: none;
-      height: calc(100% - 32px);
       .sui-time-picker-dropdown-col{
         width:50px;
-        height:100%;
+        height: 180px;
         overflow: auto;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding-bottom:150px;
         .sui-time-picker-dropdown-menu{
           transition: .3s;
           position: relative;

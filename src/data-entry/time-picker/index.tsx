@@ -14,7 +14,7 @@
 | onChange             | function(value, option)                 | 选中 option                       | 无       |
 | fieldNames           | object                                  | 自定义 options 中 label name children | 无   
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Icon, Input } from '../../index'
 export default ({
   value,
@@ -63,7 +63,7 @@ export default ({
    * 数据转化 转为2维数组渲染
    */
   const [times, settimes] = useState([]) // 最终选中的指
-  const [_value, setvalue] = useState([]) // 内部存选中值容器
+  const [_value, setvalue] = useState(value ? value.split(':') : []) // 内部存选中值容器
   const [_open, setopen] = useState(open)
   /**
    * 内部状态
@@ -74,6 +74,16 @@ export default ({
   /**
    * JSX
    */
+  const dropdownColHourRef = useRef()
+  const dropdownColMinuteRef = useRef()
+  const dropdownColSecondRef = useRef()
+  useEffect(()=>{
+    if(dropdownColHourRef && dropdownColHourRef.current){
+      dropdownColHourRef.current.scrollTop = !isNaN(Number(_value[0])) ? 30 * Number(_value[0]) : 0
+      dropdownColMinuteRef.current.scrollTop = !isNaN(Number(_value[1])) ? 30 * Number(_value[1]) : 0
+      dropdownColSecondRef.current.scrollTop = !isNaN(Number(_value[2])) ? 30 * Number(_value[2]) : 0
+    } 
+  }, [_open, _value])
   return <div className={className} style={style}>
     <Input
       suffix={<Icon type='icontime' />}
@@ -110,7 +120,16 @@ export default ({
           <div className='sui-time-picker-dropdown-box'>
             {
               timeList.map((item, index) => {
-                return <div className='sui-time-picker-dropdown-col' key={index}>
+                return <div
+                  className='sui-time-picker-dropdown-col'
+                  ref={
+                    index === 0 ? dropdownColHourRef : index === 1 ? dropdownColMinuteRef : dropdownColSecondRef
+                  }
+                  key={index}
+                  style={{
+                    // transform: `translateY(${-)}px)`
+                  }}
+                >
                   {
                     item.map((option, _index) => {
                       let selelcted = false
