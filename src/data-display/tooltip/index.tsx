@@ -25,19 +25,19 @@ export default ({
     let style: any = {}
     const { left, width, height, top } = toolTipRef.current.getClientRects()[0];
     if (placement === 'top') {
-      style.top = top - 8
+      style.top = top
       style.left = left + width / 2
     } else if (placement === 'bottom') {
-      style.top = top + height + 8
+      style.top = top + height
       style.left = left + width / 2
     } else if (placement === 'left') {
       style.top = top + height / 2
-      style.left = left - 8
+      style.left = left
     } else if (placement === 'right') {
       style.top = top + height / 2
-      style.left = left + width + 8
+      style.left = left + width
     } else { // top default
-      style.top = top - 12
+      style.top = top
       style.left = left + width / 2
     }
     setstyle(style)
@@ -58,18 +58,21 @@ export default ({
   if (overlayClassName) {
     className.push(overlayClassName)
   }
-  return <div
-    className={_open ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}
-    onMouseOver={() => {
-      setopen(true)
-      typeof onVisibleChange === 'function' && onVisibleChange(true)
-    }}
-    onMouseOut={() => {
-      setopen(false)
-      typeof onVisibleChange === 'function' && onVisibleChange(false)
-    }}
-  >
-    <span style={{ display: 'inline-block' }} ref={toolTipRef}>{children}</span>
+  return <div className={_open ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}>
+    <span
+      style={{ display: 'inline-block' }}
+      ref={toolTipRef}
+      onMouseOver={() => {
+        setopen(true)
+        typeof onVisibleChange === 'function' && onVisibleChange(true)
+      }}
+      onMouseOut={() => {
+        setopen(false)
+        typeof onVisibleChange === 'function' && onVisibleChange(false)
+      }}
+    >
+      {children}
+    </span>
     <div
       style={{ overlayStyle, ...style }}
       className={className.join(' ')}
