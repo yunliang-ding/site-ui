@@ -23,24 +23,24 @@ export default ({
   const toolTipRef = useRef()
   useEffect(() => {
     let style: any = {}
-    const { left, width, height, top } = toolTipRef.current.getClientRects()[0]
-    if (placement === 'bottom') {
-      style.top = top + height + 4
+    const { left, width, height, top } = toolTipRef.current.getClientRects()[0];
+    if (placement === 'top') {
+      style.top = top - 8
       style.left = left + width / 2
-      setstyle(style)
+    } else if (placement === 'bottom') {
+      style.top = top + height + 8
+      style.left = left + width / 2
     } else if (placement === 'left') {
-      style.top = top - height / 2
-      style.left = left
-      setstyle(style)
+      style.top = top + height / 2
+      style.left = left - 8
     } else if (placement === 'right') {
-      style.top = top - height / 2
-      style.left = left + width
-      setstyle(style)
+      style.top = top + height / 2
+      style.left = left + width + 8
     } else { // top default
-      style.top = top - height - 4
+      style.top = top - 12
       style.left = left + width / 2
-      setstyle(style)
     }
+    setstyle(style)
   }, [])
   /**
    * 组装clasName
@@ -55,26 +55,21 @@ export default ({
   } else if (placement === 'bottom') {
     className.push('sui-tooltip-placement-bottom')
   }
-  if (!_open) {
-    className.push('sui-tooltip-hidden')
-  }
   if (overlayClassName) {
     className.push(overlayClassName)
   }
-  return <>
-    <span
-      ref={toolTipRef}
-      onMouseOver={() => {
-        setopen(true)
-        typeof onVisibleChange === 'function' && onVisibleChange(true)
-      }}
-      onMouseOut={() => {
-        setopen(false)
-        typeof onVisibleChange === 'function' && onVisibleChange(false)
-      }}
-    >
-      {children}
-    </span>
+  return <div
+    className={_open ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}
+    onMouseOver={() => {
+      setopen(true)
+      typeof onVisibleChange === 'function' && onVisibleChange(true)
+    }}
+    onMouseOut={() => {
+      setopen(false)
+      typeof onVisibleChange === 'function' && onVisibleChange(false)
+    }}
+  >
+    <span style={{ display: 'inline-block' }} ref={toolTipRef}>{children}</span>
     <div
       style={{ overlayStyle, ...style }}
       className={className.join(' ')}
@@ -84,5 +79,5 @@ export default ({
         <div className='sui-tooltip-inner' role='tooltip'>{title}</div>
       </div>
     </div>
-  </>
+  </div>
 }
