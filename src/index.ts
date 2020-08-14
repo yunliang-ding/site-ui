@@ -2,6 +2,7 @@ import Icon from './general/icon'
 import Button from './general/button'
 import Empty from './data-display/empty'
 import Tooltip from './data-display/tooltip'
+import Carousel from './data-display/carousel'
 import Input from './data-entry/input'
 import InputNumber from './data-entry/Input-number'
 import Checkbox from './data-entry/checkbox'
@@ -21,6 +22,7 @@ export {
   Button,
   Empty,
   Tooltip,
+  Carousel,
   Input,
   InputNumber,
   Checkbox,
