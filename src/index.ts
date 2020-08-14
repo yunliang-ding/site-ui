@@ -1,6 +1,7 @@
 import Icon from './general/icon'
 import Button from './general/button'
 import Empty from './data-display/empty'
+import Tooltip from './data-display/tooltip'
 import Input from './data-entry/input'
 import InputNumber from './data-entry/Input-number'
 import Checkbox from './data-entry/checkbox'
@@ -19,6 +20,7 @@ export {
   Icon,
   Button,
   Empty,
+  Tooltip,
   Input,
   InputNumber,
   Checkbox,

@@ -1,3 +1,94 @@
 .sui-tooltip{
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: @text-color;
+  font-size: @font-size-base;
+  line-height: 1.5;
+  list-style: none;
+  position: absolute;
+  z-index: 930220;
+  display: block;
+  max-width: 250px;
+  .sui-tooltip-arrow{
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    pointer-events: none;
+    &::before{
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 10px;
+      height: 10px;
+      margin: auto;
+      background-color: #444;
+      content: '';
+      pointer-events: auto;
+    }
+  }
+  .sui-tooltip-inner{
+    min-width: 30px;
+    min-height: 32px;
+    padding: 6px 8px;
+    color: #fff;
+    text-align: left;
+    text-decoration: none;
+    word-wrap: break-word;
+    background-color: #444;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+}
+.sui-tooltip-hidden{
+  display: none;
+}
+.sui-tooltip-placement-top, 
+.sui-tooltip-placement-bottom, 
+.sui-tooltip-placement-left,
+.sui-tooltip-placement-right{
+  .sui-tooltip-arrow::before{
+    box-shadow: 3px 3px 7px rgba(0,0,0,.07);
+  }
+}
+.sui-tooltip-placement-top{
+  transform: translate(-50%, -50%);
+  padding-bottom: 8px;
+  .sui-tooltip-arrow{
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+.sui-tooltip-placement-bottom{
+  transform: translate(-50%, 10%);
+  padding-top: 8px;
+  .sui-tooltip-arrow{
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 50%) rotate(45deg);
+  }
+}
+.sui-tooltip-placement-left{
+  transform: translate(-100%, 0%);
+  padding-right: 8px;
+  .sui-tooltip-arrow{
+    top: 50%;
+    right: 0%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+.sui-tooltip-placement-right{
+  transform: translate(0%, 0%);
+  padding-left: 8px;
+  .sui-tooltip-arrow{
+    top: 50%;
+    left: 0%;
+    transform: translate(50%, -50%) rotate(45deg);
+  }
 }
