@@ -17,6 +17,7 @@ import DatePicker from './data-entry/date-picker'
 import TimePicker from './data-entry/time-picker'
 import Cascader from './data-entry/cascader'
 import Slider from './data-entry/slider'
+import Menu from './navigation/menu'
 import '../style/index.less'
 export {
   Icon,
@@ -37,5 +38,6 @@ export {
   TimePicker,
   Cascader,
   Slider,
-  Badge
+  Badge,
+  Menu
 }
