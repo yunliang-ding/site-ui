@@ -1,0 +1,26 @@
+.sui-badge-wrapper{
+  position: relative;
+  .sui-badge-count, .sui-badge-dot{
+    overflow: hidden;
+    min-width: 20px;
+    height: 20px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-align: center;
+    background: @primary-color;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translate(50%,-50%) scale(.9);
+  }
+  .sui-badge-dot{
+    min-width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+}
