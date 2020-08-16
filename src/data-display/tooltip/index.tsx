@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
-| ------------ | -------------------- | ------------ | ---------- |
-| title               | ReactNode   | 展示的内容       | 无       |
-| placement           | string         | 方向          | 无       |
-| overlayClassName    | object         | 类名           | 无       |
-| overlayStyle        | object          | 样式          | 无       |
-| visible             | boolean          | 是否显示    | false       |
-| onVisibleChange     | function(visible) | 显示改变的回调    | 无       |
-innerStyle,
-  theme
+| ---------------- | ----------------- | -------------- | -------- |
+| title            | ReactNode         | 展示的内容     | 无       |
+| placement        | string            | 方向           | 无       |
+| overlayClassName | object            | 类名           | 无       |
+| overlayStyle     | object            | 样式           | 无       |
+| innerStyle       | object            | 内部盒子样式   | 无       |
+| visible          | boolean           | 是否显示       | false    |
+| onVisibleChange  | function(visible) | 显示改变的回调 | 无       |
+| theme            | string            | light/dark     | light    |
  */
 export default ({
   children,
