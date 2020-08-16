@@ -65,7 +65,6 @@ export default ({
     setmonth(dateUtil.date.getMonth() + 1)
     setdays(`${dateUtil.date.getFullYear()}-${month}-${day}`)
   }
-  console.log('_value', _value)
   return <>
     <div className='sui-date-picker' style={style}>
       <div className='sui-date-picker-input'>

@@ -46,7 +46,6 @@ export default ({
         style.top = top
         style.left = left + width / 2
       }
-      console.log(style)
       setstyle(style)
     }
   }, [])
