@@ -8,6 +8,8 @@ import React, { useState, useEffect, useRef } from 'react'
 | overlayStyle        | object          | 样式          | 无       |
 | visible             | boolean          | 是否显示    | false       |
 | onVisibleChange     | function(visible) | 显示改变的回调    | 无       |
+innerStyle,
+  theme
  */
 export default ({
   children,
@@ -16,32 +18,37 @@ export default ({
   overlayClassName,
   overlayStyle = {},
   visible,
-  onVisibleChange
+  onVisibleChange,
+  innerStyle,
+  theme
 }: any) => {
   const [_open, setopen] = useState(visible)
   const [style, setstyle] = useState()
   const toolTipRef = useRef()
   useEffect(() => {
-    if(toolTipRef.current.getClientRects()[0] === undefined)return
-    let style: any = {}
-    const { left, width, height, top } = toolTipRef.current.getClientRects()[0];
-    if (placement === 'top') {
-      style.top = top
-      style.left = left + width / 2
-    } else if (placement === 'bottom') {
-      style.top = top + height
-      style.left = left + width / 2
-    } else if (placement === 'left') {
-      style.top = top + height / 2
-      style.left = left
-    } else if (placement === 'right') {
-      style.top = top + height / 2
-      style.left = left + width
-    } else { // top default
-      style.top = top
-      style.left = left + width / 2
+    if(toolTipRef.current){
+      let style: any = {}
+      let element = toolTipRef.current.firstElementChild ? toolTipRef.current.firstElementChild : toolTipRef.current
+      const { left, width, height, top } = element.getBoundingClientRect();
+      if (placement === 'top') {
+        style.top = top
+        style.left = left + width / 2
+      } else if (placement === 'bottom') {
+        style.top = top + height
+        style.left = left + width / 2
+      } else if (placement === 'left') {
+        style.top = top + height / 2
+        style.left = left
+      } else if (placement === 'right') {
+        style.top = top + height / 2
+        style.left = left + width
+      } else { // top default
+        style.top = top
+        style.left = left + width / 2
+      }
+      console.log(style)
+      setstyle(style)
     }
-    setstyle(style)
   }, [])
   /**
    * 组装clasName
@@ -59,9 +66,11 @@ export default ({
   if (overlayClassName) {
     className.push(overlayClassName)
   }
+  if(theme === 'dark'){
+    className.push('sui-tooltip-dark')
+  }
   return <div className={_open ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}>
     <span
-      style={{ display: 'inline-block' }}
       ref={toolTipRef}
       onMouseOver={() => {
         setopen(true)
@@ -75,12 +84,12 @@ export default ({
       {children}
     </span>
     <div
-      style={{ overlayStyle, ...style }}
+      style={{ ...overlayStyle, ...style }}
       className={className.join(' ')}
     >
       <div className='sui-tooltip-content'>
         <div className='sui-tooltip-arrow'></div>
-        <div className='sui-tooltip-inner' role='tooltip'>{title}</div>
+        <div style={innerStyle} className='sui-tooltip-inner'>{title}</div>
       </div>
     </div>
   </div>

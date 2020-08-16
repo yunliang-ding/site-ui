@@ -1,4 +1,4 @@
-.sui-nav{
+.sui-nav, .sui-nav-dark{
   width:100%;
   transition: .5s;
   .sui-nav-subMenu{
@@ -21,8 +21,8 @@
         transition: .3s;
         width:calc(100% - 24px);
         .sui-icon{
-          margin-right:6px;
           width:24px;
+          margin-right: 2px;
         }
         span{
           overflow: hidden;
@@ -70,9 +70,14 @@
   }
   .sui-nav-subMenu-selected{
     .sui-nav-subMenu-parent{
+      .sui-nav-subMenu-collapsed{
+        .sui-icon{
+          color: @primary-color;
+        }
+      }
       .sui-nav-subMenu-label-left{
         transition: .3s;
-        .sui-icon,span{
+        .sui-icon, span{
           color: @primary-color;
         }
       }
@@ -89,6 +94,79 @@
       .sui-nav-subMenu-label{
         .sui-nav-subMenu-label-left, .iconxialadown{
           color:@text-color !important;
+        }
+      }
+    }
+  }
+}
+.sui-nav-dark{
+  background-color: #000c17;
+  .sui-nav-subMenu{
+    .sui-nav-subMenu-label{
+      border-right:3px solid #000c17;
+      color:#ffffffa6 !important;
+      .sui-nav-subMenu-label-left, .iconxialadown{
+        color:#ffffffa6 !important;
+        span{
+          color:#ffffffa6 !important;
+        }
+      }
+      &:hover{
+        .sui-nav-subMenu-label-left, .iconxialadown{
+          color:#fff !important;
+          span{
+            color:#fff !important;
+          }
+        }
+      }
+    }
+    .sui-nav-subMenu-collapsed{
+      .sui-icon{
+        color: #999 !important;
+      }
+    }
+  }
+  .sui-nav-subMenu-active{
+    background-color: @primary-color;
+    .sui-nav-subMenu-label{
+      border-color:@primary-color;
+      color: #fff;
+      .sui-nav-subMenu-label-left{
+        color: #fff;
+        span, .sui-icon{
+          color: #fff !important;
+        }
+      }
+    }
+  }
+  .sui-nav-subMenu-parent{
+    background-color: #001629;
+  }
+  .sui-nav-subMenu-selected{
+    .sui-nav-subMenu-parent{
+      border-right:3px solid #000c17;
+      color:#fff !important;
+      .sui-nav-subMenu-label-left, .iconxialadown{
+        color:#fff !important;
+        span, .sui-icon{
+          color:#fff !important;
+        }
+      }
+    }
+    .sui-nav-subMenu-collapsed{
+      .sui-icon{
+        color: #fff !important;
+      }
+    }
+  }
+  .sui-nav-subMenu-disabled{
+    .sui-nav-subMenu-label-left{
+      color: #fff !important;
+    }
+    &:hover{
+      .sui-nav-subMenu-label{
+        .sui-nav-subMenu-label-left, .iconxialadown{
+          color:#fff !important;
         }
       }
     }

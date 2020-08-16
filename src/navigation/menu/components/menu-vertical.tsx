@@ -11,7 +11,7 @@ export default ({
 }: any) => {
   const [_openKey, setopenKey] = useState(openKey || [])
   const [_selectKey, setselectKey] = useState(selectKey || [])
-  const isSelected = (menus) => {
+  const isSelected = (menus) => { // 判断是否有子节点选中
     return menus.some(item => {
       if (_selectKey.includes(item.key)) {
         return true
@@ -24,13 +24,16 @@ export default ({
     return <>
       <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
         <span className='sui-nav-subMenu-label-left' title={item.label}>
-          <Icon type={item.icon} />
+          {item.icon && <Icon type={item.icon} />}
           <span>{item.label}</span>
         </span>
+        {
+          item.children && <Icon type='iconxialadown' />
+        }
       </div>
       {
         item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>
-          {renderMenus(item.children, paddingLeft)}
+          {renderMenus(item.children, paddingLeft + 24)}
         </div>
       }
     </>
@@ -38,16 +41,19 @@ export default ({
   const renderCollapsedNav = (item, labelClassName, paddingLeft) => {
     return <>
       <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
-        <span className='sui-nav-subMenu-label-left' title={item.label}>
-          <Icon type={item.icon} />
-          <span>{item.label}</span>
-        </span>
+        {
+          item.children ? <Tooltip theme={theme} placement='right' title={
+            <span>{item.label}</span>
+          }>
+            <span className='sui-nav-subMenu-collapsed'>
+              <Icon type={item.icon} />
+            </span>
+          </Tooltip> : <span className='sui-nav-subMenu-label-left' title={item.label}>
+              {item.icon && <Icon type={item.icon} />}
+              <span>{item.label}</span>
+            </span>
+        }
       </div>
-      {
-        item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>
-          {renderMenus(item.children, paddingLeft)}
-        </div>
-      }
     </>
   }
   const renderMenus = (menus, paddingLeft) => {
@@ -100,19 +106,20 @@ export default ({
       >
         {
           collapsed
-            ? renderNav(item, labelClassName, paddingLeft)
-            : renderCollapsedNav(item, labelClassName, paddingLeft)
+            ? renderCollapsedNav(item, labelClassName, paddingLeft)
+            : renderNav(item, labelClassName, paddingLeft)
         }
       </div>
     })
   }
+  let className = theme === 'dark' ? 'sui-nav-dark' : 'sui-nav'
   return <>
-    <div className='sui-nav' style={{
+    <div className={className} style={{
       ...style,
-      width: collapsed ? 80 : style.width
+      width: collapsed ? 40 : style.width
     }}>
       {
-        renderMenus(menus, 8)
+        renderMenus(menus, 10)
       }
       {}
     </div>
