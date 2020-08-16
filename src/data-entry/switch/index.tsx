@@ -42,7 +42,7 @@ export default ({
     }
   >
     {
-      loading && <Icon type='iconloading' />
+      loading && <Icon type='iconloading' size={10} />
     }
     <span className='sui-switch-inner'>{innerText}</span>
     <div className='sui-click-animating-node' />
