@@ -58,7 +58,7 @@ export default ({
               selected.map(item => {
                 return <span className='sui-select-selection-choice' key={item.key}>
                   {item.label}
-                  <Icon type='iconguanbi' onClick={
+                  <Icon size={14} type='iconguanbi' onClick={
                     (e) => {
                       e.stopPropagation() // 阻止冒泡
                       optionClick(item) // 删除
@@ -73,7 +73,7 @@ export default ({
       </div>
       <Icon type='iconxialadown' />
       {
-        !disabled && allowClear && selected.length > 0 && <Icon type='iconcuo' onClick={
+        !disabled && allowClear && selected.length > 0 && <Icon size={14} type='iconcuo' onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
             typeof onChange === 'function' && onChange([], null)
@@ -102,7 +102,7 @@ export default ({
                 }
               >
                 {option.label}
-                <Icon type='iconduihao' />
+                <Icon size={14} type='iconduihao' />
               </div>
             })
           }

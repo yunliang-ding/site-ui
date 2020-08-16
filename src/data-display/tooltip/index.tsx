@@ -25,7 +25,20 @@ export default ({
   const [_open, setopen] = useState(visible)
   const [style, setstyle] = useState()
   const toolTipRef = useRef()
-  useEffect(() => {
+  // debounce 防抖
+  const debounce = (fn, delay = 10) => {
+    if (typeof fn !== 'function') { // 参数类型为函数
+      throw new TypeError('fn is not a function');
+    }
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.call(this, ...args);
+      }, delay);
+    }
+  }
+  const setPosition = () => {
     if(toolTipRef.current){
       let style: any = {}
       let element = toolTipRef.current.firstElementChild ? toolTipRef.current.firstElementChild : toolTipRef.current
@@ -48,6 +61,17 @@ export default ({
       }
       setstyle(style)
     }
+  }
+  useEffect(() => {
+    /**
+     * 监听滚动事件
+     */
+    window.addEventListener('scroll', debounce(() => {
+      setPosition()
+    }))
+  }, [])
+  useEffect(() => {
+    setPosition()
   }, [])
   /**
    * 组装clasName
