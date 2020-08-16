@@ -1,5 +1,6 @@
 .sui-nav{
   width:100%;
+  transition: .5s;
   .sui-nav-subMenu{
     color:@text-color;
     font-size:13px;
@@ -18,12 +19,12 @@
         display:flex;
         align-items: center;
         transition: .3s;
-        width:100%;
+        width:calc(100% - 24px);
         .sui-icon{
           margin-right:6px;
+          width:24px;
         }
         span{
-          margin-right: 20px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;

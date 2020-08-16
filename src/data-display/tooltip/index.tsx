@@ -22,6 +22,7 @@ export default ({
   const [style, setstyle] = useState()
   const toolTipRef = useRef()
   useEffect(() => {
+    if(toolTipRef.current.getClientRects()[0] === undefined)return
     let style: any = {}
     const { left, width, height, top } = toolTipRef.current.getClientRects()[0];
     if (placement === 'top') {

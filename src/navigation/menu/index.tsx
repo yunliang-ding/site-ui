@@ -9,6 +9,8 @@ import { MenuVerical, MenuHorizontal } from './components'
 | type         | string    | icon        | 无       |
 | onClick      | function(e) | 点击回调    | 无       |
  */
-export default (props:any) => {
-  return props.mode === 'horizontal' ? <MenuHorizontal {...props} /> : <MenuVerical {...props} />
+export default (props: any) => {
+  return props.mode === 'horizontal'
+    ? <MenuHorizontal {...props} />
+    : <MenuVerical {...props} />
 }

@@ -8,7 +8,7 @@ import React from 'react'
 | type         | string    | icon        | 无       |
 | onClick      | function(e) | 点击回调    | 无       |
  */
-export default ({ type, size=18, style, onClick, color }:any) => {
+export default ({ type, size=16, style, onClick, color }:any) => {
   let _style = style || {}
   _style.fontSize = size
   _style.color = color

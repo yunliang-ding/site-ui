@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Icon } from '../../../index'
+import { Icon, Tooltip } from '../../../index'
 export default ({
   menus,
   menuClick,
@@ -7,9 +7,8 @@ export default ({
   selectKey,
   style,
   collapsed,
-  collapsedWidth,
   theme
-}) => {
+}: any) => {
   const [_openKey, setopenKey] = useState(openKey || [])
   const [_selectKey, setselectKey] = useState(selectKey || [])
   const isSelected = (menus) => {
@@ -21,7 +20,37 @@ export default ({
       }
     })
   }
-  const renderNav = (menus, paddingLeft) => {
+  const renderNav = (item, labelClassName, paddingLeft) => {
+    return <>
+      <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
+        <span className='sui-nav-subMenu-label-left' title={item.label}>
+          <Icon type={item.icon} />
+          <span>{item.label}</span>
+        </span>
+      </div>
+      {
+        item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>
+          {renderMenus(item.children, paddingLeft)}
+        </div>
+      }
+    </>
+  }
+  const renderCollapsedNav = (item, labelClassName, paddingLeft) => {
+    return <>
+      <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
+        <span className='sui-nav-subMenu-label-left' title={item.label}>
+          <Icon type={item.icon} />
+          <span>{item.label}</span>
+        </span>
+      </div>
+      {
+        item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>
+          {renderMenus(item.children, paddingLeft)}
+        </div>
+      }
+    </>
+  }
+  const renderMenus = (menus, paddingLeft) => {
     return menus.map(item => {
       let className = ['sui-nav-subMenu']
       /**
@@ -52,7 +81,7 @@ export default ({
         onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
-            if(item.disabled)return;
+            if (item.disabled) return;
             let selectKey = _selectKey
             if (item.children) {
               if (_openKey.includes(item.key)) {
@@ -66,28 +95,26 @@ export default ({
               setselectKey(selectKey)
             }
             typeof menuClick === 'function' && menuClick(_openKey, selectKey)
-            e.stopPropagation() // 阻止冒泡
           }
         }
       >
-        <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
-          <span className='sui-nav-subMenu-label-left' title={item.label}>
-            <Icon type={item.icon} />
-            <span>{item.label}</span>
-          </span>
-          {item.children && <Icon type='iconxialadown' size={16} />}
-        </div>
         {
-          item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>
-            {renderNav(item.children, paddingLeft + 16)}
-          </div>
+          collapsed
+            ? renderNav(item, labelClassName, paddingLeft)
+            : renderCollapsedNav(item, labelClassName, paddingLeft)
         }
       </div>
     })
   }
   return <>
-    <div className='sui-nav' style={style}>
-      {renderNav(menus, 8)}
+    <div className='sui-nav' style={{
+      ...style,
+      width: collapsed ? 80 : style.width
+    }}>
+      {
+        renderMenus(menus, 8)
+      }
+      {}
     </div>
   </>
 }
