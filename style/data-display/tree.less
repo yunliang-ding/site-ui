@@ -1,0 +1,84 @@
+.sui-tree{
+  width:100%;
+  transition: .5s;
+  background-color: #fff;
+  .sui-tree-node{
+    color:@text-color;
+    font-size:13px;
+    width:100%;
+    cursor: pointer;
+    .sui-tree-node-label{
+      display:flex;
+      align-items: center;
+      width:100%;
+      height:26px;
+      box-sizing: border-box;
+      border-right:3px solid #fff;
+      transition: .5s;
+      .sui-tree-node-label-left{
+        display:flex;
+        align-items: center;
+        transition: .3s;
+        width:100%;
+        .sui-icon{
+          width:24px;
+        }
+        .sui-tree-node-label-left-text,.sui-tree-node-label-left-text-active{
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          position: relative;
+          width:100%;
+        }
+        .sui-tree-node-label-left-text-active{
+          color:@primary-color;
+        }
+      }
+      .iconxialadown{
+        transition: .5s;
+        font-weight: 900;
+        transform: rotate(-90deg);
+        margin-right: 4px;;
+      }
+    }
+    .sui-tree-node-label-open{
+      .iconxialadown{
+        transition: .5s;
+        transform: rotate(0deg);
+      }
+    }
+    .sui-tree-node-hidden{
+      display:none;
+    }
+  }
+  .sui-tree-node-selected{
+    .sui-tree-node-parent{
+      .sui-tree-node-collapsed{
+        .sui-icon{
+          color: @primary-color;
+        }
+      }
+      .sui-tree-node-label-left{
+        transition: .3s;
+        .sui-icon, .sui-tree-node-label-left-text{
+          color: @primary-color;
+        }
+      }
+    }
+  }
+  .sui-tree-node-disabled{
+    transition: .3s;
+    cursor: not-allowed !important;
+    .sui-tree-node-label{
+      color: @text-color !important;
+      opacity: .5;
+    }
+    &:hover{
+      .sui-tree-node-label{
+        .sui-tree-node-label-left, .iconxialadown{
+          color:@text-color !important;
+        }
+      }
+    }
+  }
+}
