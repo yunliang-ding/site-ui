@@ -19,6 +19,7 @@ import Cascader from './data-entry/cascader'
 import Slider from './data-entry/slider'
 import Menu from './navigation/menu'
 import Tree from './data-display/tree'
+import Alert from './feed-back/alert'
 import '../style/index.less'
 export {
   Icon,
@@ -41,5 +42,6 @@ export {
   Slider,
   Badge,
   Menu,
-  Tree
+  Tree,
+  Alert
 }

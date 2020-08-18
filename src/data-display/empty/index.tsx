@@ -12,7 +12,7 @@ export default ({
   icon = 'iconempty'
 }) => {
   return <div className='sui-empty-wrapper'>
-    <Icon type={icon} />
+    <Icon type={icon} size={50} />
     <span className='sui-empty-wrapper-label'>{label}</span>
   </div>
 }

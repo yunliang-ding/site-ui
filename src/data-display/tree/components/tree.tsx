@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Icon, Checkbox } from '../../../index'
 export default ({
-  treeData,
+  treeData = [],
   expandedKeys,
   checkable = false,
   checkedKeys,
@@ -14,7 +14,6 @@ export default ({
   const [_expandedKeys, setexpandedKeys] = useState(expandedKeys || [])
   const [_checkedKeys, setcheckedKeys] = useState(checkedKeys || [])
   const [_selectedKeys, setselectedKeys] = useState('')
-  console.log(disabled)
   const renderTree = (treeData, paddingLeft) => {
     return treeData.map(item => {
       let className = ['sui-tree-node']
