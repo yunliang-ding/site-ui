@@ -20,6 +20,7 @@ import Slider from './data-entry/slider'
 import Menu from './navigation/menu'
 import Tree from './data-display/tree'
 import Alert from './feed-back/alert'
+import Message from './feed-back/message'
 import '../style/index.less'
 export {
   Icon,
@@ -43,5 +44,6 @@ export {
   Badge,
   Menu,
   Tree,
-  Alert
+  Alert,
+  Message
 }

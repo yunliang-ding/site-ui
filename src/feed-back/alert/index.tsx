@@ -28,7 +28,7 @@ export default ({
           <span>{message}</span>
         </div>
         {
-          closable && <Icon type='iconguanbi' onClick={setopen.bind(null, false)} />
+          closable && <Icon type='iconguanbi' size={14} onClick={setopen.bind(null, false)} />
         }
       </div>
     }

@@ -1,0 +1,42 @@
+.sui-message, .sui-message-dark{
+  position: fixed;
+  top: 50;
+  left: calc(50% - 120px);
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  padding:0 10px;
+  background: #fff;
+  box-shadow: 0 0 5px 0px #dcdcdc;
+  color:@text-color;
+  height:38px;
+  z-index: 930226;
+  transition: .4s;
+  border-radius: @border-radius-base;
+  .sui-message-content{
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-right: 30px;
+    height:100%;
+    white-space: nowrap;
+    .sui-message-content-icon{
+      width:30px;
+    }
+    .sui-message-content-message{
+      width:calc(~'100% - 40px');
+      font-size: 13px;
+    }
+    .sui-message-content-close{
+      position: absolute;
+      right:0;
+      cursor: pointer;
+      transition: .3s;
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+  }
+}
