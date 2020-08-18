@@ -21,6 +21,7 @@ import Menu from './navigation/menu'
 import Tree from './data-display/tree'
 import Alert from './feed-back/alert'
 import Message from './feed-back/message'
+import Drawer from './feed-back/drawer'
 import '../style/index.less'
 export {
   Icon,
@@ -45,5 +46,6 @@ export {
   Menu,
   Tree,
   Alert,
-  Message
+  Message,
+  Drawer
 }
