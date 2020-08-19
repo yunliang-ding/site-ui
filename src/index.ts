@@ -22,6 +22,7 @@ import Tree from './data-display/tree'
 import Alert from './feed-back/alert'
 import Message from './feed-back/message'
 import Drawer from './feed-back/drawer'
+import Modal from './feed-back/modal'
 import '../style/index.less'
 export {
   Icon,
@@ -47,5 +48,6 @@ export {
   Tree,
   Alert,
   Message,
-  Drawer
+  Drawer,
+  Modal
 }

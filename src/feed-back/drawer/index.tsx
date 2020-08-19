@@ -8,7 +8,7 @@ export default ({
   style={},
   onClose,
   onOk,
-  content,
+  children,
   footer,
   mask
 }:any) => {
@@ -41,11 +41,10 @@ export default ({
           </div>
           {closable && <Icon type='iconguanbi' onClick={close} />}
         </div>
-        {mask !== false && <div className='sui-drawer-mask' onClick={close} />}
         <div className='sui-drawer-body' style={{
           height: footer === false ? 'calc(100% - 50px)' : 'calc(100% - 100px)'
         }}>
-          {content}
+          {children}
         </div>
         {
           footer !== false && <div className='sui-drawer-footer'>
@@ -59,5 +58,6 @@ export default ({
         }
       </div>
     }
+    {_visible === true && <div className={mask !== false ? 'sui-drawer-mask' : 'sui-drawer-mask-none'} onClick={close} />}
   </>
 }
