@@ -2,12 +2,13 @@
   width:600px;
   height:400px;
   position: fixed;
-  top: 50%;
+  top: 100px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   background: #fff;
   box-shadow: 0 10px 20px 0px rgba(0, 0, 0, 0.137);
   z-index: 930230;
+  animation: modal-show .3s ease-in;
   .sui-modal-header{
     display:flex;
     align-items: center;
@@ -19,17 +20,26 @@
     z-index: 2;
     position: relative;
     background-color:inherit;
+    border-bottom: 1px solid #f4f4f4;
     .iconguanbi{
       font-size:18px;
       color:@text-color;
       cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: .3s;
       &:active{
-        font-size: 20px;
+        background-color: @primary-box-shadow;
+        transition: .3s;
       }
     }
   }
   .sui-modal-body{
-    height: calc(~'100% - 100px');
+    height: calc(~'100% - 102px');
     padding: 10px;
     color: @text-color;
     z-index: 2;
@@ -44,6 +54,7 @@
     z-index: 2;
     position: relative;
     background-color:inherit;
+    border-top: 1px solid #f4f4f4;
     .sui-btn{
       margin: 0 10px;
     }
@@ -58,6 +69,17 @@
   top: 0;
   z-index: 930220;
 }
+.sui-modal-mask{
+  animation: modal-show-mask .3s ease-in;
+}
 .sui-modal-mask-none{
   background: transparent;
+}
+@keyframes modal-show{
+  0%{transform: translate(-50%, -200%);}
+  100%{transform: translate(-50%, 0%);}
+}
+@keyframes modal-show-mask{
+  0%{background: transparent;}
+  100%{background: rgba(5, 5, 5, 0.432);}
 }

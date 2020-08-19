@@ -24,17 +24,13 @@ export default ({
     close()
     typeof onOk === 'function' && onOk()
   }
-  let _style = {...style}
-  if (placement === 'left') {
-    _style.left = 0
-    _style.right = 'auto'
-  } else {
-    _style.right = 0
-    _style.left = 'auto'
+  let className = ['sui-drawer']
+  if(placement === 'left'){
+    className.push('sui-drawer-left')
   }
   return <>
     {
-      _visible === true && <div className='sui-drawer' style={_style}>
+      _visible === true && <div className={className.join(' ')} style={style}>
         <div className='sui-drawer-header'>
           <div>
             {title}

@@ -1,5 +1,5 @@
-.sui-drawer{
-  width:400px;
+.sui-drawer, .sui-drawer-left{
+  min-width:400px;
   height:100%;
   position: fixed;
   bottom: 0;
@@ -7,6 +7,7 @@
   background: #fff;
   box-shadow: 0 10px 20px 0px rgba(0, 0, 0, 0.05);
   z-index: 930226;
+  animation: drawer-move-right .3s ease-in;
   .sui-drawer-header{
     display:flex;
     align-items: center;
@@ -23,13 +24,21 @@
       font-size:18px;
       color:@text-color;
       cursor: pointer;
-    }
-    .iconguanbi:active{
-      font-size: 20px;
+      width: 30px;
+      height: 30px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: .3s;
+      &:active{
+        background-color: @primary-box-shadow;
+        transition: .3s;
+      }
     }
   }
   .sui-drawer-body{
-    height: calc(~'100% - 100px');
+    height: calc(~'100% - 102px');
     padding: 10px;
     color: @text-color;
     z-index: 2;
@@ -59,6 +68,26 @@
   top: 0;
   z-index: 930220;
 }
+.sui-drawer-mask{
+  animation: modal-show-mask .3s ease-in;
+}
 .sui-drawer-mask-none{
   background: transparent;
+}
+.sui-drawer-left{
+  right: auto;
+  left: 0;
+  animation: drawer-move-left .3s linear;
+}
+@keyframes drawer-move-left{
+  0%{transform: translate(-100%, 0);}
+  100%{transform: translate(0%, 0);}
+}
+@keyframes drawer-move-right{
+  0%{transform: translate(100%, 0);}
+  100%{transform: translate(0%, 0);}
+}
+@keyframes modal-show-mask{
+  0%{background: transparent;}
+  100%{background: rgba(5, 5, 5, 0.432);}
 }
