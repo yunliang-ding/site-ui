@@ -1,3 +1,12 @@
+/**
+| ---------- | ----------------- | ------------ | -------- |
+| data       | array             | 数据源       | 无       |
+| activeKey  | string            | 选中的 key   | 无       |
+| style      | object            | 样式         | 无       |
+| closeable  | boolean           | 是否支持关闭 | false    |
+| onClick    | function(visible) | 点击回调     | 无       |
+| onRemove   | function(visible) | 删除回调     | 无       |
+ */
 import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../../index'
 export default ({
@@ -9,7 +18,8 @@ export default ({
   onRemove,
 }) => {
   useEffect(() => {
-    setindex(activeKey)
+    let index = data.findIndex(item => item.key === activeKey)
+    setindex(index)
   }, [activeKey])
   const [_index, setindex] = useState(activeKey || 0)
   const [_data, setdata] = useState(Array.isArray(data) ? data : [])

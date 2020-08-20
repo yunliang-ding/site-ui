@@ -1,3 +1,13 @@
+/**
+| title      | array      | 标题            | 无       |
+| closable   | boolean    | 是否可关闭      | false    |
+| visible    | boolean    | 是否展示        | 无       |
+| style      | object     | 样式            | 无       |
+| onClose    | funciton() | 取消按钮回调    | 无       |
+| onOk       | funciton() | 确定按钮回调    | 无       |
+| footer     | object     | 是否显示 Footer | 无       |
+| mask       | boolean    | 是否显示遮罩层  | 无       |
+ */
 import React, { useState, useEffect } from 'react'
 import { Button, Icon } from '../../index'
 export default ({
