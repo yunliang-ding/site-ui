@@ -8,20 +8,23 @@
   .sui-tabs-header{
     height:44px;
     width:100%;
-    overflow-x: auto;
-    overflow-y: hidden;
     display: flex;
     background: #fff;
     position: relative;
-    &::after{
-      content: '';
+    .sui-tabs-header-border{
       position: absolute;
       bottom:0px;
       left:0;
       width:100%;
       height:1px;
-      z-index:2;
       background-color: @border-color-base;
+    }
+    .sui-tabs-item-active-border{
+      position: absolute;
+      bottom:0px;
+      height:2px;
+      background-color: @primary-color;
+      transition: .3s ease-in;
     }
     .sui-tabs-header-item,.sui-tabs-header-item-active{
       height:100%;
@@ -34,15 +37,26 @@
       align-items: center;
       white-space: nowrap;
       position: relative;
-      .iconguanbi{
-        color:#fff;
-        font-size:13px;
-        font-weight: 700;
-        &:hover{
-          visibility:hidden;
+      &:hover{
+        .iconguanbi{
+          width:16px;
+          height:16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transform: translateY(-40%);
+          transition: .3s;
         }
+      }
+      .iconguanbi{
+        color:@text-color;
+        display: none;
+        position: absolute;
+        right:0px;
+        top:50%;
+        border-radius: 50%; 
         &:active{
-          transform: scale(1.1);
+          background-color: @primary-box-shadow;
         }
       }
     }
@@ -50,16 +64,6 @@
       transition: .3s;
       span{
         color:@primary-color;
-      }
-      &::after{
-        content: '';
-        position: absolute;
-        bottom:-2px;
-        left:0;
-        width:100%;
-        height:4px;
-        z-index:4;
-        background-color: @primary-color;
       }
     }
   }
@@ -69,18 +73,17 @@
     color:#fff;
     font-size:12px;
     padding:10px 0px;
+    position: relative;
+    overflow: hidden;
     .sui-tabs-content-item{
       display:none;
       transform: translate(0%);
-    }
-    .sui-tabs-content-item-active{
+      position: absolute;
+      top:10px;
+      width: 100%;
+      height: 100%;
       display:block;
-      transform: translate(0%);
-      animation: sui-tab-move .3s ease-in;
+      transition: .3s ease-out;
     }
   }
-}
-@keyframes sui-tab-move{
-  0%{transform: translate(100%)}
-  100%{transform: translate(0%)}
 }

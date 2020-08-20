@@ -1,48 +1,74 @@
-import React, {useState} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../../index'
 export default ({
   style,
-  close,
+  closeable,
   data,
   activeKey,
   onClick,
   onRemove,
 }) => {
-  const [_activeKey, setactiveKey] = useState(activeKey)
+  useEffect(() => {
+    setindex(activeKey)
+  }, [activeKey])
+  const [_index, setindex] = useState(activeKey || 0)
   const [_data, setdata] = useState(Array.isArray(data) ? data : [])
   const className = ['sui-tabs-header']
-  if(close){
-    className.push('sui-tabs-close')
-  }
+  const tabsRef = useRef()
+  const borderRef = useRef()
+  const activeItemRef = useRef()
+  /**
+   * 调整下划线位置
+   */
+  useEffect(()=>{
+    if(activeItemRef.current){
+      borderRef.current.style.width = activeItemRef.current.getBoundingClientRect().width + 'px'
+      borderRef.current.style.left =  activeItemRef.current.getBoundingClientRect().left - tabsRef.current.getBoundingClientRect().left + 'px'
+    }
+  }, [_index])
   return <>
-    <div className='sui-tabs' style={style}>
+    <div className='sui-tabs' style={style} ref={tabsRef}>
       <div className={className.join(' ')}>
         {
-          data && data.map((tab, index) => {
-            return <div key={tab.key} className={_activeKey === tab.key ? 'sui-tabs-header-item-active' : 'sui-tabs-header-item'} onClick={
+          _data.map((tab, index) => {
+            return <div ref={_index === index ? activeItemRef : null} key={tab.key} className={_index === index ? 'sui-tabs-header-item-active' : 'sui-tabs-header-item'} onClick={
               () => {
-                setactiveKey(tab.key)
+                setindex(index)
                 typeof onClick === 'function' && onClick(tab)
               }
             }>
               {tab.label}
-              <Icon type='iconguanb' onClick={
-                (e) => {
-                  e.stopPropagation(); // 阻止往上冒泡
-                  _data.splice(index, 1)
-                  setdata(_data)
-                  setactiveKey(_data[0] && _data[0].key)
-                  typeof onRemove === 'function' && onRemove(tab)
-                }
-              } />
+              {
+                closeable && <Icon type='iconguanbi' size={13} onClick={
+                  (e) => {
+                    e.stopPropagation(); // 阻止往上冒泡
+                    _data.splice(index, 1)
+                    setdata([..._data])
+                    setindex(0)
+                    typeof onRemove === 'function' && onRemove(tab)
+                  }
+                } />
+              }
             </div>
           })
+        }
+        {
+          _data.length > 0 && <>
+          < div className='sui-tabs-header-border' />
+            <div className='sui-tabs-item-active-border' ref={borderRef} />
+          </>
         }
       </div>
       <div className='sui-tabs-content'>
         {
-          _data && _data.map(tab => {
-            return <div key={tab.key} className={_activeKey === tab.key ? 'sui-tabs-content-item-active' : 'sui-tabs-content-item'}>
+          _data && _data.map((tab,index) => {
+            return <div
+              key={tab.key}
+              className={'sui-tabs-content-item'}
+              style={{
+                left: (index - _index) * 100 + '%'
+              }}
+            >
               {tab.content}
             </div>
           })
