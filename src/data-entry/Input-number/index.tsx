@@ -24,19 +24,29 @@ export default ({
   onBlur,
   onFocus,
   onPressEnter,
-  step = 1
-}) => {
+  step = 1,
+  min,
+  max
+}:any) => {
   const [_value, setvalue] = useState(value)
   useEffect(() => {
     setvalue(value)
   }, [value])
   const add = () => {
     let value = Number(_value) + Number(step)
-    updateValue(value)
+    if(max !== undefined){
+      value <= max && updateValue(value)
+    } else {
+      updateValue(value)
+    }
   }
   const minus = () => {
     let value = Number(_value) - Number(step)
-    updateValue(value)
+    if(min !== undefined){
+      value >= min && updateValue(value)
+    } else {
+      updateValue(value)
+    }
   }
   const updateValue = (value) => {
     setvalue(step < 1 ? Number(value).toFixed(1) : Number(value))
@@ -52,17 +62,17 @@ export default ({
       readOnly={disabled}
       onChange={
         (e) => {
-          updateValue(e.target.value)
+          setvalue(e.target.value)
         }
       }
       onBlur={
-        (e) => {
+        () => {
           let value:any = Number(_value)
           if(isNaN(value)){
             value = ''
           }
-          setvalue(value)
-          typeof onBlur === 'function' && onBlur(e)
+          updateValue(value)
+          typeof onBlur === 'function' && onBlur(value)
         }
       }
       onFocus={

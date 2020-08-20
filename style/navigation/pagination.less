@@ -1,0 +1,62 @@
+.sui-pagination{
+  font-size:12px;
+  height:34px;
+  display:flex;
+  justify-content:flex-start;
+  align-items: center;
+  transition: all .4s;
+  user-select: none;
+  color:@text-color;
+  .sui-pagination-pre,
+  .sui-pagination-next,
+  .sui-pagination-item,
+  .sui-pagination-pre-disabled,
+  .sui-pagination-next-disabled,
+  .sui-pagination-item-active{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    height:100%;
+    width:30px;
+    padding:0 20px;
+    border:1px solid #f2f2f2;
+    border-left:0;
+    cursor: pointer;
+    background: #fff;
+    transition: .3s;
+  }
+  .sui-pagination-pre-disabled, .yui-pagination-next-disabled{
+    opacity: 0.5;
+  }
+  .sui-pagination-item-active{
+    background: @primary-color;
+    color:#fff;
+    transition: .3s;
+  }
+  .sui-pagination-pre, .sui-pagination-pre-disabled{
+    border-left:1px solid #f2f2f2;
+  }
+  .sui-pagination-pre-disabled{
+    opacity: 0.6;
+    cursor:not-allowed;
+  }
+  .sui-pagination-next-disabled{
+    opacity: 0.6;
+    cursor:not-allowed;
+  }
+  .sui-pagination-item:hover{
+    border-radius: 1px;
+    opacity: 0.6;
+    color: @primary-color;
+    transition: all .4s;
+    -webkit-transition: all .4s;
+  }
+  .sui-pagination-jump{
+    margin-left:12px;
+    display: flex;
+    align-items: center;
+    .sui-input{
+      margin:0 10px;
+    }
+  }
+}

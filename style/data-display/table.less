@@ -18,7 +18,7 @@
   }
   .sui-table-body{
     background: #fff;
-    height: calc(~'100% - 46px');
+    height: calc(~'100% - 92px');
     overflow: auto;
   }
   .sui-table-header, .sui-table-body{
@@ -30,6 +30,7 @@
         align-items: center;
         border-bottom:1px  solid #f2f2f2;
         height: 46px;
+        transition: .3s;
         &:hover{
           background-color: @primary-box-shadow;
           transition: .3s;
@@ -67,5 +68,15 @@
         }
       }
     }
+  }
+  .sui-table-footer{
+    height:46px;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #fafafa;
   }
 }

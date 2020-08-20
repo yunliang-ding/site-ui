@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Icon } from '../../index'
+import { Icon, Pagination } from '../../index'
 export default ({
   columns,
   dataSource,
@@ -94,6 +94,25 @@ export default ({
             })
           }
         </div>
+      </div>
+      <div className='sui-table-footer'>
+        <Pagination
+          current={5}
+          pageSize={10}
+          total={600}
+          showJumper
+          pageSizeOptions={[10,20,30]}
+          onPageSizeChange={
+            (e) => {
+              console.log(e)
+            }
+          }
+          onChange={
+            (e) => {
+              console.log(e)
+            }
+          }
+        />
       </div>
     </div>
   </>
