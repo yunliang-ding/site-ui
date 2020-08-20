@@ -11,7 +11,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../../index'
 export default ({
   style,
-  closeable,
+  closable,
   data,
   activeKey,
   onClick,
@@ -49,7 +49,7 @@ export default ({
             }>
               {tab.label}
               {
-                closeable && <Icon type='iconguanbi' size={13} onClick={
+                closable && <Icon type='iconguanbi' size={13} onClick={
                   (e) => {
                     e.stopPropagation(); // 阻止往上冒泡
                     _data.splice(index, 1)
