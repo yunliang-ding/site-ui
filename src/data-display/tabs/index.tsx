@@ -18,8 +18,10 @@ export default ({
   onRemove,
 }) => {
   useEffect(() => {
-    let index = data.findIndex(item => item.key === activeKey)
-    setindex(index)
+    if(activeKey !== undefined){
+      let index = data.findIndex(item => item.key === activeKey)
+      setindex(index)
+    }
   }, [activeKey])
   const [_index, setindex] = useState(activeKey || 0)
   const [_data, setdata] = useState(Array.isArray(data) ? data : [])

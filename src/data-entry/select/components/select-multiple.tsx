@@ -35,12 +35,48 @@ export default ({
   const selectValueWapper = useRef()
   const dropDownWapper = useRef()
   useEffect(()=>{
+    const {top, height} = selectWapper.current.getBoundingClientRect()
     selectSelectionWapper.current.style.height = getComputedStyle(selectValueWapper.current).height
-    dropDownWapper.current && (dropDownWapper.current.style.top = parseInt(getComputedStyle(selectWapper.current).height) + 4 + 'px')
+    dropDownWapper.current && (dropDownWapper.current.style.top = top + height + 4 + 'px')
   })
   useEffect(()=>{
     setvalue(Array.isArray(value) ? value : [])
   }, [value])
+  /**
+   * ref
+   */
+  // debounce 防抖
+  const debounce = (fn, delay = 10) => {
+    if (typeof fn !== 'function') { // 参数类型为函数
+      throw new TypeError('fn is not a function');
+    }
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.call(this, ...args);
+      }, delay);
+    }
+  }
+  useEffect(() => {
+    /**
+     * 监听滚动事件
+     */
+    window.addEventListener('scroll', debounce(() => {
+      setPosition()
+    }))
+  }, [])
+  const setPosition = () => {
+    if(dropDownWapper.current && selectSelectionWapper.current){
+      const {width, left ,top, height} = selectSelectionWapper.current.getBoundingClientRect()
+      dropDownWapper.current.style.width = width + 'px'
+      dropDownWapper.current.style.left = left + 'px'
+      dropDownWapper.current.style.top = top + height + 4 + 'px'
+    }
+  }
+  useEffect(()=>{
+    setPosition()
+  },[_open])
   /**
    * Virtual-Dom
    */

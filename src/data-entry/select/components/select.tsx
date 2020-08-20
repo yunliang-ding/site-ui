@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Icon, Empty } from '../../../index'
 export default ({
   options,
@@ -26,8 +26,45 @@ export default ({
   let className = _open ? 'sui-select sui-select-open' : 'sui-select'
   disabled && (className += ' sui-select-disabled')
   const dropDownClassName = dropdownClassName ? dropdownClassName + ' sui-select-dropdown' : 'sui-select-dropdown'
+  /**
+   * ref
+   */
+  const selectionRef = useRef()
+  const dropDwonRef = useRef()
+  // debounce 防抖
+  const debounce = (fn, delay = 10) => {
+    if (typeof fn !== 'function') { // 参数类型为函数
+      throw new TypeError('fn is not a function');
+    }
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.call(this, ...args);
+      }, delay);
+    }
+  }
+  useEffect(() => {
+    /**
+     * 监听滚动事件
+     */
+    window.addEventListener('scroll', debounce(() => {
+      setPosition()
+    }))
+  }, [])
+  const setPosition = () => {
+    if(dropDwonRef.current && selectionRef.current){
+      const {width, left ,top, height} = selectionRef.current.getBoundingClientRect()
+      dropDwonRef.current.style.width = width + 'px'
+      dropDwonRef.current.style.left = left + 'px'
+      dropDwonRef.current.style.top = top + height + 4 + 'px'
+    }
+  }
+  useEffect(()=>{
+    setPosition()
+  },[_open])
   return <div className={className} style={style}>
-    <div className='sui-select-selection' onClick={
+    <div ref={selectionRef} className='sui-select-selection' onClick={
       () => {
         if (disabled) return
         setopen(!_open)
@@ -78,7 +115,7 @@ export default ({
     {
       _open && <>
         <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
-        <div style={dropdownStyle} className={dropDownClassName}>
+        <div style={dropdownStyle} className={dropDownClassName} ref={dropDwonRef}>
           {
             _options.length > 0 ? _options.map(option => {
               let className = option.value === value ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
