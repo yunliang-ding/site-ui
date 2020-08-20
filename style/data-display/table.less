@@ -6,16 +6,19 @@
   overflow: hidden;
   .sui-table-header{
     align-items: center;
-    background: #f5f5f5;
-    height:40px;
+    background: #fafafa;
+    height: 46px;
     width:100%;
     .sui-table-tr{
       font-weight: 900;
+      &:hover{
+        background-color: #fafafa !important;
+      }
     }
   }
   .sui-table-body{
     background: #fff;
-    height: calc(~'100% - 40px');
+    height: calc(~'100% - 46px');
     overflow: auto;
   }
   .sui-table-header, .sui-table-body{
@@ -23,22 +26,29 @@
       height:100%;
       width:100%;
       .sui-table-tr{
-        height:40px;
         display: flex;
         align-items: center;
         border-bottom:1px  solid #f2f2f2;
+        height: 46px;
+        &:hover{
+          background-color: @primary-box-shadow;
+          transition: .3s;
+        }
         .sui-table-td{
-          padding:6px 10px;
+          padding:0 10px;
+          height:100%;
           font-size:@font-size-base;
           position: relative;
           display: flex;
           align-items: center;
+          box-sizing: border-box;
         }
         .sui-table-td-ellipsis{
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: block;
+          line-height: 46px;
         }
         .sui-table-td-sort{
           .sui-icon{

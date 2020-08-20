@@ -50,9 +50,6 @@ export default ({
                 if(column.sort){
                   columnClassName.push('sui-table-td-sort')
                 }
-                if(column.ellipsis){
-                  columnClassName.push('sui-table-td-ellipsis')
-                }
                 return (
                   <div className={columnClassName.join(' ')} key={column.dataIndex} style={{ width }}>
                     {column.title}
@@ -90,7 +87,7 @@ export default ({
                     if(column.ellipsis){
                       columnClassName.push('sui-table-td-ellipsis')
                     }
-                    return <div key={column.dataIndex} className={columnClassName.join(' ')} style={{ width }}>{label}</div>
+                    return <div title={typeof label === 'string' && label} key={column.dataIndex} className={columnClassName.join(' ')} style={{ width }}>{label}</div>
                   })
                 }
               </div>
