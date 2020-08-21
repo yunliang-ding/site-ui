@@ -8,7 +8,7 @@ export default ({
   pageSizeOptions,
   onPageSizeChange,
   showJumper
-}) => {
+}:any) => {
   const [_current, setcurrent] = useState(current)
   const [_pageSize, setpageSize] = useState(pageSize)
   const pageChange = (current) => {
@@ -127,6 +127,7 @@ export default ({
           <span>页</span>
         </div>
       }
+      <span className='sui-pagination-total'>共 {total} 条</span>
     </div>
   </>
 }

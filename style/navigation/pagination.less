@@ -1,12 +1,17 @@
 .sui-pagination{
   font-size:12px;
-  height:34px;
+  height:30px;
   display:flex;
   justify-content:flex-start;
   align-items: center;
   transition: all .4s;
   user-select: none;
   color:@text-color;
+  .sui-pagination-total{
+    font-size:12px;
+    margin-left:8px;
+    white-space: nowrap;
+  }
   .sui-pagination-pre,
   .sui-pagination-next,
   .sui-pagination-item,
@@ -17,7 +22,7 @@
     justify-content:center;
     align-items: center;
     height:100%;
-    width:30px;
+    width:26px;
     padding:0 20px;
     border:1px solid #f2f2f2;
     border-left:0;
@@ -55,6 +60,7 @@
     margin-left:12px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
     .sui-input{
       margin:0 10px;
     }

@@ -2,12 +2,12 @@
   height:100%;
   width:100%;
   border:1px solid #f2f2f2;
-  border-bottom:0;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
   .sui-table-header{
     align-items: center;
     background: #fafafa;
-    height: 46px;
+    height: 45px;
     width:100%;
     .sui-table-tr{
       font-weight: 900;
@@ -18,8 +18,16 @@
   }
   .sui-table-body{
     background: #fff;
-    height: calc(~'100% - 92px');
-    overflow: auto;
+    min-width:100%;
+    width:fit-content;
+    height: calc(~'100% - 45px');
+    overflow-y: auto;
+    overflow-x: auto;
+    .sui-table-tr{
+      &:first-child{
+        border-top:1px solid #f2f2f2;
+      }
+    }
   }
   .sui-table-header, .sui-table-body{
     .sui-table{
@@ -29,8 +37,11 @@
         display: flex;
         align-items: center;
         border-bottom:1px  solid #f2f2f2;
-        height: 46px;
+        height: 45px;
         transition: .3s;
+        &:last-child{
+          border-bottom:0;
+        }
         &:hover{
           background-color: @primary-box-shadow;
           transition: .3s;
@@ -43,6 +54,12 @@
           display: flex;
           align-items: center;
           box-sizing: border-box;
+        }
+        .sui-table-td-grid{
+          border-right:1px solid #f2f2f2;
+          &:last-child{
+            border-right:0;
+          }
         }
         .sui-table-td-ellipsis{
           overflow: hidden;
@@ -70,13 +87,28 @@
     }
   }
   .sui-table-footer{
-    height:46px;
-    width:100%;
+    height:45px;
+    min-width:100%;
     display:flex;
     align-items: center;
-    justify-content: flex-end;
-    padding: 0 20px;
-    border-bottom: 1px solid #f2f2f2;
+    justify-content: flex-start;
+    padding: 0 10px;
+    border-top: 1px solid #f2f2f2;
     background-color: #fafafa;
+    .sui-pagination{
+      .sui-pagination-pre,
+      .sui-pagination-next,
+      .sui-pagination-item,
+      .sui-pagination-pre-disabled,
+      .sui-pagination-next-disabled,
+      .sui-pagination-item-active{
+        border:0;
+        background-color: inherit;
+      }
+      .sui-pagination-item-active{
+        border:0;
+        background-color: @primary-color;
+      }
+    }
   }
 }
