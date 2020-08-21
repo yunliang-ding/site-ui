@@ -13,6 +13,7 @@ export default ({
 }) => {
   const [_columns, setcolumns] = useState(Array.isArray(columns) ? [...columns] : [])
   const [_dataSource, setdataSource] = useState(Array.isArray(dataSource) ? [...dataSource] : [])
+  const [hovercolumn, sethovercolumn] = useState({}) // hover行
   const [checkedkeys, setcheckedkeys] = useState([]) // 内置选择器
   const [_pagination, setpagination] = useState({ // 内置分页器
     current: 1,
@@ -95,6 +96,9 @@ export default ({
   useEffect(() => {
     if (Array.isArray(dataSource)) {
       setdataSource([...dataSource])
+      _pagination.total = dataSource.length
+      _pagination.current = 1 // 重制第1页
+      setpagination({..._pagination})
     }
   }, [dataSource])
   /**
@@ -112,6 +116,7 @@ export default ({
           }
         />,
         width: 40,
+        fixed: 'left',
         dataIndex: 'sui-checked-930226',
         render: (e, record) => {
           return <Checkbox
@@ -158,7 +163,6 @@ export default ({
       setdataSource([..._dataSource]) // render
     }
   }
-  
   /**
    * 渲染表头
    * @param columns 
@@ -209,7 +213,12 @@ export default ({
     return <div className='sui-table'>
       {
         dataSource.map((data, index) => {
-          return <div key={data[rowKey]} className='sui-table-tr'>
+          return <div 
+            key={data[rowKey]} 
+            className='sui-table-tr' 
+            onMouseEnter={sethovercolumn.bind(null, data)}
+            onMouseOut={sethovercolumn.bind(null, {})}
+          >
             {
               columns.map(column => {
                 let minWidth = column.width || (100 / columns.length + '%')
@@ -220,6 +229,9 @@ export default ({
                 }
                 if (bordered) {
                   columnClassName.push('sui-table-td-grid')
+                }
+                if(hovercolumn[rowKey] === data[rowKey]){
+                  columnClassName.push('sui-table-td-hover')
                 }
                 return <div title={typeof label !== 'object' && label} key={column.dataIndex} className={columnClassName.join(' ')} style={{ minWidth, width: minWidth }}>{label}</div>
               })
@@ -232,7 +244,7 @@ export default ({
   /**
    * 左右 fixed 列
    */
-  const fixedLeft = _columns.filter(item => item.fixed === 'left' || item.dataIndex === 'sui-checked-930226') // 内部全选
+  const fixedLeft = _columns.filter(item => item.fixed === 'left')
   const fixedRight = _columns.filter(item => item.fixed === 'right')
   const [showFixed, setshowFixed] = useState(false)
   return <>

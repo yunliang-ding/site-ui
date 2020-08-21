@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input, Select, Icon } from '../../index'
 export default ({
   current = 1,
@@ -11,6 +11,15 @@ export default ({
 }:any) => {
   const [_current, setcurrent] = useState(current)
   const [_pageSize, setpageSize] = useState(pageSize)
+  /**
+   * update
+   */
+  useEffect(() => {
+    setcurrent(current)
+  }, [current])
+  useEffect(() => {
+    setpageSize(pageSize)
+  }, [pageSize])
   const pageChange = (current) => {
     setcurrent(current)
     typeof onChange === 'function' && onChange(current)

@@ -44,14 +44,12 @@
         align-items: center;
         border-bottom:1px  solid #f2f2f2;
         height: 45px;
-        transition: .3s;
         position: relative;
         &:last-child{
           border-bottom:0;
         }
         &:hover{
           background-color: @primary-box-shadow;
-          transition: .3s;
         }
         .sui-table-td{
           padding:0 10px;
@@ -90,15 +88,8 @@
             }
           }
         }
-        .sui-table-td-fixed-left{
-          left:0;
-          top:0;
-          background-color: inherit;
-        }
-        .sui-table-td-fixed-right{
-          right:0;
-          top:0;
-          background-color: inherit;
+        .sui-table-td-hover{
+          background-color: @primary-box-shadow;
         }
       }
     }
