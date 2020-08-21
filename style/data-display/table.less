@@ -4,6 +4,12 @@
   border:1px solid #f2f2f2;
   overflow-y: hidden;
   overflow-x: auto;
+  position: relative;
+  .sui-table-box{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
   .sui-table-header{
     align-items: center;
     background: #fafafa;
@@ -39,6 +45,7 @@
         border-bottom:1px  solid #f2f2f2;
         height: 45px;
         transition: .3s;
+        position: relative;
         &:last-child{
           border-bottom:0;
         }
@@ -83,8 +90,35 @@
             }
           }
         }
+        .sui-table-td-fixed-left{
+          left:0;
+          top:0;
+          background-color: inherit;
+        }
+        .sui-table-td-fixed-right{
+          right:0;
+          top:0;
+          background-color: inherit;
+        }
       }
     }
+  }
+  .sui-table-fixed{
+    position: absolute;
+    top:0;
+    .sui-table-body{
+      overflow: hidden;
+    }
+  }
+  .sui-table-fixed-left{
+    left:0;
+    height: 100%;
+    box-shadow: -1px 1px 6px 2px #e4e2e2;
+  }
+  .sui-table-fixed-right{
+    right:0;
+    height: 100%;
+    box-shadow: -1px -2px 3px 0px #e4e2e2;
   }
 }
 .sui-table-footer{
