@@ -86,29 +86,32 @@
       }
     }
   }
-  .sui-table-footer{
-    height:45px;
-    min-width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 10px;
-    border-top: 1px solid #f2f2f2;
-    background-color: #fafafa;
-    .sui-pagination{
-      .sui-pagination-pre,
-      .sui-pagination-next,
-      .sui-pagination-item,
-      .sui-pagination-pre-disabled,
-      .sui-pagination-next-disabled,
-      .sui-pagination-item-active{
-        border:0;
-        background-color: inherit;
-      }
-      .sui-pagination-item-active{
-        border:0;
-        background-color: @primary-color;
-      }
+}
+.sui-table-footer{
+  height:45px;
+  width:100%;
+  display:flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  background-color: #fafafa;
+  border:1px solid #f2f2f2;
+  border-top:0;
+  overflow: auto;
+  .sui-pagination{
+    width:100%;
+    .sui-pagination-pre,
+    .sui-pagination-next,
+    .sui-pagination-item,
+    .sui-pagination-pre-disabled,
+    .sui-pagination-next-disabled,
+    .sui-pagination-item-active{
+      border:0;
+      background-color: inherit;
+    }
+    .sui-pagination-item-active{
+      border:0;
+      background-color: @primary-color;
     }
   }
 }

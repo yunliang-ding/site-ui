@@ -44,11 +44,33 @@ export default ({
   const tableHeaderRef = useRef()
   const tableBodyRef = useRef()
   const tableFooterRef = useRef()
-  useEffect(()=>{
+  const setWidthSize = () => {
     tableHeaderRef.current.style.width = tableBodyRef.current.getBoundingClientRect().width + 'px'
-    tableFooterRef.current && (tableFooterRef.current.style.width = tableBodyRef.current.getBoundingClientRect().width + 'px')
-    console.log(tableHeaderRef.current.style.width)
+  }
+  /**
+   * 监听resize事件
+   */
+  useEffect(() => {
+    window.addEventListener('resize', debounce(() => {
+      setWidthSize()
+    }))
+  }, [])
+  useEffect(()=>{
+    setWidthSize()
   })
+  // debounce 防抖
+  const debounce = (fn, delay = 10) => {
+    if (typeof fn !== 'function') { // 参数类型为函数
+      throw new TypeError('fn is not a function');
+    }
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.call(this, ...args);
+      }, delay);
+    }
+  }
   /**
    * 更新数据头和数据
    */
@@ -154,9 +176,7 @@ export default ({
           </div>
         </div>
       </div>
-      <div className='sui-table-body' ref={tableBodyRef} style={{
-        height: pagination === false ? 'calc(100% - 45px)' : 'calc(100% - 90px)'
-      }}>
+      <div className='sui-table-body' ref={tableBodyRef}>
         <div className='sui-table'>
           {
             __dataSource.map((data, index) => {
@@ -180,19 +200,19 @@ export default ({
           }
         </div>
       </div>
-      {
-        typeof pagination === 'object' ? <div className='sui-table-footer' ref={tableFooterRef}>
-          <Pagination {...pagination} />
-        </div> : pagination !== false && <div className='sui-table-footer' ref={tableFooterRef}>
-          <Pagination
-            {..._pagination}
-            onChange={e => {
-              _pagination.current = e
-              setpagination({..._pagination})
-            }}
-          />
-        </div>
-      }
     </div>
+    {
+      typeof pagination === 'object' ? <div className='sui-table-footer' ref={tableFooterRef}>
+        <Pagination {...pagination} />
+      </div> : pagination !== false && <div className='sui-table-footer' ref={tableFooterRef}>
+        <Pagination
+          {..._pagination}
+          onChange={e => {
+            _pagination.current = e
+            setpagination({..._pagination})
+          }}
+        />
+      </div>
+    }
   </>
 }
