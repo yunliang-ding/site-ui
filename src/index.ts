@@ -26,6 +26,7 @@ import Modal from './feed-back/modal'
 import Tabs from './data-display/tabs'
 import Table from './data-display/table'
 import Pagination from './navigation/pagination'
+import Spin from './feed-back/spin'
 import '../style/index.less'
 export {
   Icon,
@@ -55,5 +56,6 @@ export {
   Modal,
   Tabs,
   Table,
-  Pagination
+  Pagination,
+  Spin
 }

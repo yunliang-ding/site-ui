@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Icon, Pagination, Checkbox } from '../../index'
+import { Icon, Pagination, Checkbox, Empty, Spin } from '../../index'
 export default ({
   columns,
   dataSource,
@@ -9,7 +9,7 @@ export default ({
   bordered,
   checkable,
   onCheck,
-  loading
+  loading = false
 }) => {
   const [_columns, setcolumns] = useState(Array.isArray(columns) ? [...columns] : [])
   const [_dataSource, setdataSource] = useState(Array.isArray(dataSource) ? [...dataSource] : [])
@@ -53,7 +53,7 @@ export default ({
     tableBoxRef.current && setshowFixed(tableBoxRef.current.getBoundingClientRect().width < tableBodyRef.current.getBoundingClientRect().width)
   }
   const setFixScrollTop = (scrollTop) => {
-    if(tableFixedLeftRef.current && tableFixedRightRef.current){
+    if (tableFixedLeftRef.current && tableFixedRightRef.current) {
       tableFixedLeftRef.current.scrollTop = scrollTop
       tableFixedRightRef.current.scrollTop = scrollTop
     }
@@ -65,9 +65,11 @@ export default ({
     window.addEventListener('resize', debounce(() => { // 监听resize事件
       setWidthSize()
     }))
-    tableBodyRef.current.addEventListener('scroll', debounce(() => { // 监听scroll事件
-      setFixScrollTop(tableBodyRef.current.scrollTop)
-    }))
+    if (tableBodyRef.current) {
+      tableBodyRef.current.addEventListener('scroll', debounce(() => { // 监听scroll事件
+        setFixScrollTop(tableBodyRef.current.scrollTop)
+      }))
+    }
   }, [])
   useEffect(() => {
     setWidthSize()
@@ -98,7 +100,7 @@ export default ({
       setdataSource([...dataSource])
       _pagination.total = dataSource.length
       _pagination.current = 1 // 重制第1页
-      setpagination({..._pagination})
+      setpagination({ ..._pagination })
     }
   }, [dataSource])
   /**
@@ -213,9 +215,9 @@ export default ({
     return <div className='sui-table'>
       {
         dataSource.map((data, index) => {
-          return <div 
-            key={data[rowKey]} 
-            className='sui-table-tr' 
+          return <div
+            key={data[rowKey]}
+            className='sui-table-tr'
             onMouseEnter={sethovercolumn.bind(null, data)}
             onMouseOut={sethovercolumn.bind(null, {})}
           >
@@ -230,7 +232,7 @@ export default ({
                 if (bordered) {
                   columnClassName.push('sui-table-td-grid')
                 }
-                if(hovercolumn[rowKey] === data[rowKey]){
+                if (hovercolumn[rowKey] === data[rowKey]) {
                   columnClassName.push('sui-table-td-hover')
                 }
                 return <div title={typeof label !== 'object' && label} key={column.dataIndex} className={columnClassName.join(' ')} style={{ minWidth, width: minWidth }}>{label}</div>
@@ -247,14 +249,16 @@ export default ({
   const fixedLeft = _columns.filter(item => item.fixed === 'left')
   const fixedRight = _columns.filter(item => item.fixed === 'right')
   const [showFixed, setshowFixed] = useState(false)
-  return <>
+  return <Spin loading={loading}>
     <div className='sui-table-wrapper' style={style}>
       <div className='sui-table-box' ref={tableBoxRef}>
         <div className='sui-table-header' ref={tableHeaderRef}>
           {renderHeaderTable(_columns)}
         </div>
         <div className='sui-table-body' ref={tableBodyRef}>
-          {renderBodyTable(__dataSource, _columns)}
+          {
+            __dataSource.length === 0 ? <Empty /> : renderBodyTable(__dataSource, _columns)
+          }
         </div>
       </div>
       {
@@ -291,5 +295,5 @@ export default ({
         />
       </div>
     }
-  </>
+  </Spin>
 }

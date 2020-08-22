@@ -4,12 +4,13 @@
 | placement  | string(left/right) | 左边和右边展示  | 无       |
 | visible    | boolean            | 是否展示        | 无       |
 | style      | object             | 样式            | 无       |
+| top        | number             | 距离顶部距离  | 0       |
 | onClose    | funciton()         | 取消按钮回调    | 无       |
 | onOk       | funciton()         | 确定按钮回调    | 无       |
 | footer     | object             | 是否显示 Footer | 无       |
 | mask       | boolean            | 是否显示遮罩层  | 无       |
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Button, Icon } from '../../index'
 export default ({
   title,
@@ -17,6 +18,7 @@ export default ({
   placement,
   visible = false,
   style={},
+  top,
   onClose,
   onOk,
   children,
@@ -39,9 +41,18 @@ export default ({
   if(placement === 'left'){
     className.push('sui-drawer-left')
   }
+  /**
+   * Dom
+   */
+  const drawerRef = useRef()
+  useEffect(()=>{
+    if(drawerRef.current){
+      drawerRef.current.style.height = `calc(100vh - ${top}px)`
+    }
+  }, [_visible])
   return <>
     {
-      _visible === true && <div className={className.join(' ')} style={style}>
+      _visible === true && <div className={className.join(' ')} style={style} ref={drawerRef}>
         <div className='sui-drawer-header'>
           <div>
             {title}
@@ -65,6 +76,6 @@ export default ({
         }
       </div>
     }
-    {_visible === true && <div className={mask !== false ? 'sui-drawer-mask' : 'sui-drawer-mask-none'} onClick={close} />}
+    {_visible === true && <div style={{top}} className={mask !== false ? 'sui-drawer-mask' : 'sui-drawer-mask-none'} onClick={close} />}
   </>
 }

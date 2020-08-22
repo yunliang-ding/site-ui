@@ -1,0 +1,39 @@
+.sui-loading{
+  position: relative;
+  .sui-loading-body{
+    font-size: 12px;
+  }
+  .sui-loading-mask{
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index:930226;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: sui-spin-show .3s ease-in;
+    background-color: @primary-spin-background;
+    .sui-loading-mask-spin{
+      display: inline-block;
+      animation:sui-spin-move 1.2s linear infinite;
+      .sui-icon{
+        font-size:18px;
+        font-weight: 900;
+        color: @primary-color;
+      }
+    }
+    .sui-loading-mask-message{
+      font-size: 12px;
+      padding-left:8px;
+      color: @primary-color;
+    }
+  }
+  @keyframes sui-spin-move{
+		0%{transform:rotate(0deg);}
+		100%{transform:rotate(360deg);}
+  }
+  @keyframes sui-spin-show {
+    0%{opacity: 0;}
+		100%{opacity: 1;}
+  }
+}
