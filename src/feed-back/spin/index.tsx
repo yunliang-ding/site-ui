@@ -28,8 +28,7 @@ export default ({
   return <>
     <div className='sui-loading' style={style}>
       <div className='sui-loading-body' ref={spinBodyRef} style={{
-        filter: loading ? 'blur(1px)' : 'none',
-        opacity: loading ? 0.3 : 1
+        filter: loading ? 'blur(1px)' : 'none'
       }}>
         {children}
       </div>
