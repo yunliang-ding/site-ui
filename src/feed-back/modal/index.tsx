@@ -40,7 +40,7 @@ export default ({
           <div>
             {title}
           </div>
-          {closable && <Icon type='iconguanbi' onClick={close} />}
+          {closable && <Icon type='suiconguanbi' onClick={close} />}
         </div>
         <div className='sui-modal-body' style={{
           height: footer === false ? 'calc(100% - 50px)' : 'calc(100% - 100px)'

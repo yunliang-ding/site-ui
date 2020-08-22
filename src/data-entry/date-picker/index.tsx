@@ -69,7 +69,7 @@ export default ({
     <div className='sui-date-picker' style={style}>
       <div className='sui-date-picker-input'>
         <Input
-          suffix={<Icon type='iconweimingmingwenjianjia_rili' />}
+          suffix={<Icon type='suiconweimingmingwenjianjia_rili' />}
           addonBefore={addonBefore}
           disabled={disabled}
           addonAfter={addonAfter}
@@ -99,14 +99,14 @@ export default ({
                   updateDateCalendar(dateUtil.date.getTime() - (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
                 }
               }>
-                <Icon type='iconicon-jiantouzuo' />
+                <Icon type='suiconicon-jiantouzuo' />
               </div>
               <div title='上个月' className='picker-tools-before picker-tools-before-month' onClick={
                 () => {
                   updateDateCalendar(dateUtil.date.getTime() - dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
                 }
               }>
-                <Icon type='iconxiangzuoshouqi' />
+                <Icon type='suiconxiangzuoshouqi' />
               </div>
               <div className='picker-tools-date'>
                 <Select
@@ -135,14 +135,14 @@ export default ({
                   updateDateCalendar(dateUtil.date.getTime() + dateUtil.getDateNumberByMonth(dateUtil.date.getMonth() + 1) * 24 * 60 * 60 * 1000)
                 }
               }>
-                <Icon type='iconzuocedakai' />
+                <Icon type='suiconzuocedakai' />
               </div>
               <div title='下一年' className='picker-tools-next' onClick={
                 () => {
                   updateDateCalendar(dateUtil.date.getTime() + (dateUtil.isLeapYear() ? 366 : 355) * 24 * 60 * 60 * 1000)
                 }
               }>
-                <Icon type='iconjiantou2' />
+                <Icon type='suiconjiantou2' />
               </div>
             </div>
             <div className='sui-date-picker-body-header'>

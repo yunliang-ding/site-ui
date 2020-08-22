@@ -187,12 +187,12 @@ export default ({
                 {column.title}
                 {
                   column.sort && <>
-                    <Icon type='iconxiala1' size={12} style={{ left: 4, top: -6 }} onClick={
+                    <Icon type='suiconxiala1' size={12} style={{ left: 4, top: -6 }} onClick={
                       () => {
                         sort(column.sort, 'asc', column.dataIndex)
                       }
                     } />
-                    <Icon type='iconxialadown' size={12} style={{ top: 6, right: 8 }} onClick={
+                    <Icon type='suiconxialadown' size={12} style={{ top: 6, right: 8 }} onClick={
                       () => {
                         sort(column.sort, 'desc', column.dataIndex)
                       }

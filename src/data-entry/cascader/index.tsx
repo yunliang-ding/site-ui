@@ -117,9 +117,9 @@ export default ({
       <div className='sui-cascader-selection-selected-value' title={label}>
         {selected.length === 0 ? <span style={{ color: '#aaa' }}>{placeholder}</span> : label}
       </div>
-      <Icon type='iconxialadown' />
+      <Icon type='suiconxialadown' />
       {
-        !disabled && allowClear && selected.length > 0 && <Icon type='iconcuo' onClick={
+        !disabled && allowClear && selected.length > 0 && <Icon type='suiconcuo' onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
             setvalue([]) // 还原
@@ -162,7 +162,7 @@ export default ({
                       }
                     >
                       {option.label}
-                      {option.children && <Icon type='iconjiantou2' size={14} />}
+                      {option.children && <Icon type='suiconjiantou2' size={14} />}
                     </div>
                   })
                 }

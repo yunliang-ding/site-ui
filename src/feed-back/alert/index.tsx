@@ -8,10 +8,10 @@
 import React, {useState} from "react"
 import { Icon } from '../../index'
 const iconMapping = {
-  success: 'iconmessage_SendSuccessfully',
-  info: 'iconwarning',
-  warning: 'iconinfo_warning',
-  error: 'iconcuo'
+  success: 'suiconmessage_SendSuccessfully',
+  info: 'suiconwarning',
+  warning: 'suiconinfo_warning',
+  error: 'suiconcuo'
 }
 export default ({
   message,
@@ -28,7 +28,7 @@ export default ({
           <span>{message}</span>
         </div>
         {
-          closable && <Icon type='iconguanbi' size={14} onClick={setopen.bind(null, false)} />
+          closable && <Icon type='suiconguanbi' size={14} onClick={setopen.bind(null, false)} />
         }
       </div>
     }

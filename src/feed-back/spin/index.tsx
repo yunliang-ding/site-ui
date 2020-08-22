@@ -9,7 +9,7 @@ import React, { useRef, useEffect } from 'react'
 import { Icon } from '../../index'
 export default ({
   loading,
-  icon = 'iconloading1',
+  icon = 'suiconloading1',
   style,
   message,
   children

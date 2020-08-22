@@ -86,7 +86,7 @@ export default ({
   }, [_open, _value])
   return <div className={className} style={style}>
     <Input
-      suffix={<Icon type='icontime' />}
+      suffix={<Icon type='suicontime' />}
       addonBefore={addonBefore}
       disabled={disabled}
       addonAfter={addonAfter}

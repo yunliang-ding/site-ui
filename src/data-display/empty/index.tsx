@@ -9,7 +9,7 @@ import React from 'react'
 import { Icon } from '../../index'
 export default ({
   label = 'No Data',
-  icon = 'iconempty'
+  icon = 'suiconempty'
 }) => {
   return <div className='sui-empty-wrapper'>
     <Icon type={icon} size={50} />

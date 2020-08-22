@@ -75,7 +75,7 @@ export default ({
             <Icon type={item.icon} />
             {item.label}
           </span>
-          {item.children && <Icon type='iconxialadown' size={16} />}
+          {item.children && <Icon type='suiconxialadown' size={16} />}
         </div>
         {
           item.children && <div className={!_openKey.includes(item.key) ? 'sui-nav-subMenu-hidden' : ''}>

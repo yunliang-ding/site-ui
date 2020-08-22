@@ -51,7 +51,7 @@ export default ({
             }
           }
         >
-          {[-1, -2].indexOf(item) > -1 ? <Icon type='iconmoreread' /> : item}
+          {[-1, -2].indexOf(item) > -1 ? <Icon type='suiconmoreread' /> : item}
         </div>
       )
     })
@@ -81,7 +81,7 @@ export default ({
           }
         }
       >
-        <Icon type='iconicon-jiantouzuo' />
+        <Icon type='suiconicon-jiantouzuo' />
       </div>
       {page}
       <div className={_current == totalPage ? 'sui-pagination-next-disabled' : 'sui-pagination-next'}
@@ -93,7 +93,7 @@ export default ({
           }
         }
       >
-        <Icon type='iconjiantou2' />
+        <Icon type='suiconjiantou2' />
       </div>
       {
         pageSizeOptions && <div className='sui-pagination-jump'>

@@ -54,14 +54,14 @@ export default ({
               updateCurrentPage(_currentPage - 1)
             }
           }>
-            <Icon type='iconicon-jiantouzuo' />
+            <Icon type='suiconicon-jiantouzuo' />
           </div>
           <div className='sui-carousel-next' onClick={
             () => {
               updateCurrentPage(_currentPage + 1)
             }
           }>
-            <Icon type='iconjiantou2' />
+            <Icon type='suiconjiantou2' />
           </div>
         </>
       }

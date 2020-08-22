@@ -51,7 +51,7 @@ export default ({
             }>
               {tab.label}
               {
-                closable && <Icon type='iconguanbi' size={13} onClick={
+                closable && <Icon type='suiconguanbi' size={13} onClick={
                   (e) => {
                     e.stopPropagation(); // 阻止往上冒泡
                     _data.splice(index, 1)

@@ -39,7 +39,7 @@ export default ({
       >
         <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
           {
-            item.children && <Icon type='iconxialadown' onClick={
+            item.children && <Icon type='suiconxialadown' onClick={
               (e) => {
                 if(item.disabled || disabled)return
                 e.stopPropagation() // 阻止冒泡

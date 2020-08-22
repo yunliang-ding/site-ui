@@ -40,7 +40,7 @@ export default ({
     }
   }>
     {
-      loading && <Icon type='iconloading' />
+      loading && <Icon type='suiconloading' />
     }
     {
       icon && <Icon type={icon} />

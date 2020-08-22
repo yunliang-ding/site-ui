@@ -61,7 +61,7 @@ export default ({
         }
       </div>
       {
-        allowClear && _value !== '' && <Icon type='iconcuo' onClick={
+        allowClear && _value !== '' && <Icon type='suiconcuo' onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
             setvalue('')

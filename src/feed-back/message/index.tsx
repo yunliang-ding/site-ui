@@ -4,10 +4,10 @@ import { Icon } from '../../index'
 const $: any = document.querySelector.bind(document)
 const $$: any = document.querySelectorAll.bind(document)
 const typeMapping = {
-  1: 'iconmessage_SendSuccessfully',
-  2: 'iconcuo',
-  3: 'iconinfo_warning',
-  4: 'iconwarning'
+  1: 'suiconmessage_SendSuccessfully',
+  2: 'suiconcuo',
+  3: 'suiconinfo_warning',
+  4: 'suiconwarning'
 }
 const colorMapping = {
   1: '#1ac7aa',
@@ -64,7 +64,7 @@ export default class Message {
       </div>
       <div className='sui-message-content-message'>{content}</div>
       <div className='sui-message-content-close'>
-        <Icon type='iconguanbi' onClick={
+        <Icon type='suiconguanbi' onClick={
           (e) => {
             this.close(e)
           }

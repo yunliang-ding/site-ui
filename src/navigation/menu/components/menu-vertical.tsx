@@ -28,7 +28,7 @@ export default ({
           <span>{item.label}</span>
         </span>
         {
-          item.children && <Icon type='iconxialadown' />
+          item.children && <Icon type='suiconxialadown' />
         }
       </div>
       {

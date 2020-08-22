@@ -102,9 +102,9 @@ export default ({
             selected.value === undefined ? <span style={{ color: '#aaa' }}>{placeholder}</span> : selected.label
         }
       </div>
-      <Icon type='iconxialadown' />
+      <Icon type='suiconxialadown' />
       {
-        !disabled && allowClear && selected.value !== undefined && <Icon type='iconcuo' onClick={
+        !disabled && allowClear && selected.value !== undefined && <Icon type='suiconcuo' onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
             typeof onChange === 'function' && onChange(null, null)

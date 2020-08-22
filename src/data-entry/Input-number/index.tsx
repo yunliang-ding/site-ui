@@ -90,8 +90,8 @@ export default ({
     />
     {
       !disabled && <div className='sui-input-number-suffix'>
-        <div className='suffix-top' onClick={add}><Icon type='iconxiala1' size={12} /></div>
-        <div className='suffix-bottom' onClick={minus}><Icon type='iconxialadown' size={12} /></div>
+        <div className='suffix-top' onClick={add}><Icon type='suiconxiala1' size={12} /></div>
+        <div className='suffix-bottom' onClick={minus}><Icon type='suiconxialadown' size={12} /></div>
       </div>
     }
   </div>
