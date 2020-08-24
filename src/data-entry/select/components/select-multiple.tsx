@@ -42,7 +42,6 @@ export default ({
   /**
   * 页面加载完确定层的位置
   */
-  const selectWapper = useRef()
   const selectSelectionWapper = useRef()
   const selectValueWapper = useRef()
   useEffect(() => {
@@ -52,11 +51,11 @@ export default ({
    * 
    */
   const setPosition = () => {
-    if (selectWapper.current) {
-      const { width, left, top, height } = selectWapper.current.getBoundingClientRect()
+    if (selectValueWapper.current) {
+      const { width, left, top, height } = selectValueWapper.current.getBoundingClientRect()
       setposition({
-        width,
-        left,
+        width: width + 20,
+        left: left - 10,
         top,
         height
       })
@@ -123,6 +122,11 @@ export default ({
       ReactDOM.render(<RenderDropDown />, $(`#${uuid}`))
     }
   }, [_value, _options, position])
+  // 调整高度
+  useEffect(() => {
+    selectSelectionWapper.current.style.height = selectValueWapper.current.getBoundingClientRect().height + 'px'
+    setPosition()
+  }, [_value])
   useEffect(() => {
     if (_open) {
       if ($(`#${uuid}`)) { // 取消隐藏
@@ -138,7 +142,7 @@ export default ({
   /**
    * Virtual-Dom
    */
-  return <div className={className} style={style} ref={selectWapper}>
+  return <div className={className} style={style}>
     <div ref={selectSelectionWapper} className='sui-select-selection sui-select-selection-multiple' onClick={
       () => {
         if (disabled) return
