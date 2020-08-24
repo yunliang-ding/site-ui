@@ -74,9 +74,6 @@ export default ({
       setPosition()
     }))
   }, [])
-  useEffect(() => {
-    setPosition()
-  }, [_open])
   /**
    * 组装clasName
    */
