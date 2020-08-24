@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Icon } from '../../../index'
+import ReactDOM from "react-dom"
+import { v4 as uuidv4 } from 'uuid'
+import { Icon, Empty } from '../../../index'
+const $: any = document.querySelector.bind(document)
 export default ({
   options,
   value = undefined,
@@ -12,7 +15,16 @@ export default ({
   onChange,
   open = false
 }) => {
+  useEffect(() => {
+    setvalue(Array.isArray(value) ? value : [])
+  }, [value])
+  useEffect(() => {
+    setoptions(options) // update
+  }, [options])
   const [_open, setopen] = useState(open)
+  const [uuid, setuuid] = useState('u' + uuidv4())
+  const [_options, setoptions] = useState(options)
+  const [position, setposition] = useState(null)
   let className = _open ? 'sui-select sui-select-open' : 'sui-select'
   disabled && (className += ' sui-select-disabled')
   const dropDownClassName = dropdownClassName ? dropdownClassName + ' sui-select-dropdown' : 'sui-select-dropdown'
@@ -28,55 +40,101 @@ export default ({
     }
   }
   /**
-   * 计算dom高度
-   */
+  * 页面加载完确定层的位置
+  */
   const selectWapper = useRef()
   const selectSelectionWapper = useRef()
   const selectValueWapper = useRef()
-  const dropDownWapper = useRef()
-  useEffect(()=>{
-    const {top, height} = selectWapper.current.getBoundingClientRect()
-    selectSelectionWapper.current.style.height = getComputedStyle(selectValueWapper.current).height
-    dropDownWapper.current && (dropDownWapper.current.style.top = top + height + 4 + 'px')
-  })
-  useEffect(()=>{
-    setvalue(Array.isArray(value) ? value : [])
-  }, [value])
+  useEffect(() => {
+    setPosition()
+  }, [])
   /**
-   * ref
+   * 
    */
-  // debounce 防抖
-  const debounce = (fn, delay = 10) => {
-    if (typeof fn !== 'function') { // 参数类型为函数
-      throw new TypeError('fn is not a function');
-    }
-    let timer = null;
-    return function (...args) {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.call(this, ...args);
-      }, delay);
+  const setPosition = () => {
+    if (selectWapper.current) {
+      const { width, left, top, height } = selectWapper.current.getBoundingClientRect()
+      setposition({
+        width,
+        left,
+        top,
+        height
+      })
     }
   }
   useEffect(() => {
     /**
      * 监听滚动事件
      */
-    window.addEventListener('scroll', debounce(() => {
-      setPosition()
-    }))
+    window.addEventListener('scroll', setPosition)
   }, [])
-  const setPosition = () => {
-    if(dropDownWapper.current && selectSelectionWapper.current){
-      const {width, left ,top, height} = selectSelectionWapper.current.getBoundingClientRect()
-      dropDownWapper.current.style.width = width + 'px'
-      dropDownWapper.current.style.left = left + 'px'
-      dropDownWapper.current.style.top = top + height + 4 + 'px'
+  /**
+   * 下拉的dom
+   */
+  const selectDropDownContainer: any = document.createElement("div")
+  selectDropDownContainer.style.left = 0
+  selectDropDownContainer.style.top = 0
+  selectDropDownContainer.style.width = '100%'
+  selectDropDownContainer.style.position = 'absolute'
+  selectDropDownContainer.setAttribute('id', uuid)
+  /**
+   * render 下拉的dom
+   */
+  const RenderDropDown = () => {
+    if (position) {
+      const { width, left, top, height } = position
+      return <div>
+        <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
+        <div style={{
+          ...dropdownStyle,
+          width,
+          left,
+          top: top + height + 4
+        }} className={dropDownClassName}>
+          {
+            _options.length > 0 ? _options.map(option => {
+              let className = _value.indexOf(option.value) > -1 ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
+              option.disabled && (className += ' sui-select-dropdown-menu-disabled')
+              return <div
+                key={option.key}
+                className={className}
+                onClick={
+                  () => {
+                    if (option.disabled) return
+                    // 没有添加，有删除
+                    optionClick(option)
+                    typeof onChange === 'function' && onChange(selected.map(e => e.value), option)
+                  }
+                }
+              >
+                {option.label}
+                <Icon size={14} type='suiconduihao' />
+              </div>
+            }) : <Empty />
+          }
+        </div>
+
+      </div>
     }
+    return null
   }
-  useEffect(()=>{
-    setPosition()
-  },[_open])
+  useEffect(() => {
+    if ($(`#${uuid}`)) {
+      ReactDOM.render(<RenderDropDown />, $(`#${uuid}`))
+    }
+  }, [_value, _options, position])
+  useEffect(() => {
+    if (_open) {
+      if ($(`#${uuid}`)) { // 取消隐藏
+        $(`#${uuid}`).style.display = 'block'
+      } else { // 没有创建
+        $('body').appendChild(selectDropDownContainer)
+        ReactDOM.render(<RenderDropDown />, $(`#${uuid}`))
+      }
+    } else { // 隐藏
+      $(`#${uuid}`) && ($(`#${uuid}`).style.display = 'none')
+    }
+  }, [_open])
   /**
    * Virtual-Dom
    */
@@ -117,33 +175,5 @@ export default ({
         } />
       }
     </div>
-    {
-      _open && <>
-        <div className='sui-select-mask' onClick={setopen.bind(null, false)} />
-        <div ref={dropDownWapper} style={dropdownStyle} className={dropDownClassName}>
-          {
-            options.map(option => {
-              let className = _value.indexOf(option.value) > -1 ? 'sui-select-dropdown-menu sui-select-dropdown-menu-selected' : 'sui-select-dropdown-menu'
-              option.disabled && (className += ' sui-select-dropdown-menu-disabled')
-              return <div
-                key={option.key}
-                className={className}
-                onClick={
-                  () => {
-                    if (option.disabled) return
-                    // 没有添加，有删除
-                    optionClick(option)
-                    typeof onChange === 'function' && onChange(selected.map(e => e.value), option)
-                  }
-                }
-              >
-                {option.label}
-                <Icon size={14} type='suiconduihao' />
-              </div>
-            })
-          }
-        </div>
-      </>
-    }
   </div>
 }
