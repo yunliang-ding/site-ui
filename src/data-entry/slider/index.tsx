@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Tooltip } from '../../index'
 /**
 | **属性名**   | **类型**             | **描述**     | **默认**   |
 | ------------    | -------------------- | ------------ | ---------- |
@@ -16,7 +17,8 @@ export default ({
   max = 100,
   disabled = false,
   onChange,
-  style
+  style,
+  tooltipVisible
 }) => {
   const noop = () => { }
   useEffect(() => {
@@ -43,12 +45,14 @@ export default ({
       <div className='sui-slider-rail' ref={sliderRailRef} />
       <div className='sui-slider-track' style={{ left: '0%', right: 'auto', width: _value + '%' }} />
       <div className='sui-slider-step' />
-      <div
-        className='sui-slider-handle'
-        ref={sliderHandleRef}
-        style={{ left: _value + '%', right: 'auto', transform: 'translateX(-50%)' }}
-        onMouseDown={disabled ? noop : setstatus.bind(null, true)}
-      ></div>
+      <Tooltip title={_value} visible={tooltipVisible} theme='dark'>
+        <div
+          className='sui-slider-handle'
+          ref={sliderHandleRef}
+          style={{ left: _value + '%', right: 'auto', transform: 'translateX(-50%)' }}
+          onMouseDown={disabled ? noop : setstatus.bind(null, true)}
+        />
+      </Tooltip>
       {
         status && <div
           className='sui-slider-mark'
@@ -64,9 +68,9 @@ export default ({
             ({ pageX, pageY }) => {
               if (disabled) return
               if (status) {
-                let __value = Number(_value) + Number((pageX - position.x) * coefficient)
+                let __value:any = Number(_value) + Number((pageX - position.x) * coefficient)
                 if (__value >= min && __value <= max) {
-                  setvalue(__value)
+                  setvalue(parseInt(__value))
                 }
               }
             }

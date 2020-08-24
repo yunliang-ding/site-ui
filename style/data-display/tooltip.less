@@ -1,5 +1,20 @@
 .sui-tooltip-wrapper, .sui-tooltip-wrapper-hidden{
   display: inline;
+  .sui-tooltip-placement-top, .sui-tooltip-placement-bottom, .sui-tooltip-placement-left, .sui-tooltip-placement-right{
+    transition: 0s;
+  }
+  .sui-tooltip-placement-top{
+    transform: translate(-50%, -100%) scale(1);
+  }
+  .sui-tooltip-placement-bottom{
+    transform: translate(-50%, 0%) scale(1);
+  }
+  .sui-tooltip-placement-left{
+    transform: translate(-100%, -50%) scale(1);
+  }
+  .sui-tooltip-placement-right{
+    transform: translate(0%, -50%) scale(1);
+  }
   &:hover{
     .sui-tooltip-placement-top, .sui-tooltip-placement-bottom, .sui-tooltip-placement-left, .sui-tooltip-placement-right{
       transition: .3s;
@@ -123,6 +138,7 @@
   }
   .sui-tooltip-inner{
     background-color: #444;
+    color:#fff;
     span{
       color: #fff;
     }

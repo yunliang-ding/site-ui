@@ -25,6 +25,7 @@ export default ({
   const [_open, setopen] = useState(visible)
   const [style, setstyle] = useState()
   const toolTipRef = useRef()
+  const toolTipInnerRef = useRef()
   // debounce 防抖
   const debounce = (fn, delay = 10) => {
     if (typeof fn !== 'function') { // 参数类型为函数
@@ -38,8 +39,11 @@ export default ({
       }, delay);
     }
   }
+  useEffect(() => {
+    setPosition()
+  }, [title])
   const setPosition = () => {
-    if(toolTipRef.current){
+    if (toolTipRef.current) {
       let style: any = {}
       let element = toolTipRef.current.firstElementChild ? toolTipRef.current.firstElementChild : toolTipRef.current
       const { left, width, height, top } = element.getBoundingClientRect();
@@ -72,7 +76,7 @@ export default ({
   }, [])
   useEffect(() => {
     setPosition()
-  }, [])
+  }, [_open])
   /**
    * 组装clasName
    */
@@ -89,10 +93,10 @@ export default ({
   if (overlayClassName) {
     className.push(overlayClassName)
   }
-  if(theme === 'dark'){
+  if (theme === 'dark') {
     className.push('sui-tooltip-dark')
   }
-  return <div className={_open ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}>
+  return <div className={_open || visible ? 'sui-tooltip-wrapper' : 'sui-tooltip-wrapper-hidden'}>
     <span
       ref={toolTipRef}
       onMouseOver={() => {
@@ -112,7 +116,7 @@ export default ({
     >
       <div className='sui-tooltip-content'>
         <div className='sui-tooltip-arrow'></div>
-        <div style={innerStyle} className='sui-tooltip-inner'>{title}</div>
+        <div style={innerStyle} className='sui-tooltip-inner' ref={toolTipInnerRef}>{title}</div>
       </div>
     </div>
   </div>
