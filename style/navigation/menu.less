@@ -1,7 +1,6 @@
 .sui-nav, .sui-nav-dark{
   width:100%;
   transition: .5s;
-  background-color: #fff;
   .sui-nav-subMenu{
     color:@text-color;
     font-size:13px;
@@ -15,7 +14,7 @@
       width:100%;
       height:46px;
       box-sizing: border-box;
-      border-right:3px solid #fff;
+      border-right:3px solid transparent;
       transition: .5s;
       .sui-nav-subMenu-label-left{
         display:flex;
@@ -71,12 +70,13 @@
     }
   }
   .sui-nav-subMenu-selected{
-    .sui-nav-subMenu-parent{
-      .sui-nav-subMenu-collapsed{
-        .sui-icon{
-          color: @primary-color;
-        }
+    .sui-nav-subMenu-collapsed{
+      .sui-icon{
+        font-size: 26px;
+        color: @primary-color;
       }
+    }
+    .sui-nav-subMenu-parent{
       .sui-nav-subMenu-label-left{
         transition: .3s;
         .sui-icon, span{

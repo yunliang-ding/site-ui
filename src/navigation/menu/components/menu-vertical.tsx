@@ -7,7 +7,8 @@ export default ({
   selectKey,
   style,
   collapsed,
-  theme
+  theme = 'light',
+  collapsedWidth = 80
 }: any) => {
   const [_openKey, setopenKey] = useState(openKey || [])
   const [_selectKey, setselectKey] = useState(selectKey || [])
@@ -38,21 +39,15 @@ export default ({
       }
     </>
   }
-  const renderCollapsedNav = (item, labelClassName, paddingLeft) => {
+  const renderCollapsedNav = (item, labelClassName) => {
     return <>
-      <div className={labelClassName.join(' ')} style={{ paddingLeft }}>
-        {
-          item.children ? <Tooltip theme={theme} placement='right' title={
-            <span>{item.label}</span>
-          }>
-            <span className='sui-nav-subMenu-collapsed'>
-              <Icon type={item.icon} />
-            </span>
-          </Tooltip> : <span className='sui-nav-subMenu-label-left' title={item.label}>
-              {item.icon && <Icon type={item.icon} />}
-              <span>{item.label}</span>
-            </span>
-        }
+      <div className={labelClassName.join(' ')}>
+        <Tooltip theme={theme} placement='right' title={item.label}>
+          <Icon type={item.icon} size={18} style={{
+            position: 'relative',
+            left: 30
+          }}/>
+        </Tooltip>
       </div>
     </>
   }
@@ -81,6 +76,9 @@ export default ({
       if (item.children) {
         labelClassName.push('sui-nav-subMenu-parent')
       }
+      if(collapsed){
+        labelClassName.push('sui-nav-subMenu-collapsed')
+      }
       return <div
         key={item.key}
         className={className.join(' ')}
@@ -106,7 +104,7 @@ export default ({
       >
         {
           collapsed
-            ? renderCollapsedNav(item, labelClassName, paddingLeft)
+            ? renderCollapsedNav(item, labelClassName)
             : renderNav(item, labelClassName, paddingLeft)
         }
       </div>
@@ -116,12 +114,11 @@ export default ({
   return <>
     <div className={className} style={{
       ...style,
-      width: collapsed ? 40 : style.width
+      width: collapsed ? collapsedWidth : style ? style.width : '100%'
     }}>
       {
         renderMenus(menus, 10)
       }
-      {}
     </div>
   </>
 }

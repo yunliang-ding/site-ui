@@ -1,6 +1,7 @@
 import React from 'react'
-export default (props) => {
+const Content = (props) => {
   return <main className='sui-layout-content'>
     {props.children}
   </main>
 }
+export default Content

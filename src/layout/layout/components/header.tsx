@@ -1,6 +1,7 @@
 import React from 'react'
-export default (props) => {
+const Header = (props) => {
   return <header className='sui-layout-header'>
     {props.children}
   </header>
 }
+export default Header
