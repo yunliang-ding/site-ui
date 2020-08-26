@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Icon, Tooltip } from '../../../index'
-export default ({
+const MenuVerical = ({
   menus,
   menuClick,
   openKey,
@@ -122,3 +122,4 @@ export default ({
     </div>
   </>
 }
+export default MenuVerical
