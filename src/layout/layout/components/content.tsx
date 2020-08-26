@@ -4,4 +4,5 @@ const Content = (props) => {
     {props.children}
   </main>
 }
+Content.nickName = 'Content'
 export default Content

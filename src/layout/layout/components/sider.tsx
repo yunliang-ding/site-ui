@@ -45,4 +45,5 @@ const Sider = ({
     }
   </aside>
 }
+Sider.nickName = 'Sider'
 export default Sider

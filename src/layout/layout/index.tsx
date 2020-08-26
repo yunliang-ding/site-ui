@@ -1,9 +1,9 @@
 import React from 'react'
 import { Header, Sider, Content, Footer } from './components'
 const Layout = (props:any) => {
-  let hasSider = props.children.some(item => item.type.name === 'Sider')
-  let hasHeader = props.children.some(item => item.type.name === 'Header')
-  let hasFooter = props.children.some(item => item.type.name === 'Footer')
+  let hasSider = props.children.some(item => item.type.nickName === 'Sider')
+  let hasHeader = props.children.some(item => item.type.nickName === 'Header')
+  let hasFooter = props.children.some(item => item.type.nickName === 'Footer')
   const wrapperClassName = ['sui-layout']
   if(hasSider){
     wrapperClassName.push('sui-layout-has-sider')

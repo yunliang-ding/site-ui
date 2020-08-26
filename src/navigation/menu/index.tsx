@@ -24,9 +24,9 @@ const Menu = (props: any) => {
         key: children.key,
         icon: children.props.icon,
         disabled: children.props.disabled,
-        label: children.type.name === 'SubMenu' ? children.props.title : children.props.children
+        label: children.type.nickName === 'SubMenu' ? children.props.title : children.props.children
       }
-      if(children.type.name === 'SubMenu'){ // 子菜单
+      if(children.type.nickName === 'SubMenu'){ // 子菜单
         obj.children = loop(children.props.children)
       }
       return obj

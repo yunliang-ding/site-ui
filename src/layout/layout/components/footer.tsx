@@ -4,4 +4,5 @@ const Footer = (props) => {
     {props.children}
   </footer>
 }
+Footer.nickName = 'Footer'
 export default Footer

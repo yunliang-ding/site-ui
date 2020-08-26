@@ -4,4 +4,5 @@ const Header = (props) => {
     {props.children}
   </header>
 }
+Header.nickName = 'Header'
 export default Header
