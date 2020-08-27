@@ -24,6 +24,33 @@
 import React from 'react'
 import { Select, SelectMultiple } from './components'
 export default (props: any) => {
+  /**
+   * 
+   * @param item 解析Option
+   */
+  const getOptions = (item) => {
+    let options = []
+    if (Object.prototype.toString.call(item) === '[object Array]') {
+      options = item
+    } else if (Object.prototype.toString.call(item) === '[object Object]') {
+      options.push(item)
+    }
+    return options.map(option => {
+      return {
+        key: option.key,
+        label: option.props.children,
+        value: option.props.value,
+        disabled: option.props.disabled
+      }
+    })
+  }
+  let _options = []  // 定义options
+  if (props.children && props.options === undefined) {
+    _options = getOptions(props.children) // 递归转换
+  }
+  if(props.options){
+    _options = props.options
+  }
   // 组装options
   const transfrom = (options) => {
     return Array.isArray(options) ? options.map(option => {
@@ -36,6 +63,6 @@ export default (props: any) => {
     }) : []
   }
   return props.multiple
-    ? <SelectMultiple {...props} options={transfrom(props.options)} />
-    : <Select {...props} options={transfrom(props.options)} />
+    ? <SelectMultiple {...props} options={transfrom(_options)} />
+    : <Select {...props} options={transfrom(_options)} />
 }

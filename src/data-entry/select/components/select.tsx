@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import ReactDOM from "react-dom"
 import { v4 as uuidv4 } from 'uuid'
 import { Icon, Empty } from '../../../index'
+import { Option } from './index'
 const $: any = document.querySelector.bind(document)
-export default ({
+const Select = ({
   options,
   value,
   allowClear = false,
@@ -180,3 +181,5 @@ export default ({
     </div>
   </div>
 }
+Select.Option = Option
+export default Select
