@@ -22,8 +22,8 @@
 | onSearch             | function(value:string)                  | 文本框值变化时回调                  | 无       |
  */
 import React from 'react'
-import { Select, SelectMultiple } from './components'
-export default (props: any) => {
+import { Select, SelectMultiple, Option } from './components'
+const SelectWrapper = (props: any) => {
   /**
    * 
    * @param item 解析Option
@@ -35,7 +35,10 @@ export default (props: any) => {
     } else if (Object.prototype.toString.call(item) === '[object Object]') {
       options.push(item)
     }
-    return options.map(option => {
+    /**
+     * filter 匹配类型
+     */
+    return options.filter(option => option.nickName === 'Option').map(option => {
       return {
         key: option.key,
         label: option.props.children,
@@ -66,3 +69,5 @@ export default (props: any) => {
     ? <SelectMultiple {...props} options={transfrom(_options)} />
     : <Select {...props} options={transfrom(_options)} />
 }
+SelectWrapper.Option = Option
+export default SelectWrapper
