@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dropdown } from '../../../index'
+import { Dropdown, Icon } from '../../../index'
 const MenuHorizontal = ({
   menus,
   openKey,
@@ -56,8 +56,12 @@ const MenuHorizontal = ({
       }>
         {
           menu.children ? <Dropdown key={menu.key} overlay={renderNav(menu.children)}>
+            {menu.icon && <Icon type={menu.icon} />}
             {menu.label}
-          </Dropdown> : menu.label
+          </Dropdown> : <>
+            {menu.icon && <Icon type={menu.icon} />}
+            {menu.label}
+          </>
         }
       </div>
     })
