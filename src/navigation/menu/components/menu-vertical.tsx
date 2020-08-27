@@ -51,6 +51,22 @@ const MenuVerical = ({
       </div>
     </>
   }
+  const onClick = (item) => {
+    if (item.disabled) return;
+    let selectKey = _selectKey
+    if (item.children) {
+      if (_openKey.includes(item.key)) {
+        _openKey.splice(_openKey.findIndex(key => key === item.key), 1) // 删除
+      } else {
+        _openKey.push(item.key)
+      }
+      setopenKey([..._openKey])
+    } else {
+      selectKey = [item.key]
+      setselectKey(selectKey)
+    }
+    typeof menuClick === 'function' && menuClick(_openKey, selectKey)
+  }
   const renderMenus = (menus, paddingLeft) => {
     return menus.map(item => {
       let className = ['sui-nav-subMenu']
@@ -85,20 +101,7 @@ const MenuVerical = ({
         onClick={
           (e) => {
             e.stopPropagation() // 阻止冒泡
-            if (item.disabled) return;
-            let selectKey = _selectKey
-            if (item.children) {
-              if (_openKey.includes(item.key)) {
-                _openKey.splice(_openKey.findIndex(key => key === item.key), 1) // 删除
-              } else {
-                _openKey.push(item.key)
-              }
-              setopenKey([..._openKey])
-            } else {
-              selectKey = [item.key]
-              setselectKey(selectKey)
-            }
-            typeof menuClick === 'function' && menuClick(_openKey, selectKey)
+            onClick(item)
           }
         }
       >

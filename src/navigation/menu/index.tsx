@@ -19,14 +19,14 @@ const Menu = (props: any) => {
     } else if (Object.prototype.toString.call(item) === '[object Object]') {
       childrens.push(item)
     }
-    return childrens && childrens.map(children => {
-      let obj:any = {
+    return childrens && childrens.filter(children => ['SubMenu', 'Item'].indexOf(children.type.nickName) > -1).map(children => {
+      let obj: any = {
         key: children.key || Math.random(),
         icon: children.props.icon,
         disabled: children.props.disabled,
         label: children.type.nickName === 'SubMenu' ? children.props.title : children.props.children
       }
-      if(children.type.nickName === 'SubMenu'){ // 子菜单
+      if (children.type.nickName === 'SubMenu') { // 子菜单
         obj.children = loop(children.props.children)
       }
       return obj
@@ -36,11 +36,11 @@ const Menu = (props: any) => {
   if (props.children && props.menus === undefined) {
     menus = loop(props.children) // 递归转换
   }
-  if(props.menus){
+  if (props.menus) {
     menus = props.menus
   }
   return props.mode === 'horizontal'
-    ? <MenuHorizontal {...props} />
+    ? <MenuHorizontal {...props} menus={menus} />
     : <MenuVerical {...props} menus={menus} />
 }
 Menu.SubMenu = SubMenu

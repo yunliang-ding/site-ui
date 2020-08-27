@@ -7,7 +7,7 @@ export default ({
   children,
   placement = 'bottom',
   open = false
-}) => {
+}:any) => {
   const [_open, setopen] = useState(open)
   const [uuid, setuuid] = useState('u' + uuidv4())
   const childrenRef = useRef()
