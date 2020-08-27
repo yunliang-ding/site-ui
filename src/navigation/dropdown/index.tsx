@@ -32,7 +32,7 @@ export default ({
   dropDownContainer.style.top = 0
   dropDownContainer.style.width = '100%'
   dropDownContainer.style.height = '100%'
-  dropDownContainer.style.position = 'absolute'
+  dropDownContainer.style.position = 'fixed'
   dropDownContainer.setAttribute('id', uuid)
   dropDownContainer.addEventListener('click', setopen.bind(null, false))
   const RenderDropDown = () => {
