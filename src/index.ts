@@ -28,6 +28,7 @@ import Table from './data-display/table'
 import Pagination from './navigation/pagination'
 import Spin from './feed-back/spin'
 import Layout from './layout/layout'
+import Dropdown from './navigation/dropdown'
 import '../style/index.less'
 export {
   Icon,
@@ -60,4 +61,5 @@ export {
   Pagination,
   Spin,
   Layout,
+  Dropdown,
 }

@@ -21,7 +21,7 @@ const Menu = (props: any) => {
     }
     return childrens && childrens.map(children => {
       let obj:any = {
-        key: children.key,
+        key: children.key || Math.random(),
         icon: children.props.icon,
         disabled: children.props.disabled,
         label: children.type.nickName === 'SubMenu' ? children.props.title : children.props.children
