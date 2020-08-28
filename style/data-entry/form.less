@@ -2,7 +2,7 @@
   .sui-form-field{
     display: flex;
     align-items: center;
-    margin:10px 0;
+    margin:20px 0;
     .sui-form-field-label{
       font-size:12px;
       margin-right: 4px;
@@ -13,6 +13,12 @@
         font-weight: 600;
         margin: 0 4px;
       }
+    }
+    .sui-form-field-children{
+      transition: .3s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
   }
   .sui-form-field-required{
@@ -26,5 +32,19 @@
         margin: 0 4px;
       }
     }
+  }
+  .sui-form-field-error{
+    .sui-form-field-children{
+      transition: .3s;
+      .sui-input{
+        border:1px solid red;
+      }
+    }
+  }
+  .sui-form-field-message{
+    font-size:12px;
+    color:red;
+    position: absolute;
+    bottom:-18px;
   }
 }

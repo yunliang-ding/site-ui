@@ -38,7 +38,7 @@ const SelectWrapper = (props: any) => {
     /**
      * filter 匹配类型
      */
-    return options.filter(option => option.type.nickName === 'Option').map(option => {
+    return options.filter(option =>  option.type && option.type.nickName === 'Option').map(option => {
       return {
         key: option.key || Math.random(),
         label: option.props.children,

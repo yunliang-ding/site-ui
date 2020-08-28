@@ -1,71 +1,81 @@
-import React, {useState} from 'react'
-import { Button } from '../../index'
+import React, { useState } from 'react'
 import { Field } from './components'
-const Form: any = ({
-  children,
-  onSubmit,
-  onSubmitText = '提交'
+import {
+  Input,
+  Select,
+  Radio,
+  RadioGroup,
+  Checkbox,
+  CheckboxGroup,
+  DatePicker,
+  TimePicker,
+  Button,
+} from '../../index'
+export default ({
+  fields,
+  btns = [],
+  onEvent,
+  formStyle
 }) => {
-  // 解析所有字段
-  let Fields = []
-  const [btnloading, setbtnloading] = useState(false)
-  const forms = ['Input', 'Select', 'Checkbox', 'Radio', 'AutoComplete']
-  /**
-   * 提交
-   */
-  const submit = async () => {
-    /**
-     * 交验表单
-     */
-    setbtnloading(true)
-    await onSubmit(1,2) // 处理异步请求
-    setbtnloading(false)
-  }
-  const reslove = () => {
-    let childrens = []
-    if (Object.prototype.toString.call(children) === '[object Array]') {
-      childrens = children
-    } else if (Object.prototype.toString.call(children) === '[object Object]') {
-      childrens.push(children)
+  // 按钮事件统一处理
+  let forms = Array.isArray(fields) ? fields : []
+  forms.forEach(item => item.key = Math.random()) // build key
+  const [_fields, setfields] = useState(forms)
+  const toolBarClick = (type: string) => {
+    if (type === 'submit') {
+      // 提交类型需要先做验证
+      onEvent(type)
+    } else {
+      onEvent(type)
     }
-    /**
-     * 处理子集
-     */
-    childrens.filter(children => children.type.nickName === 'Field').map(field => {
-      let fieldChildrens = []
-      if (Object.prototype.toString.call(field.props.children) === '[object Array]') {
-        fieldChildrens = field.props.children
-      } else if (Object.prototype.toString.call(field.props.children) === '[object Object]') {
-        fieldChildrens = [field.props.children]
+  }
+  const resolveComponents = (item: any) => {
+    if (item.type === 'Input') {
+      return <Input {...item.props} />
+    } else if (item.type === 'Checkbox') {
+      return <Checkbox {...item.props} />
+    } else if (item.type === 'CheckboxGroup') {
+      return <CheckboxGroup {...item.props} />
+    } else if (item.type === 'Select') {
+      return (
+        <Select {...item.props} {...item.event} />
+      )
+    } else if (item.type === 'DatePicker') {
+      return <DatePicker {...item.props} />
+    } else if (item.type === 'Radio') {
+      return <Radio {...item.props} />
+    } else if (item.type === 'RadioGroup') {
+      return <RadioGroup {...item.props} />
+    } else if (item.type === 'TimePicker') {
+      return <TimePicker {...item.props} />
+    }
+  }
+  return <>
+    <div style={formStyle} className='sui-form'>
+      <div className='sui-form-body'>
+        {
+          _fields.sort((a, b) => a.sort > b.sort ? 1 : -1).map((item: any) => {
+            return <Field {...item.field} key={item.key}>
+              {resolveComponents(item)}
+            </Field>
+          })
+        }
+      </div>
+      {
+        btns.length > 0 && <div className='sui-form-body-btns'>
+          {
+            btns.map((btn: any) => {
+              return <Button
+                key={btn.key}
+                {...btn.props}
+                onClick={toolBarClick.bind(null, btn.type)}
+              >
+                {btn.label}
+              </Button>
+            })
+          }
+        </div>
       }
-      Fields.push({
-        key: Math.random(),
-        label: field.props.label,
-        rules: field.props.rules,
-        validateStatus: field.props.validateStatus,
-        children: fieldChildrens.map(fieldChildren => {
-          let formType = fieldChildren.type ? fieldChildren.type.nickName : ''
-          return forms.indexOf(formType) > -1 ? {
-            ...fieldChildren.props,
-            formType,
-            key: Math.random(),
-            value: field.props.initialValue !== undefined ? field.props.initialValue : fieldChildren.props.value
-          } : fieldChildren
-        })
-      })
-    })
-  }
-  reslove()
-  return <div className='sui-form'>
-    {
-      Fields.map(filed => {
-        return <Field {...filed} />
-      })
-    }
-    {
-      typeof onSubmit === 'function' && <Button onClick={submit} type='primary' loading={btnloading}>{onSubmitText}</Button>
-    }
-  </div>
+    </div>
+  </>
 }
-Form.Field = Field
-export default Form

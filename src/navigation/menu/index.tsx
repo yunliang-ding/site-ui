@@ -19,7 +19,7 @@ const Menu = (props: any) => {
     } else if (Object.prototype.toString.call(item) === '[object Object]') {
       childrens.push(item)
     }
-    return childrens && childrens.filter(children => ['SubMenu', 'Item'].indexOf(children.type.nickName) > -1).map(children => {
+    return childrens && childrens.filter(children => children.type && ['SubMenu', 'Item'].indexOf(children.type.nickName) > -1).map(children => {
       let obj: any = {
         key: children.key || Math.random(),
         icon: children.props.icon,
