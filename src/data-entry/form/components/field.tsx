@@ -23,7 +23,9 @@ const Field = ({
   }
   return <span className={className.join(' ')}>
     {
-      label && <span className='sui-form-field-label'>{label}</span>
+      label && <span className='sui-form-field-label'>
+        <span>{label}</span>
+      </span>
     }
     <span className='sui-form-field-children'>
       {children}

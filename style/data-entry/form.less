@@ -7,6 +7,8 @@
       font-size:12px;
       margin-right: 4px;
       display: flex;
+      min-width: 80px;
+      justify-content: flex-end;
       &::after{
         content: ':';
         font-size:14px;
@@ -19,6 +21,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      border:1px solid transparent;
     }
   }
   .sui-form-field-required{
@@ -36,9 +39,8 @@
   .sui-form-field-error{
     .sui-form-field-children{
       transition: .3s;
-      .sui-input{
-        border:1px solid red;
-      }
+      border:1px solid red;
+      border-radius: @border-radius-base;
     }
   }
   .sui-form-field-message{

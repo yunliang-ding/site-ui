@@ -38,7 +38,7 @@ export default ({
       return <CheckboxGroup {...item.props} />
     } else if (item.type === 'Select') {
       return (
-        <Select {...item.props} {...item.event} />
+        <Select {...item.props} />
       )
     } else if (item.type === 'DatePicker') {
       return <DatePicker {...item.props} />
