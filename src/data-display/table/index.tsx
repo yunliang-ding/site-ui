@@ -66,9 +66,9 @@ export default ({
       setWidthSize()
     }))
     if (tableBodyRef.current) {
-      tableBodyRef.current.addEventListener('scroll', debounce(() => { // 监听scroll事件
+      tableBodyRef.current.addEventListener('scroll', () => { // 监听scroll事件
         setFixScrollTop(tableBodyRef.current.scrollTop)
-      }))
+      })
     }
   }, [])
   useEffect(() => {

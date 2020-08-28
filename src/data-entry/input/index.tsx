@@ -19,8 +19,8 @@ import { AddonBefore, AddonAfter, TextArea, Input } from './components'
 | onAllowClear  | function(e) | 清除的回调            | 无      |
 | style         | Object      | 样式                 | 无      |
  */
-export default (props: any) => {
-  return <div
+const InputWrapper = (props: any) => {
+  return <span
     style={props.style}
     className={props.type === 'textarea' ? 'sui-textarea-wrapper' : 'sui-input-wrapper'}
   >
@@ -29,5 +29,7 @@ export default (props: any) => {
       props.type === 'textarea' ? <TextArea {...props} /> : <Input {...props} />
     }
     <AddonAfter addon={props.addonAfter} />
-  </div>
+  </span>
 }
+InputWrapper.nickName = 'Input'
+export default InputWrapper

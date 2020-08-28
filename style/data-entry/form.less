@@ -1,0 +1,30 @@
+.sui-form{
+  .sui-form-field{
+    display: flex;
+    align-items: center;
+    margin:10px 0;
+    .sui-form-field-label{
+      font-size:12px;
+      margin-right: 4px;
+      display: flex;
+      &::after{
+        content: ':';
+        font-size:14px;
+        font-weight: 600;
+        margin: 0 4px;
+      }
+    }
+  }
+  .sui-form-field-required{
+    .sui-form-field-label{
+      &::before{
+        content: '*';
+        font-size:15px;
+        display:flex;
+        align-items: center;
+        color: red;
+        margin: 0 4px;
+      }
+    }
+  }
+}
