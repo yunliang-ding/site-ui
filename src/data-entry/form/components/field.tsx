@@ -2,17 +2,16 @@ import React from 'react'
 const Field = ({
   rules,
   label,
+  message,
   validateStatus,
   children
 }: any) => {
   const className = ['sui-form-field']
-  let message = false
   let required = false
   if(rules){
     let rule = rules.find(item => item.required)
     if(rule){
       required = rule.required
-      message = rule.message
     }
   }
   if (required) {

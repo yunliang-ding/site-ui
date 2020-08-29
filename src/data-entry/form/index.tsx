@@ -13,20 +13,23 @@ import {
 } from '../../index'
 export default ({
   fields,
-  btns = [],
+  btns,
   onValueChanges,
   onBtnClick,
-  formStyle
+  formStyle,
+  loading
 }) => {
-  // 按钮事件统一处理
+  /**
+   * 内部观测数据
+   */
   let forms = Array.isArray(fields) ? fields : []
-  let _btn = Array.isArray(btns) ? btns : []
   forms.forEach(item => item.key = Math.random()) // build key
-  _btn.forEach(item => item.key = Math.random()) // build key
   const [_fields, setfields] = useState(JSON.parse(JSON.stringify(forms))) // deep
+  let _btn = Array.isArray(btns) ? btns : []
+  _btn.forEach(item => item.key = Math.random()) // build key
+  const [_btns, setbtns] = useState(JSON.parse(JSON.stringify(_btn))) // deep
   const btnClick = (type: string) => {
-    // 提交类型需要先做表单验证
-    if (type === 'submit') {
+    if (type === 'submit') { // 提交类型需要先做表单验证
       let { errors, values } = validateForm()
       typeof onBtnClick === 'function' && onBtnClick(type, errors, values)
     }
@@ -40,14 +43,15 @@ export default ({
       item.field.rules.some(rule => {
         if (rule.required === true) { // 校验必填
           if (
-            item.props.value === '' || 
-            item.props.value === undefined || 
+            item.props.value === '' ||
+            item.props.value === undefined ||
             item.props.value === null ||
             (Object.prototype.toString.call(item.props.value) === '[object Array]' && item.props.value.length === 0)
           ) {
             error = { field: item.name, message: rule.message }
             item.field.validateStatus = 'error'
             item.field.message = rule.message
+            return true
           } else {
             item.field.validateStatus = null
             item.field.message = null
@@ -58,6 +62,7 @@ export default ({
             error = { field: item.name, message: rule.message }
             item.field.validateStatus = 'error'
             item.field.message = rule.message
+            return true
           } else {
             item.field.validateStatus = null
             item.field.message = null
@@ -89,7 +94,7 @@ export default ({
       setfields([..._fields]) // 提示信息
     }
     return {
-      errors,
+      errors: errors.length === 0 ? false : errors,
       values
     }
   }
@@ -180,12 +185,13 @@ export default ({
         }
       </div>
       {
-        _btn.length > 0 && <div className='sui-form-body-btns'>
+        _btns.length > 0 && <div className='sui-form-body-btns'>
           {
-            _btn.map((btn: any) => {
+            _btns.map((btn: any) => {
               return <Button
                 key={btn.key}
                 {...btn.props}
+                loading={btn.type === 'submit' && loading}
                 onClick={btnClick.bind(null, btn.type)}
               >
                 {btn.label}
