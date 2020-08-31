@@ -30,6 +30,7 @@ import Spin from './feed-back/spin'
 import Layout from './layout/layout'
 import Dropdown from './navigation/dropdown'
 import Form from './data-entry/form'
+import Layer from './common/layer'
 import '../style/index.less'
 export {
   Icon,
@@ -63,5 +64,6 @@ export {
   Spin,
   Layout,
   Dropdown,
-  Form
+  Form,
+  Layer
 }
