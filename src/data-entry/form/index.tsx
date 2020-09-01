@@ -91,10 +91,12 @@ export default ({
   }
   /** 重置 */
   const resetFields = () => {
-    let forms = Array.isArray(fields) ? fields : []
-    forms.forEach(item => item.key = Math.random()) // build key
-    setfields(JSON.parse(JSON.stringify(forms))) // deep
-    console.log(forms)
+    _fields.forEach(item => {
+      item.props.value = typeof item.props.value === 'object' ? [] : ''
+      item.field.message = ''
+      item.field.validateStatus = ''
+    })
+    setfields([..._fields])
   }
   /** 获取所有的value */
   const getFieldsValue = () => {
