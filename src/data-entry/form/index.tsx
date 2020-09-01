@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Field } from './components'
 import {
   Input,
@@ -9,15 +9,14 @@ import {
   CheckboxGroup,
   DatePicker,
   TimePicker,
-  Button,
 } from '../../index'
 export default ({
   fields,
-  btns,
   onValueChanges,
-  onBtnClick,
+  onLoad,
   formStyle,
-  loading
+  flex,
+  columns = 2
 }) => {
   /**
    * 内部观测数据
@@ -25,19 +24,11 @@ export default ({
   let forms = Array.isArray(fields) ? fields : []
   forms.forEach(item => item.key = Math.random()) // build key
   const [_fields, setfields] = useState(JSON.parse(JSON.stringify(forms))) // deep
-  let _btn = Array.isArray(btns) ? btns : []
-  _btn.forEach(item => item.key = Math.random()) // build key
-  const [_btns, setbtns] = useState(JSON.parse(JSON.stringify(_btn))) // deep
-  const btnClick = (type: string) => {
-    if (type === 'submit') { // 提交类型需要先做表单验证
-      let { errors, values } = validateForm()
-      typeof onBtnClick === 'function' && onBtnClick(type, errors, values)
-    }
-  }
   /**
    * 校验单个字段
    */
-  const validateField = (item) => {
+  const validateField = (fieldName) => {
+    let item = _fields.find(item => item.name === fieldName)
     let error, value;
     if (item.field.rules && Object.prototype.toString.call(item.field.rules) === '[object Array]') {
       item.field.rules.some(rule => {
@@ -78,11 +69,11 @@ export default ({
   /**
   * 校验整个表单
   */
-  const validateForm = () => {
+  const validateForm = (callBack) => {
     let errors = [] // 封装错误信息
     let values = {}
     _fields.map(field => {
-      let { error, value } = validateField(field)
+      let { error, value } = validateField(field.name)
       if (error !== undefined) {
         errors.push(error)
       }
@@ -93,11 +84,19 @@ export default ({
     if (errors.length > 0) {
       setfields([..._fields]) // 提示信息
     }
-    return {
+    return callBack({
       errors: errors.length === 0 ? false : errors,
       values
-    }
+    })
   }
+  /**
+   * 是否提交
+   */
+  useEffect(() => {
+    typeof onLoad === 'function' && onLoad({
+      validateForm
+    })
+  }, [])
   /**
    * field update
    * @param name 
@@ -114,7 +113,7 @@ export default ({
     if (_field) {
       _field.props.value = (e && e.target) ? e.target.value : e
       // 3:开始校验
-      validateField(_field)
+      validateField(_field.name)
       setfields([..._fields]) // render
     }
     // 4:调用外层 onValueChanges
@@ -173,33 +172,21 @@ export default ({
       } />
     }
   }
+  const className = ['sui-form']
+  if (flex) {
+    className.push('sui-form-flex')
+  }
   return <>
-    <div style={formStyle} className='sui-form'>
+    <div style={formStyle} className={className.join(' ')}>
       <div className='sui-form-body'>
         {
           _fields.sort((a, b) => a.sort > b.sort ? 1 : -1).map((item: any) => {
-            return <Field {...item.field} key={item.key}>
+            return <Field {...item.field} key={item.key} columns={flex ? columns : undefined}>
               {resolveComponents(item)}
             </Field>
           })
         }
       </div>
-      {
-        _btns.length > 0 && <div className='sui-form-body-btns'>
-          {
-            _btns.map((btn: any) => {
-              return <Button
-                key={btn.key}
-                {...btn.props}
-                loading={btn.type === 'submit' && loading}
-                onClick={btnClick.bind(null, btn.type)}
-              >
-                {btn.label}
-              </Button>
-            })
-          }
-        </div>
-      }
     </div>
   </>
 }

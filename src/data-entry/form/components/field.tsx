@@ -1,29 +1,42 @@
 import React from 'react'
+import { Icon, Tooltip } from '../../../index'
 const Field = ({
   rules,
   label,
+  tooltips,
+  tooltipsText,
   message,
   validateStatus,
-  children
+  children,
+  style = {},
+  columns
 }: any) => {
   const className = ['sui-form-field']
   let required = false
-  if(rules){
+  if (rules) {
     let rule = rules.find(item => item.required)
-    if(rule){
+    if (rule) {
       required = rule.required
     }
   }
   if (required) {
     className.push('sui-form-field-required')
   }
-  if(validateStatus === 'error'){
+  if (validateStatus === 'error') {
     className.push('sui-form-field-error')
   }
-  return <span className={className.join(' ')}>
+  if (style.width === undefined && columns !== undefined) {
+    style.width = `${100 / columns}%`
+  }
+  return <span className={className.join(' ')} style={style}>
     {
       label && <span className='sui-form-field-label'>
         <span>{label}</span>
+        {
+          tooltips && <Tooltip title={tooltipsText}>
+            <Icon type='suicon19ad-icon-tooltip' style={{ margin: '0 4px' }} />
+          </Tooltip>
+        }
       </span>
     }
     <span className='sui-form-field-children'>
