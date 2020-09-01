@@ -27,8 +27,7 @@ export default ({
   /**
    * 校验单个字段
    */
-  const validateField = (fieldName) => {
-    let item = _fields.find(item => item.name === fieldName)
+  const validateField = (item) => {
     let error, value;
     if (item.field.rules && Object.prototype.toString.call(item.field.rules) === '[object Array]') {
       item.field.rules.some(rule => {
@@ -63,17 +62,18 @@ export default ({
       })
     }
     return {
-      error, value
+      error,
+      value
     }
   }
   /**
   * 校验整个表单
   */
-  const validateForm = (callBack) => {
+  const validateFields = (callBack) => {
     let errors = [] // 封装错误信息
     let values = {}
     _fields.map(field => {
-      let { error, value } = validateField(field.name)
+      let { error, value } = validateField(field)
       if (error !== undefined) {
         errors.push(error)
       }
@@ -89,12 +89,39 @@ export default ({
       values
     })
   }
+  /** 重置 */
+  const resetFields = () => {
+    let forms = Array.isArray(fields) ? fields : []
+    forms.forEach(item => item.key = Math.random()) // build key
+    setfields(JSON.parse(JSON.stringify(forms))) // deep
+    console.log(forms)
+  }
+  /** 获取所有的value */
+  const getFieldsValue = () => {
+    return _fields.map(field => {
+      return {
+        name: field.name,
+        value: field.props.value
+      }
+    })
+  }
+  /** 获取指定的value */
+  const getFieldValue = (fieldName) => {
+    let field = _fields.find(field => field.name === fieldName)
+    return field ? {
+      name: field.name,
+      value: field.props.value
+    } : undefined
+  }
   /**
-   * 是否提交
+   * 加载完毕
    */
   useEffect(() => {
     typeof onLoad === 'function' && onLoad({
-      validateForm
+      validateFields,
+      resetFields,
+      getFieldsValue,
+      getFieldValue
     })
   }, [])
   /**
@@ -112,9 +139,11 @@ export default ({
     let _field = _fields.find(field => field.name === name)
     if (_field) {
       _field.props.value = (e && e.target) ? e.target.value : e
-      // 3:开始校验
-      validateField(_field.name)
-      setfields([..._fields]) // render
+      // 3: 开始校验
+      if(_field.fieldChangeValidate || _field.field.validateStatus !== undefined){
+        validateField(_field)
+        setfields([..._fields]) // render
+      }
     }
     // 4:调用外层 onValueChanges
     typeof onValueChanges === 'function' && onValueChanges(name, e)
