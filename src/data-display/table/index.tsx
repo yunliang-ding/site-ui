@@ -215,11 +215,15 @@ export default ({
     return <div className='sui-table'>
       {
         dataSource.map((data, index) => {
+          let trClassName = ['sui-table-tr']
+          if (hovercolumn[rowKey] === data[rowKey]) {
+            trClassName.push('sui-table-tr-hover')
+          }
           return <div
             key={data[rowKey]}
-            className='sui-table-tr'
+            className={trClassName.join(' ')}
             onMouseEnter={sethovercolumn.bind(null, data)}
-            onMouseOut={sethovercolumn.bind(null, {})}
+            onMouseLeave={sethovercolumn.bind(null, {})}
           >
             {
               columns.map(column => {
@@ -231,9 +235,6 @@ export default ({
                 }
                 if (bordered) {
                   columnClassName.push('sui-table-td-grid')
-                }
-                if (hovercolumn[rowKey] === data[rowKey]) {
-                  columnClassName.push('sui-table-td-hover')
                 }
                 return <div title={typeof label !== 'object' && label} key={column.dataIndex} className={columnClassName.join(' ')} style={{ minWidth, width: minWidth }}>{label}</div>
               })
