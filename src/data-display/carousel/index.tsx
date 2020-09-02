@@ -9,6 +9,7 @@
 | onChange    | funcito(currentPage) | 页码改变的回调 | 无       |
 | autoPlay    | boolean              | 自动播放       | false    |
 | showArrow   | boolean              | 展示箭头       | false    |
+| legend      | 是否展示               | 导航          | true    |
  */
 import React, { useState, useEffect } from "react"
 import { Icon } from '../../index'
@@ -19,9 +20,14 @@ export default ({
   currentPage = 1,
   onChange,
   autoPlay = false,
-  showArrow = false
+  showArrow = false,
+  legend = true
 }) => {
   let timer: any;
+  /** update */
+  useEffect(() => {
+    setcurrentPage(currentPage)
+  }, [currentPage])
   const [_currentPage, setcurrentPage] = useState(currentPage)
   const updateCurrentPage = (page: number) => {
     clearTimeout(timer) // clear
@@ -39,7 +45,7 @@ export default ({
   }
   const Play = () => {
     timer = setTimeout(() => {
-      updateCurrentPage( _currentPage + 1 > pages.length ? 1 : _currentPage + 1)
+      updateCurrentPage(_currentPage + 1 > pages.length ? 1 : _currentPage + 1)
     }, 3000)
   }
   useEffect(() => {
@@ -78,23 +84,25 @@ export default ({
           </div>
         })
       }
-      <div className='sui-carousel-legend'>
-        <div className='sui-carousel-legend-box'>
-          {
-            pages.map((page, index) => {
-              return <div
-                key={index}
-                className={(index + 1) === _currentPage ? 'sui-carousel-legend-box-item-active' : 'sui-carousel-legend-box-item'}
-                onClick={
-                  () => {
-                    updateCurrentPage(index + 1)
+      {
+        legend && <div className='sui-carousel-legend'>
+          <div className='sui-carousel-legend-box'>
+            {
+              pages.map((page, index) => {
+                return <div
+                  key={index}
+                  className={(index + 1) === _currentPage ? 'sui-carousel-legend-box-item-active' : 'sui-carousel-legend-box-item'}
+                  onClick={
+                    () => {
+                      updateCurrentPage(index + 1)
+                    }
                   }
-                }
-              />
-            })
-          }
+                />
+              })
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   </>
 }

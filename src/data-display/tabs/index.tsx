@@ -16,7 +16,7 @@ export default ({
   activeKey,
   onClick,
   onRemove,
-}) => {
+}:any) => {
   useEffect(() => {
     if(activeKey !== undefined){
       let index = data.findIndex(item => item.key === activeKey)
