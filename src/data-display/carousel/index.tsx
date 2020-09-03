@@ -45,7 +45,6 @@ export default ({
   const updateCurrentPage = (page: number) => {
     clearTimeout(timer) // clear
     let currentPage = 1
-    page = page % pages.length
     if (page < 1) {
       currentPage = loop ? pages.length : 1
     } else if (page > pages.length) {
