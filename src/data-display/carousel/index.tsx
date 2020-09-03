@@ -8,6 +8,7 @@
 | currentPage | number               | 当前页码       | 1        |
 | onChange    | funcito(currentPage) | 页码改变的回调 | 无       |
 | autoPlay    | boolean              | 自动播放       | false    |
+| autoPlayTime  | number              | 自动播放间隔ms       | 3000    |
 | showArrow   | boolean              | 展示箭头       | false    |
 | legend      | boolean              | 是否展示          | true    |
 | loop        | boolean              | 是否循环轮播          | true    |
@@ -29,6 +30,7 @@ export default ({
   currentPage = 1,
   onChange,
   autoPlay = false,
+  autoPlayTime = 3000,
   showArrow = false,
   legend = true,
   loop = true,
@@ -57,7 +59,7 @@ export default ({
   const Play = () => {
     timer = setTimeout(() => {
       updateCurrentPage(_currentPage + 1 > pages.length ? 1 : _currentPage + 1)
-    }, 3000)
+    }, autoPlayTime)
   }
   useEffect(() => {
     autoPlay && Play()
@@ -66,11 +68,13 @@ export default ({
    * H5左右滑动触发
    */
   const touchstart = (event: any) => {
+    if(!swipe)return
     position.x = event.changedTouches[0].pageX;
     position.y = event.changedTouches[0].pageY;
     swipeX = true
   }
   const touchmove = (event: any) => {
+    if(!swipe)return
     position.x1 = event.changedTouches[0].pageX;
     position.y1 = event.changedTouches[0].pageY;
     // 左右滑动
