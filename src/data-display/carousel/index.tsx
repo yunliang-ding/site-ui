@@ -13,8 +13,15 @@
 | loop        | boolean              | 是否循环轮播          | true    |
 | swipe       | boolean              | 是否开启滑动          | true    |
  */
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { Icon } from '../../index'
+let swipeX = false
+const position = {
+  x: 0,
+  y: 0,
+  x1: 0,
+  y1: 0
+}
 export default ({
   style = {},
   pages = [],
@@ -26,7 +33,7 @@ export default ({
   legend = true,
   loop = true,
   swipe = true
-}:any) => {
+}: any) => {
   let timer: any;
   /** update */
   useEffect(() => {
@@ -58,53 +65,37 @@ export default ({
   /**
    * H5左右滑动触发
    */
-  const carouselRef = useRef()
-  let swipeX = true;
-  let swipeY = true;
-  let position = {
-    x:0,
-    y:0,
-    x1:0,
-    y1:0
+  const touchstart = (event: any) => {
+    position.x = event.changedTouches[0].pageX;
+    position.y = event.changedTouches[0].pageY;
+    swipeX = true
   }
-  useEffect(() => {
-    if(carouselRef && carouselRef.current && swipe){
-      let page = _currentPage // 记录
-      carouselRef.current.addEventListener('touchstart', (event) => {
-        position.x = event.changedTouches[0].pageX;
-        position.y = event.changedTouches[0].pageY;
-        swipeX = true;
-        swipeY = true;
-      })
-      carouselRef.current.addEventListener('touchmove', (event) => {
-        position.x1 = event.changedTouches[0].pageX;
-        position.y1 = event.changedTouches[0].pageY;
-        // 左右滑动
-        if (swipeX && Math.abs(position.x1 - position.x) - Math.abs(position.y1 - position.y) > 0) {
-          // 阻止事件冒泡
-          event.stopPropagation();
-          if (position.x1 - position.x > 10) {   // 左滑
-            page = page - 1
-            updateCurrentPage(page)
-            event.preventDefault();
-            swipeX = false;
-          }
-          if (position.x - position.x1 > 10) {   // 右滑
-            page = page + 1
-            updateCurrentPage(page)
-            event.preventDefault();
-            swipeX = false;
-          }
-        }
-        // 上下滑动
-        if (swipeY && Math.abs(position.x1 - position.x) - Math.abs(position.y1 - position.y) < 0) {
-          swipeX = false;
-        }
-      })
+  const touchmove = (event: any) => {
+    position.x1 = event.changedTouches[0].pageX;
+    position.y1 = event.changedTouches[0].pageY;
+    // 左右滑动
+    if (swipeX && Math.abs(position.x1 - position.x) - Math.abs(position.y1 - position.y) > 0) {
+      // 阻止事件冒泡
+      event.stopPropagation();
+      if (position.x - position.x1 > 10) {   // 往左拖拽
+        updateCurrentPage(_currentPage + 1)
+        event.preventDefault();
+        swipeX = false
+      }
+      if (position.x1 - position.x > 10) {   // 往右拖拽
+        updateCurrentPage(_currentPage - 1)
+        event.preventDefault();
+        swipeX = false
+      }
     }
-  }, [])
+  }
   return <>
-    <div className={`sui-carousel`} style={style} ref={carouselRef}>
+    <div
+      className={`sui-carousel`}
+      style={style}
+      onTouchStart={touchstart}
+      onTouchMove={touchmove}
+    >
       {
         showArrow && <>
           <div className='sui-carousel-before' onClick={
@@ -125,11 +116,15 @@ export default ({
       }
       {
         pages.map((page, index) => {
-          return <div key={index} className='sui-carousel-page' style={{
-            left: effect === 'fade' ? 0 : (index + 1) === _currentPage ? 0 : 100 * ((index + 1) - _currentPage) + '%',
-            opacity: effect === 'fade' ? ((index + 1) === _currentPage ? 1 : 0) : 1,
-            transition: effect === 'fade' ? '.8s' : '.5s'
-          }}>
+          return <div
+            key={index}
+            className='sui-carousel-page'
+            style={{
+              left: effect === 'fade' ? 0 : (index + 1) === _currentPage ? 0 : 100 * ((index + 1) - _currentPage) + '%',
+              opacity: effect === 'fade' ? ((index + 1) === _currentPage ? 1 : 0) : 1,
+              transition: effect === 'fade' ? '.8s' : '.5s'
+            }}
+          >
             {
               page
             }
