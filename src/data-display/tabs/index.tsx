@@ -16,6 +16,7 @@ export default ({
   activeKey,
   onClick,
   onRemove,
+  tigger = 'click'
 }:any) => {
   useEffect(() => {
     if(activeKey !== undefined){
@@ -45,8 +46,17 @@ export default ({
           _data.map((tab, index) => {
             return <div ref={_index === index ? activeItemRef : null} key={tab.key} className={_index === index ? 'sui-tabs-header-item-active' : 'sui-tabs-header-item'} onClick={
               () => {
-                setindex(index)
-                typeof onClick === 'function' && onClick(tab)
+                if(tigger === 'click'){
+                  setindex(index)
+                  typeof onClick === 'function' && onClick(tab)
+                }
+              }
+            } onMouseOver={
+              () => {
+                if(tigger === 'hover'){
+                  setindex(index)
+                  typeof onClick === 'function' && onClick(tab)
+                }
               }
             }>
               {tab.label}
