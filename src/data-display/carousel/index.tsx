@@ -121,11 +121,10 @@ export default ({
         pages.map((page, index) => {
           return <div
             key={index}
-            className='sui-carousel-page'
+            className={_currentPage === index + 1 ? 'sui-carousel-page sui-carousel-page-current' : 'sui-carousel-page'}
             style={{
               left: effect === 'fade' ? 0 : (index + 1) === _currentPage ? 0 : 100 * ((index + 1) - _currentPage) + '%',
-              opacity: effect === 'fade' ? ((index + 1) === _currentPage ? 1 : 0) : 1,
-              transition: effect === 'fade' ? '.8s' : '.5s'
+              opacity: effect === 'fade' ? ((index + 1) === _currentPage ? 1 : 0) : 1
             }}
           >
             {
