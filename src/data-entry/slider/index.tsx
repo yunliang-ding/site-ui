@@ -18,7 +18,7 @@ export default ({
   disabled = false,
   onChange,
   style,
-  tooltipVisible
+  tooltipVisible = null
 }) => {
   const noop = () => { }
   useEffect(() => {
@@ -40,19 +40,27 @@ export default ({
     setposition(sliderHandleRef.current.getClientRects()[0])
     setCoefficient(Number(100 / sliderRailRef.current.getClientRects()[0].width).toFixed(2))
   }, [_value])
+  console.log('tooltipVisible', tooltipVisible)
   return <>
     <div className={disabled ? 'sui-slider sui-slider-disabled' : 'sui-slider'} style={style}>
       <div className='sui-slider-rail' ref={sliderRailRef} />
       <div className='sui-slider-track' style={{ left: '0%', right: 'auto', width: _value + '%' }} />
       <div className='sui-slider-step' />
-      <Tooltip title={_value} visible={tooltipVisible} theme='dark'>
-        <div
+      {
+        tooltipVisible === null ? <div
           className='sui-slider-handle'
           ref={sliderHandleRef}
           style={{ left: _value + '%', right: 'auto', transform: 'translateX(-50%)' }}
           onMouseDown={disabled ? noop : setstatus.bind(null, true)}
-        />
-      </Tooltip>
+        /> : <Tooltip title={_value} visible={tooltipVisible} theme='dark'>
+            <div
+              className='sui-slider-handle'
+              ref={sliderHandleRef}
+              style={{ left: _value + '%', right: 'auto', transform: 'translateX(-50%)' }}
+              onMouseDown={disabled ? noop : setstatus.bind(null, true)}
+            />
+          </Tooltip>
+      }
       {
         status && <div
           className='sui-slider-mark'
@@ -68,7 +76,7 @@ export default ({
             ({ pageX, pageY }) => {
               if (disabled) return
               if (status) {
-                let __value:any = Number(_value) + Number((pageX - position.x) * coefficient)
+                let __value: any = Number(_value) + Number((pageX - position.x) * coefficient)
                 if (__value >= min && __value <= max) {
                   setvalue(parseInt(__value))
                 }

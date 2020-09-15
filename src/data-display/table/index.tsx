@@ -10,7 +10,7 @@ export default ({
   checkable,
   onCheck,
   loading = false
-}) => {
+}:any) => {
   const [_columns, setcolumns] = useState(Array.isArray(columns) ? [...columns] : [])
   const [_dataSource, setdataSource] = useState(Array.isArray(dataSource) ? [...dataSource] : [])
   const [hovercolumn, sethovercolumn] = useState({}) // hover行
