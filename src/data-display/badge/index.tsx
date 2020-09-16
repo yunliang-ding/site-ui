@@ -14,7 +14,7 @@ export default ({
   dot=false,
   title,
   children
-}) => {
+}:any) => {
   let style:any = {}
   if(color){
     style.backgroundColor = color

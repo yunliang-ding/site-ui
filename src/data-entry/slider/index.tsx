@@ -37,12 +37,22 @@ export default ({
   const sliderRailRef = useRef()
   const sliderHandleRef = useRef()
   useEffect(() => {
-    setposition(sliderHandleRef.current.getClientRects()[0])
-    setCoefficient(Number(100 / sliderRailRef.current.getClientRects()[0].width).toFixed(2))
+    setposition(sliderHandleRef.current.getBoundingClientRect())
+    setCoefficient(Number(100 / sliderRailRef.current.getBoundingClientRect().width).toFixed(2))
   }, [_value])
-  console.log('tooltipVisible', tooltipVisible)
   return <>
-    <div className={disabled ? 'sui-slider sui-slider-disabled' : 'sui-slider'} style={style}>
+    <div className={disabled ? 'sui-slider sui-slider-disabled' : 'sui-slider'} style={style} onClick={
+      ({ pageX }) => {
+        if (disabled) return
+        const { x } = sliderHandleRef.current.getBoundingClientRect()
+        let __value: any = Number(_value) + Number((pageX - x) * coefficient)
+        if (__value >= min && __value <= max) {
+          setvalue(parseInt(__value))
+          let number: any = Math.round(__value)
+          typeof onChange === 'function' && onChange(parseInt(number))
+        }
+      }
+    }>
       <div className='sui-slider-rail' ref={sliderRailRef} />
       <div className='sui-slider-track' style={{ left: '0%', right: 'auto', width: _value + '%' }} />
       <div className='sui-slider-step' />
@@ -73,7 +83,7 @@ export default ({
             }
           }
           onMouseMove={
-            ({ pageX, pageY }) => {
+            ({ pageX }) => {
               if (disabled) return
               if (status) {
                 let __value: any = Number(_value) + Number((pageX - position.x) * coefficient)

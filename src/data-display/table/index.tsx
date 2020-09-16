@@ -9,7 +9,9 @@ export default ({
   bordered,
   checkable,
   onCheck,
-  loading = false
+  loading = false,
+  cols={},
+  rows={}
 }:any) => {
   const [_columns, setcolumns] = useState(Array.isArray(columns) ? [...columns] : [])
   const [_dataSource, setdataSource] = useState(Array.isArray(dataSource) ? [...dataSource] : [])
@@ -222,8 +224,18 @@ export default ({
           return <div
             key={data[rowKey]}
             className={trClassName.join(' ')}
-            onMouseEnter={sethovercolumn.bind(null, data)}
-            onMouseLeave={sethovercolumn.bind(null, {})}
+            onMouseEnter={
+              () => {
+                sethovercolumn(data)
+                rows.onMouseEnter && rows.onMouseEnter(data)
+              }
+            }
+            onMouseLeave={
+              () => {
+                sethovercolumn({})
+                rows.onMouseLeave && rows.onMouseLeave({})
+              }
+            }
           >
             {
               columns.map(column => {
