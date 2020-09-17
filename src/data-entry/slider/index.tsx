@@ -33,15 +33,15 @@ export default ({
   const [_value, setvalue] = useState(value)
   const [status, setstatus] = useState(false)
   const [position, setposition] = useState({})
-  const [coefficient, setCoefficient] = useState() // 系数 1px对应的value
+  const [coefficient, setCoefficient] = useState(1) // 系数 1px对应的value
   const sliderRailRef = useRef()
   const sliderHandleRef = useRef()
   useEffect(() => {
     setposition(sliderHandleRef.current.getBoundingClientRect())
-    setCoefficient(Number(100 / sliderRailRef.current.getBoundingClientRect().width).toFixed(2))
+    setCoefficient(Number(100 / (sliderRailRef.current.getBoundingClientRect().width || style && style.width)).toFixed(2))
   }, [_value])
   return <>
-    <div className={disabled ? 'sui-slider sui-slider-disabled' : 'sui-slider'} style={style} onClick={
+    <div ref={sliderRailRef} className={disabled ? 'sui-slider sui-slider-disabled' : 'sui-slider'} style={style} onClick={
       ({ pageX }) => {
         if (disabled) return
         const { x } = sliderHandleRef.current.getBoundingClientRect()
@@ -53,7 +53,7 @@ export default ({
         }
       }
     }>
-      <div className='sui-slider-rail' ref={sliderRailRef} />
+      <div className='sui-slider-rail' />
       <div className='sui-slider-track' style={{ left: '0%', right: 'auto', width: _value + '%' }} />
       <div className='sui-slider-step' />
       {
