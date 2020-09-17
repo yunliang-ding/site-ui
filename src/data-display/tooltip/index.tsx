@@ -73,6 +73,9 @@ export default ({
     window.addEventListener('scroll', debounce(() => {
       setPosition()
     }))
+    window.addEventListener('resize', debounce(() => {
+      setPosition()
+    }))
   }, [])
   /**
    * 组装clasName
