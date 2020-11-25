@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dropdown, Icon } from '../../../index'
 const MenuHorizontal = ({
   menus,
@@ -10,6 +10,12 @@ const MenuHorizontal = ({
 }) => {
   const [_openKey, setopenKey] = useState(openKey || [])
   const [_selectKey, setselectKey] = useState(selectKey || [])
+  useEffect(() => { /**update */
+    setselectKey(selectKey)
+  }, [selectKey])
+  useEffect(() => { /**update */
+    setopenKey(openKey)
+  }, [openKey])
   const isSelected = (menus) => { // 判断是否有子节点选中
     return menus.some(item => {
       if (_selectKey.includes(item.key)) {
@@ -20,7 +26,6 @@ const MenuHorizontal = ({
     })
   }
   const onClick = (item) => {
-    console.log(item)
     if (item.disabled) return;
     let selectKey = _selectKey
     if (item.children) {
@@ -34,7 +39,7 @@ const MenuHorizontal = ({
       selectKey = [item.key]
       setselectKey([...selectKey])
     }
-    typeof menuClick === 'function' && menuClick(_openKey, selectKey)
+    typeof menuClick === 'function' && menuClick(_openKey, selectKey, item)
   }
   /**
    * 

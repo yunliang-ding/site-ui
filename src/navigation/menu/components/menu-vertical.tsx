@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon, Tooltip } from '../../../index'
 const MenuVerical = ({
   menus,
@@ -12,6 +12,12 @@ const MenuVerical = ({
 }: any) => {
   const [_openKey, setopenKey] = useState(openKey || [])
   const [_selectKey, setselectKey] = useState(selectKey || [])
+  useEffect(() => { /**update */
+    setselectKey(selectKey)
+  }, [selectKey])
+  useEffect(() => { /**update */
+    setopenKey(openKey)
+  }, [openKey])
   const isSelected = (menus) => { // 判断是否有子节点选中
     return menus.some(item => {
       if (_selectKey.includes(item.key)) {
@@ -46,7 +52,7 @@ const MenuVerical = ({
           <Icon type={item.icon} size={18} style={{
             position: 'relative',
             left: 30
-          }}/>
+          }} />
         </Tooltip>
       </div>
     </>
@@ -92,7 +98,7 @@ const MenuVerical = ({
       if (item.children) {
         labelClassName.push('sui-nav-subMenu-parent')
       }
-      if(collapsed){
+      if (collapsed) {
         labelClassName.push('sui-nav-subMenu-collapsed')
       }
       return <div
@@ -120,7 +126,7 @@ const MenuVerical = ({
       width: collapsed ? collapsedWidth : style ? style.width : '100%'
     }}>
       {
-        renderMenus(menus, 10)
+        renderMenus(menus, 20)
       }
     </div>
   </>
