@@ -26,19 +26,19 @@ export default ({
     pageSize: 10,
     total: _dataSource.length,
   });
-  /**自分页处理逻辑 */
-  const __dataSource =
-    pagination === false
-      ? _dataSource
-      : _dataSource.slice(
-          _pagination.pageSize * (_pagination.current - 1),
-          _pagination.pageSize * _pagination.current
-        );
+  // /**自分页处理逻辑 */
+  // const __dataSource =
+  //   pagination === false
+  //     ? _dataSource
+  //     : _dataSource.slice(
+  //         _pagination.pageSize * (_pagination.current - 1),
+  //         _pagination.pageSize * _pagination.current
+  //       );
   /**全选当前数据 */
   const checkedAll = (checked) => {
     let checkedkeys = [];
     if (checked) {
-      __dataSource.forEach((item) => {
+      _dataSource.forEach((item) => {
         checkedkeys.push(item[rowKey || "key"]);
       });
     }
@@ -49,7 +49,7 @@ export default ({
     // 判断是否已经全选
     let check =
       checkedkeys.length > 0 &&
-      __dataSource.every((item) => {
+      _dataSource.every((item) => {
         return checkedkeys.some((key) => key === item[rowKey || "key"]);
       });
     return check;
@@ -308,10 +308,10 @@ export default ({
             {renderHeaderTable(_columns)}
           </div>
           <div className="sui-table-body" ref={tableBodyRef}>
-            {__dataSource.length === 0 ? (
+            {_dataSource.length === 0 ? (
               <Empty />
             ) : (
-              renderBodyTable(__dataSource, _columns)
+              renderBodyTable(_dataSource, _columns)
             )}
           </div>
         </div>
@@ -321,7 +321,7 @@ export default ({
               {renderHeaderTable(fixedLeft)}
             </div>
             <div className="sui-table-body" ref={tableFixedLeftRef}>
-              {renderBodyTable(__dataSource, fixedLeft)}
+              {renderBodyTable(_dataSource, fixedLeft)}
             </div>
           </div>
         )}
@@ -331,7 +331,7 @@ export default ({
               {renderHeaderTable(fixedRight)}
             </div>
             <div className="sui-table-body" ref={tableFixedRightRef}>
-              {renderBodyTable(__dataSource, fixedRight)}
+              {renderBodyTable(_dataSource, fixedRight)}
             </div>
           </div>
         )}

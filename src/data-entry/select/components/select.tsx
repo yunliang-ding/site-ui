@@ -45,16 +45,18 @@ export default ({
   /** 获取位置 */
   useEffect(() => {
     if (selectionRef && selectionRef.current) {
-      const { left, height, width } = selectionRef.current.getBoundingClientRect()
-      const top = getElementTop(selectionRef.current)
-      setdropdownStyle({
-        left,
-        top: top + height + 4,
-        maxHeight: 300,
-        width,
-        minWidth: 140,
-        ...dropdownStyle
-      })
+      setTimeout(() => {
+        const { left, height, width } = selectionRef.current.getBoundingClientRect()
+        const top = getElementTop(selectionRef.current)
+        setdropdownStyle({
+          left,
+          top: top + height + 4,
+          maxHeight: 300,
+          width,
+          minWidth: 140,
+          ...dropdownStyle
+        })
+      }, 1000);
     }
   }, [])
   return <>
