@@ -17,7 +17,7 @@ export default ({
   formStyle,
   flex,
   columns = 2
-}) => {
+}:any) => {
   /**
    * 内部观测数据
    */
